@@ -1,0 +1,46 @@
+2015-02-13 16:13:47.764 War[1384:711884] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/46BE3F21-D1F7-4C59-B7E6-ACE3471F87CF/Library/Cookies/Cookies.binarycookies
+2015-02-13 16:13:48.040 War[1384:711884] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-13 16:13:48.041 War[1384:711884] Multi-tasking -> Device: YES, App: YES
+2015-02-13 16:13:48.056 War[1384:711884] Unlimited access to network resources
+2015-02-13 16:13:48.067 War[1384:711884] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-13 16:13:49.309 War[1384:711884] Resetting plugins due to page load.
+2015-02-13 16:13:49.391 War[1384:711884] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/3D39F94D-F472-442E-BE3F-1434027454CC/War.app/www/index.html
+2015-02-13 16:13:52.732 War[1384:711884] Resetting plugins due to page load.
+2015-02-13 16:13:52.744 War[1384:711884] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/3D39F94D-F472-442E-BE3F-1434027454CC/War.app/www/opa.html
+2015-02-13 16:16:26.643 War[1627:730057] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/A0AA6F25-E4B7-4556-88A4-08B7EF25BF93/Library/Cookies/Cookies.binarycookies
+2015-02-13 16:16:26.828 War[1627:730057] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-13 16:16:26.828 War[1627:730057] Multi-tasking -> Device: YES, App: YES
+2015-02-13 16:16:26.830 War[1627:730057] Unlimited access to network resources
+2015-02-13 16:16:26.835 War[1627:730057] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-13 16:16:27.239 War[1627:730057] Resetting plugins due to page load.
+2015-02-13 16:16:27.313 War[1627:730057] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/3DE093F7-70CF-43B3-BAB1-36A1405A0FEE/War.app/www/index.html
+2015-02-13 16:16:30.048 War[1627:730057] Resetting plugins due to page load.
+2015-02-13 16:16:30.063 War[1627:730057] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/3DE093F7-70CF-43B3-BAB1-36A1405A0FEE/War.app/www/foo.html
+2015-02-13 16:16:31.466 War[1627:730057] Resetting plugins due to page load.
+2015-02-13 16:16:31.479 War[1627:730057] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/3DE093F7-70CF-43B3-BAB1-36A1405A0FEE/War.app/www/index.html
+2015-02-13 16:16:32.144 War[1627:730057] Resetting plugins due to page load.
+2015-02-13 16:16:32.155 War[1627:730057] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/3DE093F7-70CF-43B3-BAB1-36A1405A0FEE/War.app/www/bar.html
+2015-02-13 16:16:32.926 War[1627:730057] Resetting plugins due to page load.
+2015-02-13 16:16:32.939 War[1627:730057] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/3DE093F7-70CF-43B3-BAB1-36A1405A0FEE/War.app/www/index.html
+2015-02-13 16:17:02.337 War[1627:730057] Resetting plugins due to page load.
+2015-02-13 16:17:02.350 War[1627:730057] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/3DE093F7-70CF-43B3-BAB1-36A1405A0FEE/War.app/www/foo.html
+2015-02-13 16:17:04.093 War[1627:730057] Resetting plugins due to page load.
+2015-02-13 16:17:04.105 War[1627:730057] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/3DE093F7-70CF-43B3-BAB1-36A1405A0FEE/War.app/www/index.html
+2015-02-13 16:17:05.331 War[1627:730057] Resetting plugins due to page load.
+2015-02-13 16:17:05.343 War[1627:730057] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/3DE093F7-70CF-43B3-BAB1-36A1405A0FEE/War.app/www/bar.html
+2015-02-13 16:17:07.040 War[1627:730057] Resetting plugins due to page load.
+2015-02-13 16:17:07.053 War[1627:730057] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/3DE093F7-70CF-43B3-BAB1-36A1405A0FEE/War.app/www/index.html
