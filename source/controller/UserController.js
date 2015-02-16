@@ -3,15 +3,27 @@ module.exports = function( router, mongoose ) {
   // Dependecies
   var registerValidator = require( '../service/RegisterValidator' ),
       user = require( '../model/User' ),
-      dao = require( '../dao/UserDAO' )( mongoose, user );
+      dao = require( '../dao/UserDAO' )( mongoose, user ),
+      ContactUser = require( '../service/ContactUser' );
 
   router.post('/user', function( req, res, next ) {
 
     var client = {},
         errors = registerValidator( req );
 
-
     function success( user ) {
+
+      // var contactUser = new ContactUser();
+
+      // contactUser
+      //   .send( {
+      //     from: 'Warrr <gpswarrr@gmail.com>',
+      //     to: user.email,
+      //     subject: 'Conta criada com sucesso',
+      //     text: 'Bem vindo ' + user.nick + ' ao mundo Warrr',
+      //     html: 'Batalhas eletrizantes te aguardam...'
+      //   } );
+
       client.cod = 200;
 
       res.send( client );
