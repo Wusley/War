@@ -1,3 +1,6 @@
 module.exports = {
- name: String
+ 'name': String,
+ 'nick': String,
+ 'email': String,
+ 'password': String
 };

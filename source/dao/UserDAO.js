@@ -1,41 +1,92 @@
-var UserDAO = function UserDAO( mongoose, Schema ) {
+module.exports = function( mongoose, Schema ) {
 
-  this.userSchema = mongoose.Schema( Schema );
+  var UserDAO = function( mongoose, Schema ) {
 
-  this.User = mongoose.model( 'User', this.userSchema );
+    var userSchema = mongoose.Schema( Schema ),
+        User = mongoose.model( 'User', userSchema );
 
-  return {
-    save: function( user ) {
+    return {
+      save: function( user, success, fail ) {
 
-      var dao = new this.User( user );
+        var that = this,
+            findNickPromise = that.findNick( user.nick );
 
-      dao.save( function() {
+        findNickPromise
+          .then( function( nck ) {
 
-        if( err ) return console.error( err );
-        return true;
+            if( !nck ) {
 
-      } );
+              var findEmailPromise = that.findEmail( user.email );
 
-    },
-    update: function( user ) {
+              findEmailPromise
+                .then( function( eml ) {
 
-    },
-    delete: function( id ) {
+                  if( !eml ) {
 
-    },
-    find: function( id ) {
+                    var dao = new User( user );
 
-    },
-    list: function() {
+                    dao.save( function ( err, user ) {
 
-      this.User.find( function ( err, Users ) {
+                      if(err) return console.error( err );
 
-        if(err) return console.error(err);
-        return Users;
+                      success( user );
 
-      } );
+                    } );
 
-    }
+                  } else {
+
+                    fail( 'email' );
+
+                  }
+
+                } );
+
+            } else {
+
+              fail( 'nick' );
+
+            }
+
+        } );
+
+      },
+      update: function( user ) {
+
+      },
+      delete: function( id ) {
+
+      },
+      findId: function( id ) {
+
+        var promise = User.findOne( { _id: id } ).exec();
+
+        return promise;
+
+      },
+      findNick: function( nick ) {
+
+        var promise = User.findOne( { nick: nick } ).exec();
+
+        return promise;
+
+      },
+      findEmail: function( email ) {
+
+        var promise = User.findOne( { email: email } ).exec();
+
+        return promise;
+
+      },
+      list: function() {
+
+        var promise = User.findOne().exec();
+
+        return promise;
+
+      }
+    };
   };
+
+  return new UserDAO( mongoose, Schema );
 
 };
