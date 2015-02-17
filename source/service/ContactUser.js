@@ -16,7 +16,7 @@ module.exports = ( function() {
     };
 
     return {
-      send: function( mailSettings ) {
+      sendEmail: function( mailSettings ) {
 
         console.log(mailSettings);
 

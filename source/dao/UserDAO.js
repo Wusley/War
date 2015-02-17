@@ -1,5 +1,7 @@
 module.exports = function( mongoose, Schema ) {
 
+  var crypto = require('crypto');
+
   var UserDAO = function( mongoose, Schema ) {
 
     var userSchema = mongoose.Schema( Schema ),
@@ -50,6 +52,48 @@ module.exports = function( mongoose, Schema ) {
         } );
 
       },
+      updateForgotPassword: function( email, success, fail ) {
+
+        var that = this,
+            findEmailPromise = that.findEmail( email );
+
+        findEmailPromise
+          .then( function( user ) {
+
+            if( user ) {
+
+              crypto.randomBytes( 20, function( err, buf ) {
+                var token = buf.toString( 'hex' );
+
+                var forgotPassword = {
+                  'resetPasswordToken': token,
+                  'resetPasswordExpires': Date.now() + 3600000,
+                  'resetPasswordStatus': true
+                };
+
+                user.forgotPassword = forgotPassword;
+
+                var promise = User
+                                .update( { _id: user.id }, { 'forgotPassword': forgotPassword }, { multi: true } ).exec();
+
+                promise
+                  .then( function() {
+
+                    success( user );
+
+                  } );
+
+              } );
+
+            } else {
+
+              fail();
+
+            }
+
+          } );
+
+      },
       update: function( user ) {
 
       },
@@ -70,6 +114,46 @@ module.exports = function( mongoose, Schema ) {
         return promise;
 
       },
+      findToken: function( token ) {
+
+        var promise = User.findOne( { 'forgotPassword.resetPasswordToken': token } ).exec();
+
+        return promise;
+
+      },
+      updatePassword: function( password, token, success, fail ) {
+
+        var that = this,
+            findTokenPromise = that.findToken( token );
+
+        findTokenPromise
+          .then( function( user ) {
+
+            var dateNow = Date.now(),
+                dateBefore = Date.now() - 3600000,
+                dateExpire = Date.now( user.forgotPassword.resetPasswordExpires );
+
+            if( user && dateExpire >= dateBefore && dateExpire <= dateNow && user.forgotPassword.resetPasswordStatus === true ) {
+
+              var promise = User
+                              .update( { _id: user.id }, { 'password': password, 'forgotPassword.resetPasswordStatus': false } ).exec();
+
+              promise
+                .then( function() {
+
+                  success();
+
+                } );
+
+            } else {
+
+              fail( 'token' );
+
+            }
+
+          } );
+
+      },
       findEmail: function( email ) {
 
         var promise = User.findOne( { email: email } ).exec();
@@ -79,7 +163,7 @@ module.exports = function( mongoose, Schema ) {
       },
       list: function() {
 
-        var promise = User.findOne().exec();
+        var promise = User.find().exec();
 
         return promise;
 
