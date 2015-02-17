@@ -4,6 +4,10 @@ module.exports = {
  'email': String,
  'password': String,
  'status': Boolean,
+ 'position': {
+    'latitude': Number,
+    'longitude': Number
+ },
  'forgotPassword': {
     'resetPasswordToken': String,
     'resetPasswordExpires': Date,

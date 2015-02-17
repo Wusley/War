@@ -1,12 +1,43 @@
 module.exports = function( router, mongoose ) {
 
   // Dependecies
-  var userValidator = require( '../service/UserValidator' ),
-      emailValidator = require( '../service/EmailValidator' ),
+  var userValidator = require( '../service/userValidator' ),
+      emailValidator = require( '../service/emailValidator' ),
       passwordValidator = require( '../service/passwordValidator' ),
+      contactUser = require( '../service/contactUser' ),
       user = require( '../model/User' ),
-      userDao = require( '../dao/UserDAO' )( mongoose, user ),
-      ContactUser = require( '../service/ContactUser' );
+      userDao = require( '../dao/UserDAO' )( mongoose, user );
+
+  router.post('/connect', function( req, res, next ) {
+
+    var client = {},
+        errors = emailValidator( req );
+
+    function success( user ) {
+      client.cod = 200;
+
+      res.send( client );
+    }
+
+    function fail( errors, status ) {
+      client.cod = 400;
+      client.errors = errors;
+
+      res.send( client );
+    }
+
+    if( !errors ) {
+
+      userDao.authenticate( req.body.email, req.body.password, success, fail );
+
+    } else {
+
+      fail( errors );
+
+    }
+
+
+  } );
 
   router.post('/reset-password', function( req, res, next ) {
 
@@ -52,9 +83,9 @@ module.exports = function( router, mongoose ) {
 
     function success( user ) {
 
-      var contactUser = new ContactUser();
+      var contact = new contactUser();
 
-      contactUser
+      contact
         .sendEmail( {
           from: 'Warrr <gpswarrr@gmail.com>',
           to: user.email,
@@ -94,9 +125,9 @@ module.exports = function( router, mongoose ) {
 
     function success( user ) {
 
-      // var contactUser = new ContactUser();
+      // var contact = new contactUser();
 
-      // contactUser
+      // contact
       //   .sendEmail( {
       //     from: 'Warrr <gpswarrr@gmail.com>',
       //     to: user.email,

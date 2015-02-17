@@ -161,6 +161,27 @@ module.exports = function( mongoose, Schema ) {
         return promise;
 
       },
+      authenticate: function( email, password, success, fail ) {
+
+        var that = this,
+            findEmailPromise = that.findEmail( email );
+
+        findEmailPromise
+          .then( function( user ) {
+
+            if( user && user.password === password ) {
+
+              success( user );
+
+            } else {
+
+              fail();
+
+            }
+
+          } );
+
+      },
       list: function() {
 
         var promise = User.find().exec();

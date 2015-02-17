@@ -1,4 +1,5 @@
 var express = require( 'express' ),
+    session = require( 'express-session' ),
     path = require( 'path'),
     logger = require( 'morgan' ),
     cookieParser = require( 'cookie-parser' ),
@@ -14,16 +15,23 @@ app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( expressValidator() );
 app.use( cookieParser() );
 
-app.use( '/', cors, routes );
+app.use( session( {
+    secret: 'warrr-warrr-warrr',
+    name: 'worrr-worrr-worrr',
+    resave: false,
+    saveUninitialized: true,
+} ) );
 
-// catch 404 and forward to error handler
 app.use( function( req, res, next ) {
-    var err = new Error( 'Not Found' );
-    err.status = 404;
-    next( err );
+
+    console.log( req.session );
+
+    // Interceptor
+
+    next();
 } );
 
-// error handlers
+app.use( '/', cors, routes );
 
 // development error handler
 // will print stacktrace
