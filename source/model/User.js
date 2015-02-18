@@ -8,6 +8,9 @@ module.exports = {
     'latitude': Number,
     'longitude': Number
  },
+ '_groupId': String,
+ 'attack': [],
+ 'defense': [],
  'forgotPassword': {
     'resetPasswordToken': String,
     'resetPasswordExpires': Date,

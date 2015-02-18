@@ -12,25 +12,15 @@
       }
     </style>
 
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&language=pt"></script>
-
-    <script>
-      function initialize() {
-        var mapOptions = {
-          zoom: 14,
-          center: new google.maps.LatLng( -23.560007, -46.631470 )
-        };
-        var map = new google.maps.Map(document.getElementById('map'),
-            mapOptions);
-      }
-
-      google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
-
   </head>
   <body>
 
     <div id="map"></div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&language=pt"></script>
+    <!-- <script src="cordova.js"></script> -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="js/map.js"></script>
 
   </body>
 </html>

@@ -44,3 +44,600 @@ To disable web storage backup to iCloud, set the BackupWebStorage preference to 
 2015-02-13 16:17:05.343 War[1627:730057] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/3DE093F7-70CF-43B3-BAB1-36A1405A0FEE/War.app/www/bar.html
 2015-02-13 16:17:07.040 War[1627:730057] Resetting plugins due to page load.
 2015-02-13 16:17:07.053 War[1627:730057] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/3DE093F7-70CF-43B3-BAB1-36A1405A0FEE/War.app/www/index.html
+2015-02-17 18:53:58.912 War[64171:18484925] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/6FADF283-A9A5-4F90-8179-96F46EA6D256/Library/Cookies/Cookies.binarycookies
+2015-02-17 18:53:59.215 War[64171:18484925] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 18:53:59.216 War[64171:18484925] Multi-tasking -> Device: YES, App: YES
+2015-02-17 18:53:59.235 War[64171:18484925] Unlimited access to network resources
+2015-02-17 18:53:59.248 War[64171:18484925] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 18:54:00.142 War[64171:18484925] Resetting plugins due to page load.
+2015-02-17 18:54:00.256 War[64171:18484925] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/66DE80BC-1FE6-4949-AC86-E0EAFAF698ED/War.app/www/index.html
+2015-02-17 18:54:50.889 War[64171:18484925] Resetting plugins due to page load.
+2015-02-17 18:54:52.128 War[64171:18484925] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/66DE80BC-1FE6-4949-AC86-E0EAFAF698ED/War.app/www/map.html
+2015-02-17 18:58:49.446 War[64573:18529527] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/A2A3FF28-F271-45E4-9C34-4E01CBEE1D45/Library/Cookies/Cookies.binarycookies
+2015-02-17 18:58:49.544 War[64573:18529527] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 18:58:49.544 War[64573:18529527] Multi-tasking -> Device: YES, App: YES
+2015-02-17 18:58:49.545 War[64573:18529527] Unlimited access to network resources
+2015-02-17 18:58:49.548 War[64573:18529527] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 18:58:49.857 War[64573:18529527] Resetting plugins due to page load.
+2015-02-17 18:58:49.894 War[64573:18529527] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/2188A3E0-81F9-4371-95E5-1DA39E4DD0B1/War.app/www/index.html
+2015-02-17 18:59:00.594 War[64573:18529527] Resetting plugins due to page load.
+2015-02-17 18:59:00.682 War[64573:18529527] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/2188A3E0-81F9-4371-95E5-1DA39E4DD0B1/War.app/www/map.html
+2015-02-17 19:05:50.416 War[65719:18572855] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/D6FAE2D7-1699-450F-AB7A-A8903F17DC60/Library/Cookies/Cookies.binarycookies
+2015-02-17 19:05:50.521 War[65719:18572855] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 19:05:50.522 War[65719:18572855] Multi-tasking -> Device: YES, App: YES
+2015-02-17 19:05:50.525 War[65719:18572855] Unlimited access to network resources
+2015-02-17 19:05:50.529 War[65719:18572855] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 19:05:50.855 War[65719:18572855] Resetting plugins due to page load.
+2015-02-17 19:05:50.924 War[65719:18572855] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/A6E21897-AB0C-4561-A6F0-6CF57D582006/War.app/www/index.html
+2015-02-17 19:05:54.054 War[65719:18572855] Resetting plugins due to page load.
+2015-02-17 19:05:54.117 War[65719:18572855] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/A6E21897-AB0C-4561-A6F0-6CF57D582006/War.app/www/map.html
+2015-02-17 19:11:11.285 War[66808:18613063] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/832B0674-4834-466E-ADFF-B30C4ED58A39/Library/Cookies/Cookies.binarycookies
+2015-02-17 19:11:11.586 War[66808:18613063] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 19:11:11.587 War[66808:18613063] Multi-tasking -> Device: YES, App: YES
+2015-02-17 19:11:11.604 War[66808:18613063] Unlimited access to network resources
+2015-02-17 19:11:11.622 War[66808:18613063] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 19:11:13.234 War[66808:18613063] Resetting plugins due to page load.
+2015-02-17 19:11:13.438 War[66808:18613063] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/CB979F08-506F-4825-9B9A-0B6713058847/War.app/www/index.html
+2015-02-17 19:11:14.877 War[66808:18613063] Resetting plugins due to page load.
+2015-02-17 19:11:14.983 War[66808:18613063] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/CB979F08-506F-4825-9B9A-0B6713058847/War.app/www/map.html
+2015-02-17 19:14:43.781 War[66808:18613063] Resetting plugins due to page load.
+2015-02-17 19:14:43.826 War[66808:18613063] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/CB979F08-506F-4825-9B9A-0B6713058847/War.app/www/index.html
+2015-02-17 19:14:46.798 War[66808:18613063] Resetting plugins due to page load.
+2015-02-17 19:14:46.931 War[66808:18613063] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/CB979F08-506F-4825-9B9A-0B6713058847/War.app/www/forgot-password.html
+2015-02-17 19:14:48.742 War[66808:18613063] Resetting plugins due to page load.
+2015-02-17 19:14:48.796 War[66808:18613063] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/CB979F08-506F-4825-9B9A-0B6713058847/War.app/www/index.html
+2015-02-17 19:14:49.904 War[66808:18613063] Resetting plugins due to page load.
+2015-02-17 19:14:50.086 War[66808:18613063] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/CB979F08-506F-4825-9B9A-0B6713058847/War.app/www/map.html
+2015-02-17 19:16:39.430 War[67845:18658440] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/A9AFCA48-F591-47B9-B3A2-23A71EB6235A/Library/Cookies/Cookies.binarycookies
+2015-02-17 19:16:39.555 War[67845:18658440] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 19:16:39.555 War[67845:18658440] Multi-tasking -> Device: YES, App: YES
+2015-02-17 19:16:39.557 War[67845:18658440] Unlimited access to network resources
+2015-02-17 19:16:39.560 War[67845:18658440] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 19:16:40.021 War[67845:18658440] Resetting plugins due to page load.
+2015-02-17 19:16:40.084 War[67845:18658440] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/4CE0231D-82DB-4B94-B09B-7282096D90F0/War.app/www/index.html
+2015-02-17 19:16:41.569 War[67845:18658440] Resetting plugins due to page load.
+2015-02-17 19:16:41.602 War[67845:18658440] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/4CE0231D-82DB-4B94-B09B-7282096D90F0/War.app/www/map.html
+2015-02-17 19:17:26.288 War[68458:18664012] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/CE8F663C-350A-4FB7-9C16-9908C6CD90F9/Library/Cookies/Cookies.binarycookies
+2015-02-17 19:17:26.407 War[68458:18664012] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 19:17:26.407 War[68458:18664012] Multi-tasking -> Device: YES, App: YES
+2015-02-17 19:17:26.409 War[68458:18664012] Unlimited access to network resources
+2015-02-17 19:17:26.412 War[68458:18664012] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 19:17:26.698 War[68458:18664012] Resetting plugins due to page load.
+2015-02-17 19:17:26.736 War[68458:18664012] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/3E1438F1-6299-4A27-95D1-50466FDEF8EF/War.app/www/index.html
+2015-02-17 19:17:28.806 War[68458:18664012] Resetting plugins due to page load.
+2015-02-17 19:17:28.841 War[68458:18664012] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/3E1438F1-6299-4A27-95D1-50466FDEF8EF/War.app/www/map.html
+2015-02-17 19:19:10.797 War[69457:18679191] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/6F6B3744-9878-4A67-80D1-5F99300707B7/Library/Cookies/Cookies.binarycookies
+2015-02-17 19:19:10.907 War[69457:18679191] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 19:19:10.907 War[69457:18679191] Multi-tasking -> Device: YES, App: YES
+2015-02-17 19:19:10.909 War[69457:18679191] Unlimited access to network resources
+2015-02-17 19:19:10.912 War[69457:18679191] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 19:19:11.222 War[69457:18679191] Resetting plugins due to page load.
+2015-02-17 19:19:11.271 War[69457:18679191] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/94DF04DA-E122-4B79-B3AC-D453A522521D/War.app/www/index.html
+2015-02-17 19:19:16.627 War[69457:18679191] Resetting plugins due to page load.
+2015-02-17 19:19:16.666 War[69457:18679191] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/94DF04DA-E122-4B79-B3AC-D453A522521D/War.app/www/map.html
+2015-02-17 19:23:31.080 War[70251:18712988] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/6BDDEA5E-16C9-441F-BB7A-DE1664865638/Library/Cookies/Cookies.binarycookies
+2015-02-17 19:23:31.231 War[70251:18712988] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 19:23:31.232 War[70251:18712988] Multi-tasking -> Device: YES, App: YES
+2015-02-17 19:23:31.235 War[70251:18712988] Unlimited access to network resources
+2015-02-17 19:23:31.238 War[70251:18712988] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 19:23:31.701 War[70251:18712988] Resetting plugins due to page load.
+2015-02-17 19:23:31.787 War[70251:18712988] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/51AEA446-D2F9-4FFD-A078-6F401D1CC887/War.app/www/index.html
+2015-02-17 19:23:36.488 War[70251:18712988] Resetting plugins due to page load.
+2015-02-17 19:23:36.521 War[70251:18712988] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/51AEA446-D2F9-4FFD-A078-6F401D1CC887/War.app/www/map.html
+2015-02-17 19:27:39.989 War[71026:18750478] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/476A10E8-DB09-4DCA-B59C-A75642281F96/Library/Cookies/Cookies.binarycookies
+2015-02-17 19:27:40.115 War[71026:18750478] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 19:27:40.116 War[71026:18750478] Multi-tasking -> Device: YES, App: YES
+2015-02-17 19:27:40.117 War[71026:18750478] Unlimited access to network resources
+2015-02-17 19:27:40.122 War[71026:18750478] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 19:27:40.449 War[71026:18750478] Resetting plugins due to page load.
+2015-02-17 19:27:40.498 War[71026:18750478] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/7C775F0C-22A1-4969-8C17-324A25C3C6BA/War.app/www/index.html
+2015-02-17 19:27:41.680 War[71026:18750478] Resetting plugins due to page load.
+2015-02-17 19:27:41.716 War[71026:18750478] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/7C775F0C-22A1-4969-8C17-324A25C3C6BA/War.app/www/map.html
+2015-02-17 19:31:09.549 War[71775:18779940] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/0A95FCD3-0185-44C8-9230-81D7CFBED01D/Library/Cookies/Cookies.binarycookies
+2015-02-17 19:31:09.690 War[71775:18779940] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 19:31:09.691 War[71775:18779940] Multi-tasking -> Device: YES, App: YES
+2015-02-17 19:31:09.692 War[71775:18779940] Unlimited access to network resources
+2015-02-17 19:31:09.695 War[71775:18779940] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 19:31:10.088 War[71775:18779940] Resetting plugins due to page load.
+2015-02-17 19:31:10.135 War[71775:18779940] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/CBD3318C-D906-48A7-8590-E35072F4E86E/War.app/www/index.html
+2015-02-17 19:31:11.299 War[71775:18779940] Resetting plugins due to page load.
+2015-02-17 19:31:11.354 War[71775:18779940] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/CBD3318C-D906-48A7-8590-E35072F4E86E/War.app/www/map.html
+2015-02-17 20:06:47.091 War[75355:18834914] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/D34A3330-6426-4B9E-87A3-7FF276E1EB2F/Library/Cookies/Cookies.binarycookies
+2015-02-17 20:06:47.221 War[75355:18834914] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 20:06:47.221 War[75355:18834914] Multi-tasking -> Device: YES, App: YES
+2015-02-17 20:06:47.223 War[75355:18834914] Unlimited access to network resources
+2015-02-17 20:06:47.226 War[75355:18834914] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 20:06:47.667 War[75355:18834914] Resetting plugins due to page load.
+2015-02-17 20:06:47.711 War[75355:18834914] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/4F40F0FF-694F-4183-9767-B6B7CA22211C/War.app/www/index.html
+2015-02-17 20:06:50.095 War[75355:18834914] Resetting plugins due to page load.
+2015-02-17 20:06:50.137 War[75355:18834914] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/4F40F0FF-694F-4183-9767-B6B7CA22211C/War.app/www/map.html
+2015-02-17 20:07:59.091 War[75848:18843676] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/1FC48597-0D96-4F05-AB54-94772D190B34/Library/Cookies/Cookies.binarycookies
+2015-02-17 20:07:59.262 War[75848:18843676] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 20:07:59.263 War[75848:18843676] Multi-tasking -> Device: YES, App: YES
+2015-02-17 20:07:59.265 War[75848:18843676] Unlimited access to network resources
+2015-02-17 20:07:59.268 War[75848:18843676] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 20:07:59.595 War[75848:18843676] Resetting plugins due to page load.
+2015-02-17 20:07:59.653 War[75848:18843676] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/40EAF969-CF7E-43EA-A338-A5253BDDBA92/War.app/www/index.html
+2015-02-17 20:08:02.671 War[75848:18843676] Resetting plugins due to page load.
+2015-02-17 20:08:02.727 War[75848:18843676] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/40EAF969-CF7E-43EA-A338-A5253BDDBA92/War.app/www/map.html
+2015-02-17 20:08:39.815 War[76282:18850508] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/4C2EDEA2-BE10-45ED-A7A1-4F3722D1B2B6/Library/Cookies/Cookies.binarycookies
+2015-02-17 20:08:40.100 War[76282:18850508] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 20:08:40.100 War[76282:18850508] Multi-tasking -> Device: YES, App: YES
+2015-02-17 20:08:40.101 War[76282:18850508] Unlimited access to network resources
+2015-02-17 20:08:40.104 War[76282:18850508] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 20:08:40.483 War[76282:18850508] Resetting plugins due to page load.
+2015-02-17 20:08:40.525 War[76282:18850508] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/BEB577B6-C0FF-481C-91D9-3D01C5C1EF4F/War.app/www/index.html
+2015-02-17 20:08:41.871 War[76282:18850508] Resetting plugins due to page load.
+2015-02-17 20:08:41.912 War[76282:18850508] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/BEB577B6-C0FF-481C-91D9-3D01C5C1EF4F/War.app/www/map.html
+2015-02-17 20:08:42.808 War[76282:18850508] THREAD WARNING: ['Geolocation'] took '17.506836' ms. Plugin should use a background thread.
+2015-02-17 20:10:48.021 War[76850:18867998] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Data/Application/B8F77CC2-FD4E-4ED2-9FBC-8D9CF565FD0D/Library/Cookies/Cookies.binarycookies
+2015-02-17 20:10:48.118 War[76850:18867998] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 20:10:48.118 War[76850:18867998] Multi-tasking -> Device: YES, App: YES
+2015-02-17 20:10:48.119 War[76850:18867998] Unlimited access to network resources
+2015-02-17 20:10:48.122 War[76850:18867998] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 20:10:48.450 War[76850:18867998] Resetting plugins due to page load.
+2015-02-17 20:10:48.525 War[76850:18867998] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/A458909D-9042-4987-8906-284DEDD737CB/War.app/www/index.html
+2015-02-17 20:10:55.781 War[76850:18867998] Resetting plugins due to page load.
+2015-02-17 20:10:55.842 War[76850:18867998] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/A458909D-9042-4987-8906-284DEDD737CB/War.app/www/map.html
+2015-02-17 20:11:09.929 War[76850:18867998] Resetting plugins due to page load.
+2015-02-17 20:11:11.127 War[76850:18867998] Finished load of: https://accounts.google.com/ServiceLogin?continue=https://www.google.com/maps/api/js/ApplicationService.AuthSuccess?pb=!1e1!2e1
+2015-02-17 20:11:25.023 War[76850:18867998] Resetting plugins due to page load.
+2015-02-17 20:11:26.824 War[76850:18867998] Failed to load webpage with error: The operation couldn’t be completed. (NSURLErrorDomain error -999.)
+2015-02-17 20:18:57.821 War[77554:18920407] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 20:18:57.823 War[77554:18920407] Multi-tasking -> Device: YES, App: YES
+2015-02-17 20:18:57.841 War[77554:18920407] Unlimited access to network resources
+2015-02-17 20:18:57.853 War[77554:18920407] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 20:18:58.638 War[77554:18920407] Resetting plugins due to page load.
+2015-02-17 20:18:58.733 War[77554:18920407] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/54519009-99C1-44DC-840A-1DF43B55CFAC/War.app/www/index.html
+2015-02-17 20:18:59.597 War[77554:18920407] Resetting plugins due to page load.
+2015-02-17 20:18:59.677 War[77554:18920407] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/54519009-99C1-44DC-840A-1DF43B55CFAC/War.app/www/map.html
+2015-02-17 20:19:00.613 War[77554:18920407] locationManager::didFailWithError (null)
+2015-02-17 20:19:36.874 War[78031:18927168] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 20:19:36.875 War[78031:18927168] Multi-tasking -> Device: YES, App: YES
+2015-02-17 20:19:36.877 War[78031:18927168] Unlimited access to network resources
+2015-02-17 20:19:36.879 War[78031:18927168] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 20:19:37.164 War[78031:18927168] Resetting plugins due to page load.
+2015-02-17 20:19:37.207 War[78031:18927168] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/8171CF49-B277-415C-9D93-AF0BC1B9F58C/War.app/www/index.html
+2015-02-17 20:19:38.581 War[78031:18927168] Resetting plugins due to page load.
+2015-02-17 20:19:38.637 War[78031:18927168] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/8171CF49-B277-415C-9D93-AF0BC1B9F58C/War.app/www/map.html
+2015-02-17 20:19:39.551 War[78031:18927168] THREAD WARNING: ['Geolocation'] took '12.732178' ms. Plugin should use a background thread.
+2015-02-17 20:20:26.903 War[78518:18933855] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 20:20:26.904 War[78518:18933855] Multi-tasking -> Device: YES, App: YES
+2015-02-17 20:20:26.905 War[78518:18933855] Unlimited access to network resources
+2015-02-17 20:20:26.907 War[78518:18933855] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 20:20:27.172 War[78518:18933855] Resetting plugins due to page load.
+2015-02-17 20:20:27.215 War[78518:18933855] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/37CCFC71-4DBD-48B2-9021-CD8A23F00E94/War.app/www/index.html
+2015-02-17 20:20:30.925 War[78518:18933855] Resetting plugins due to page load.
+2015-02-17 20:20:30.963 War[78518:18933855] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/37CCFC71-4DBD-48B2-9021-CD8A23F00E94/War.app/www/map.html
+2015-02-17 20:23:33.544 War[78518:18933855] CDVWebViewDelegate: Navigation started when state=1
+2015-02-17 20:23:33.544 War[78518:18933855] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-02-17 20:23:33.552 War[78518:18933855] Resetting plugins due to page load.
+2015-02-17 20:23:36.649 War[79028:18957571] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 20:23:36.650 War[79028:18957571] Multi-tasking -> Device: YES, App: YES
+2015-02-17 20:23:36.652 War[79028:18957571] Unlimited access to network resources
+2015-02-17 20:23:36.654 War[79028:18957571] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 20:23:37.129 War[79028:18957571] Resetting plugins due to page load.
+2015-02-17 20:23:37.174 War[79028:18957571] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/8CEB1933-B4E4-4464-A577-C9274D18492F/War.app/www/index.html
+2015-02-17 20:23:38.400 War[79028:18957571] Resetting plugins due to page load.
+2015-02-17 20:23:38.441 War[79028:18957571] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/8CEB1933-B4E4-4464-A577-C9274D18492F/War.app/www/map.html
+2015-02-17 20:27:30.497 War[79610:18989694] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 20:27:30.498 War[79610:18989694] Multi-tasking -> Device: YES, App: YES
+2015-02-17 20:27:30.500 War[79610:18989694] Unlimited access to network resources
+2015-02-17 20:27:30.503 War[79610:18989694] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 20:27:30.787 War[79610:18989694] Resetting plugins due to page load.
+2015-02-17 20:27:30.835 War[79610:18989694] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/E663C9DA-AC2D-432A-8524-680039F1FF3B/War.app/www/index.html
+2015-02-17 20:27:32.140 War[79610:18989694] Resetting plugins due to page load.
+2015-02-17 20:27:32.188 War[79610:18989694] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/E663C9DA-AC2D-432A-8524-680039F1FF3B/War.app/www/map.html
+2015-02-17 20:27:34.129 War[79610:18989694] locationManager::didFailWithError (null)
+2015-02-17 20:31:02.361 War[80419:19019304] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 20:31:02.361 War[80419:19019304] Multi-tasking -> Device: YES, App: YES
+2015-02-17 20:31:02.363 War[80419:19019304] Unlimited access to network resources
+2015-02-17 20:31:02.365 War[80419:19019304] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 20:31:02.686 War[80419:19019304] Resetting plugins due to page load.
+2015-02-17 20:31:02.735 War[80419:19019304] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/F355407C-5A28-4FCA-A70F-D456107BB1B0/War.app/www/index.html
+2015-02-17 20:31:11.931 War[80419:19019304] Resetting plugins due to page load.
+2015-02-17 20:31:11.991 War[80419:19019304] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/F355407C-5A28-4FCA-A70F-D456107BB1B0/War.app/www/map.html
+2015-02-17 20:31:12.915 War[80419:19019304] THREAD WARNING: ['Geolocation'] took '14.515137' ms. Plugin should use a background thread.
+2015-02-17 20:32:42.053 War[80419:19019304] CDVWebViewDelegate: Navigation started when state=1
+2015-02-17 20:32:42.054 War[80419:19019304] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-02-17 20:32:42.054 War[80419:19019304] Resetting plugins due to page load.
+2015-02-17 20:32:44.914 War[80419:19019304] Finished load of: https://www.google.com/maps/@55.754144,37.618491,13.76z?hl=en-US
+2015-02-17 20:32:51.217 War[80419:19019304] Failed to load webpage with error: The URL can’t be shown
+2015-02-17 20:32:52.211 War[80419:19019304] Resetting plugins due to page load.
+2015-02-17 20:32:52.223 War[80419:19019304] Failed to load webpage with error: The operation couldn’t be completed. (NSURLErrorDomain error -999.)
+2015-02-17 20:32:52.223 War[80419:19019304] Resetting plugins due to page load.
+2015-02-17 20:32:52.833 War[80419:19019304] Finished load of: https://www.google.com/maps/@55.754144,37.618491,13.76z?hl=en-US
+2015-02-17 20:32:56.399 War[80419:19019304] Failed to load webpage with error: The URL can’t be shown
+2015-02-17 20:32:57.420 War[80419:19019304] Resetting plugins due to page load.
+2015-02-17 20:32:57.425 War[80419:19019304] Failed to load webpage with error: The operation couldn’t be completed. (NSURLErrorDomain error -999.)
+2015-02-17 20:32:57.426 War[80419:19019304] Resetting plugins due to page load.
+2015-02-17 20:32:58.015 War[80419:19019304] Finished load of: https://www.google.com/maps/@55.754144,37.618491,13.76z?hl=en-US
+2015-02-17 23:07:49.326 War[85770:19917533] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 23:07:49.328 War[85770:19917533] Multi-tasking -> Device: YES, App: YES
+2015-02-17 23:07:49.346 War[85770:19917533] Unlimited access to network resources
+2015-02-17 23:07:49.357 War[85770:19917533] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 23:07:50.073 War[85770:19917533] Resetting plugins due to page load.
+2015-02-17 23:07:50.165 War[85770:19917533] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/A3C51DC7-E8C9-421E-8892-32B23B9C1B25/War.app/www/index.html
+2015-02-17 23:07:54.200 War[85770:19917533] Resetting plugins due to page load.
+2015-02-17 23:07:54.279 War[85770:19917533] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/A3C51DC7-E8C9-421E-8892-32B23B9C1B25/War.app/www/map.html
+2015-02-17 23:08:39.953 War[86206:19923258] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 23:08:39.956 War[86206:19923258] Multi-tasking -> Device: YES, App: YES
+2015-02-17 23:08:39.957 War[86206:19923258] Unlimited access to network resources
+2015-02-17 23:08:39.960 War[86206:19923258] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 23:08:40.272 War[86206:19923258] Resetting plugins due to page load.
+2015-02-17 23:08:40.316 War[86206:19923258] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/137AC620-0351-4159-9F0A-771A4F0CC87C/War.app/www/index.html
+2015-02-17 23:08:41.736 War[86206:19923258] Resetting plugins due to page load.
+2015-02-17 23:08:41.782 War[86206:19923258] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/137AC620-0351-4159-9F0A-771A4F0CC87C/War.app/www/map.html
+2015-02-17 23:09:35.670 War[86706:19929816] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 23:09:35.670 War[86706:19929816] Multi-tasking -> Device: YES, App: YES
+2015-02-17 23:09:35.672 War[86706:19929816] Unlimited access to network resources
+2015-02-17 23:09:35.674 War[86706:19929816] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 23:09:36.031 War[86706:19929816] Resetting plugins due to page load.
+2015-02-17 23:09:36.078 War[86706:19929816] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/BB89FFDC-661C-4208-A468-CEF07F03EA22/War.app/www/index.html
+2015-02-17 23:09:37.616 War[86706:19929816] Resetting plugins due to page load.
+2015-02-17 23:09:37.660 War[86706:19929816] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/BB89FFDC-661C-4208-A468-CEF07F03EA22/War.app/www/map.html
+2015-02-17 23:09:39.695 War[86706:19929816] locationManager::didFailWithError (null)
+2015-02-17 23:10:19.941 War[87339:19933514] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 23:10:19.942 War[87339:19933514] Multi-tasking -> Device: YES, App: YES
+2015-02-17 23:10:19.943 War[87339:19933514] Unlimited access to network resources
+2015-02-17 23:10:19.946 War[87339:19933514] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 23:10:20.291 War[87339:19933514] Resetting plugins due to page load.
+2015-02-17 23:10:20.341 War[87339:19933514] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/39D32DF3-2DE8-42E3-8482-BD92CAC11627/War.app/www/index.html
+2015-02-17 23:10:23.331 War[87339:19933514] Resetting plugins due to page load.
+2015-02-17 23:10:23.384 War[87339:19933514] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/39D32DF3-2DE8-42E3-8482-BD92CAC11627/War.app/www/map.html
+2015-02-17 23:10:24.255 War[87339:19933514] THREAD WARNING: ['Geolocation'] took '12.957764' ms. Plugin should use a background thread.
+2015-02-17 23:10:24.257 War[87339:19933514] locationManager::didFailWithError (null)
+2015-02-17 23:11:27.286 War[88022:19942046] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 23:11:27.287 War[88022:19942046] Multi-tasking -> Device: YES, App: YES
+2015-02-17 23:11:27.290 War[88022:19942046] Unlimited access to network resources
+2015-02-17 23:11:27.293 War[88022:19942046] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 23:11:27.574 War[88022:19942046] Resetting plugins due to page load.
+2015-02-17 23:11:27.614 War[88022:19942046] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/59543272-DA69-4407-9F1B-5F193C9D698C/War.app/www/index.html
+2015-02-17 23:11:29.399 War[88022:19942046] Resetting plugins due to page load.
+2015-02-17 23:11:29.439 War[88022:19942046] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/59543272-DA69-4407-9F1B-5F193C9D698C/War.app/www/map.html
+2015-02-17 23:11:30.307 War[88022:19942046] THREAD WARNING: ['Geolocation'] took '12.698730' ms. Plugin should use a background thread.
+2015-02-17 23:11:30.309 War[88022:19942046] locationManager::didFailWithError (null)
+2015-02-17 23:12:46.962 War[88853:19949070] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 23:12:46.963 War[88853:19949070] Multi-tasking -> Device: YES, App: YES
+2015-02-17 23:12:46.965 War[88853:19949070] Unlimited access to network resources
+2015-02-17 23:12:46.968 War[88853:19949070] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 23:12:47.317 War[88853:19949070] Resetting plugins due to page load.
+2015-02-17 23:12:47.357 War[88853:19949070] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/41AC8EB1-DD4E-4332-9AA4-D549DD8AFF1D/War.app/www/index.html
+2015-02-17 23:12:56.577 War[88853:19949070] Resetting plugins due to page load.
+2015-02-17 23:12:56.637 War[88853:19949070] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/41AC8EB1-DD4E-4332-9AA4-D549DD8AFF1D/War.app/www/map.html
+2015-02-17 23:12:57.526 War[88853:19949070] locationManager::didFailWithError (null)
+2015-02-17 23:15:00.315 War[89233:19968086] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 23:15:00.316 War[89233:19968086] Multi-tasking -> Device: YES, App: YES
+2015-02-17 23:15:00.318 War[89233:19968086] Unlimited access to network resources
+2015-02-17 23:15:00.320 War[89233:19968086] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 23:15:00.787 War[89233:19968086] Resetting plugins due to page load.
+2015-02-17 23:15:00.854 War[89233:19968086] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/C18815C5-699C-4A95-B1EC-D48CC118D746/War.app/www/index.html
+2015-02-17 23:15:02.241 War[89233:19968086] Resetting plugins due to page load.
+2015-02-17 23:15:02.293 War[89233:19968086] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/C18815C5-699C-4A95-B1EC-D48CC118D746/War.app/www/map.html
+2015-02-17 23:15:03.198 War[89233:19968086] THREAD WARNING: ['Geolocation'] took '12.069092' ms. Plugin should use a background thread.
+2015-02-17 23:15:03.199 War[89233:19968086] locationManager::didFailWithError (null)
+2015-02-17 23:15:15.719 War[89458:19970829] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 23:15:15.720 War[89458:19970829] Multi-tasking -> Device: YES, App: YES
+2015-02-17 23:15:15.721 War[89458:19970829] Unlimited access to network resources
+2015-02-17 23:15:15.724 War[89458:19970829] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 23:15:16.079 War[89458:19970829] Resetting plugins due to page load.
+2015-02-17 23:15:16.121 War[89458:19970829] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/CBC1BC95-F279-4339-87A1-3D030E10F232/War.app/www/index.html
+2015-02-17 23:15:21.186 War[89458:19970829] Resetting plugins due to page load.
+2015-02-17 23:15:21.225 War[89458:19970829] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/CBC1BC95-F279-4339-87A1-3D030E10F232/War.app/www/map.html
+2015-02-17 23:15:22.107 War[89458:19970829] THREAD WARNING: ['Geolocation'] took '13.291016' ms. Plugin should use a background thread.
+2015-02-17 23:15:22.109 War[89458:19970829] locationManager::didFailWithError (null)
+2015-02-17 23:15:22.114 War[89458:19970829] locationManager::didFailWithError (null)
+2015-02-17 23:16:41.808 War[89810:19984372] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 23:16:41.809 War[89810:19984372] Multi-tasking -> Device: YES, App: YES
+2015-02-17 23:16:41.810 War[89810:19984372] Unlimited access to network resources
+2015-02-17 23:16:41.822 War[89810:19984372] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 23:16:42.073 War[89810:19984372] Resetting plugins due to page load.
+2015-02-17 23:16:42.112 War[89810:19984372] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/CEE9956D-F32F-4C91-9A4F-1B6614572E35/War.app/www/index.html
+2015-02-17 23:16:47.447 War[89810:19984372] Resetting plugins due to page load.
+2015-02-17 23:16:47.493 War[89810:19984372] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/CEE9956D-F32F-4C91-9A4F-1B6614572E35/War.app/www/map.html
+2015-02-17 23:16:50.007 War[89810:19984372] THREAD WARNING: ['Geolocation'] took '13.245850' ms. Plugin should use a background thread.
+2015-02-17 23:16:50.010 War[89810:19984372] locationManager::didFailWithError (null)
+2015-02-17 23:17:00.155 War[89810:19987708] Terminating since there is no system app.
+2015-02-17 23:17:10.750 War[90117:19989440] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 23:17:10.751 War[90117:19989440] Multi-tasking -> Device: YES, App: YES
+2015-02-17 23:17:10.753 War[90117:19989440] Unlimited access to network resources
+2015-02-17 23:17:10.756 War[90117:19989440] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 23:17:11.063 War[90117:19989440] Resetting plugins due to page load.
+2015-02-17 23:17:11.106 War[90117:19989440] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/4C969D50-BFEA-4640-AD09-1CBF10593676/War.app/www/index.html
+2015-02-17 23:17:12.051 War[90117:19989440] Resetting plugins due to page load.
+2015-02-17 23:17:12.091 War[90117:19989440] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/4C969D50-BFEA-4640-AD09-1CBF10593676/War.app/www/map.html
+2015-02-17 23:17:12.982 War[90117:19989440] THREAD WARNING: ['Geolocation'] took '11.784180' ms. Plugin should use a background thread.
+2015-02-17 23:17:49.066 War[90117:19989440] CDVWebViewDelegate: Navigation started when state=1
+2015-02-17 23:17:49.066 War[90117:19989440] Failed to load webpage with error: CDVWebViewDelegate: Navigation started when state=1
+2015-02-17 23:17:49.071 War[90117:19989440] Resetting plugins due to page load.
+2015-02-17 23:17:50.092 War[90117:19989440] Finished load of: http://www.google.com/intl/en-US_US/help/terms_maps.html
+2015-02-17 23:17:51.613 War[90117:19989440] Resetting plugins due to page load.
+2015-02-17 23:17:55.371 War[90117:19989440] Finished load of: https://support.google.com/maps/#topic=6002905
+2015-02-17 23:17:58.556 War[90359:19997169] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 23:17:58.557 War[90359:19997169] Multi-tasking -> Device: YES, App: YES
+2015-02-17 23:17:58.558 War[90359:19997169] Unlimited access to network resources
+2015-02-17 23:17:58.562 War[90359:19997169] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 23:17:59.098 War[90359:19997169] Resetting plugins due to page load.
+2015-02-17 23:17:59.211 War[90359:19997169] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/654AC552-A288-4C00-B686-97D85CF86596/War.app/www/index.html
+2015-02-17 23:18:05.807 War[90359:19997169] Resetting plugins due to page load.
+2015-02-17 23:18:05.848 War[90359:19997169] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/654AC552-A288-4C00-B686-97D85CF86596/War.app/www/map.html
+2015-02-17 23:20:35.651 War[90662:20019990] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 23:20:35.652 War[90662:20019990] Multi-tasking -> Device: YES, App: YES
+2015-02-17 23:20:35.654 War[90662:20019990] Unlimited access to network resources
+2015-02-17 23:20:35.657 War[90662:20019990] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 23:20:36.007 War[90662:20019990] Resetting plugins due to page load.
+2015-02-17 23:20:36.069 War[90662:20019990] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/94F25CAB-D024-4762-A5BC-8E7D6C5B02AC/War.app/www/index.html
+2015-02-17 23:20:41.830 War[90662:20019990] Resetting plugins due to page load.
+2015-02-17 23:20:41.868 War[90662:20019990] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/94F25CAB-D024-4762-A5BC-8E7D6C5B02AC/War.app/www/map.html
+2015-02-17 23:24:14.464 War[91109:20048891] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 23:24:14.465 War[91109:20048891] Multi-tasking -> Device: YES, App: YES
+2015-02-17 23:24:14.467 War[91109:20048891] Unlimited access to network resources
+2015-02-17 23:24:14.470 War[91109:20048891] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 23:24:14.786 War[91109:20048891] Resetting plugins due to page load.
+2015-02-17 23:24:14.828 War[91109:20048891] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/B0A51A08-CE71-4C3C-80D7-2D509128057E/War.app/www/index.html
+2015-02-17 23:24:21.702 War[91109:20048891] Resetting plugins due to page load.
+2015-02-17 23:24:21.741 War[91109:20048891] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/B0A51A08-CE71-4C3C-80D7-2D509128057E/War.app/www/map.html
+2015-02-17 23:24:22.766 War[91109:20048891] THREAD WARNING: ['Geolocation'] took '13.207764' ms. Plugin should use a background thread.
+2015-02-17 23:24:36.244 War[91512:20051576] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 23:24:36.245 War[91512:20051576] Multi-tasking -> Device: YES, App: YES
+2015-02-17 23:24:36.246 War[91512:20051576] Unlimited access to network resources
+2015-02-17 23:24:36.248 War[91512:20051576] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 23:24:36.616 War[91512:20051576] Resetting plugins due to page load.
+2015-02-17 23:24:36.684 War[91512:20051576] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/EC898D42-E224-419A-971F-FC9C1C8A42D8/War.app/www/index.html
+2015-02-17 23:24:54.177 War[91512:20051576] Resetting plugins due to page load.
+2015-02-17 23:24:54.218 War[91512:20051576] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/EC898D42-E224-419A-971F-FC9C1C8A42D8/War.app/www/map.html
+2015-02-17 23:24:55.098 War[91512:20051576] THREAD WARNING: ['Geolocation'] took '12.330078' ms. Plugin should use a background thread.
+2015-02-17 23:25:07.057 War[91935:20055304] Apache Cordova native platform version 3.7.0 is starting.
+2015-02-17 23:25:07.059 War[91935:20055304] Multi-tasking -> Device: YES, App: YES
+2015-02-17 23:25:07.061 War[91935:20055304] Unlimited access to network resources
+2015-02-17 23:25:07.064 War[91935:20055304] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-02-17 23:25:07.475 War[91935:20055304] Resetting plugins due to page load.
+2015-02-17 23:25:07.558 War[91935:20055304] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/5EF99391-A7C6-4622-82B8-38F1213472CA/War.app/www/index.html
+2015-02-17 23:25:16.034 War[91935:20055304] Resetting plugins due to page load.
+2015-02-17 23:25:16.073 War[91935:20055304] Finished load of: file:///Users/wusley/Library/Developer/CoreSimulator/Devices/A1AB2AB9-D923-4BF8-9A98-2798A599CE1E/data/Containers/Bundle/Application/5EF99391-A7C6-4622-82B8-38F1213472CA/War.app/www/map.html
+2015-02-17 23:25:16.940 War[91935:20055304] THREAD WARNING: ['Geolocation'] took '12.164062' ms. Plugin should use a background thread.

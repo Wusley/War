@@ -121,7 +121,7 @@ module.exports = function( mongoose, Schema ) {
         return promise;
 
       },
-      updatePassword: function( password, token, success, fail ) {
+      updatePassword: function( token, password, success, fail ) {
 
         var that = this,
             findTokenPromise = that.findToken( token );
@@ -152,6 +152,19 @@ module.exports = function( mongoose, Schema ) {
             }
 
           } );
+
+      },
+      updatePosition: function( nick, latitude, longitude, success, fail ) {
+
+        var promise = User
+                        .update( { nick: nick }, { 'position.latitude': latitude, 'position.longitude': longitude } ).exec();
+
+          promise
+            .then( function() {
+
+              success();
+
+            } );
 
       },
       findEmail: function( email ) {

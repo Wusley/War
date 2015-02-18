@@ -1,5 +1,7 @@
 ( function( $, window ) {
 
+  "use strict";
+
   var $target = $( '.js-form-register' ),
       $submit = $target.find( '[type="submit"]' );
 
@@ -10,7 +12,7 @@
     $.post( 'http://localhost:3000/user', data )
       .done( function( data ) {
 
-        console.log(data);
+        console.log( data );
 
       } );
 

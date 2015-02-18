@@ -4,9 +4,74 @@ module.exports = function( router, mongoose ) {
   var userValidator = require( '../service/userValidator' ),
       emailValidator = require( '../service/emailValidator' ),
       passwordValidator = require( '../service/passwordValidator' ),
+      positionValidator = require( '../service/positionValidator' ),
       contactUser = require( '../service/contactUser' ),
       user = require( '../model/User' ),
       userDao = require( '../dao/UserDAO' )( mongoose, user );
+
+  router.get('/user', function( req, res, next ) {
+
+    var nick = 'Shin NAtsumeeee2ee';
+
+    var client = {};
+
+    var promise = userDao.findNick( nick );
+
+    promise
+      .then( function( user ) {
+
+        if( user.position.latitude && user.position.longitude ) {
+
+          client.cod = 200;
+          client.position = {
+            'lat': user.position.latitude,
+            'lng': user.position.longitude
+          };
+
+        } else {
+
+          client.cod = 400;
+          client.position = false;
+
+        }
+
+        res.send( client );
+
+      } );
+
+  } );
+
+  router.post('/position', function( req, res, next ) {
+
+    var nick = 'Shin NAtsumeeee2ee';
+
+    var client = {},
+        errors = positionValidator( req );
+
+    function success( user ) {
+      client.cod = 200;
+
+      res.send( client );
+    }
+
+    function fail( errors ) {
+      client.cod = 400;
+      client.errors = errors;
+
+      res.send( client );
+    }
+
+    if( !errors ) {
+
+      userDao.updatePosition( nick, req.body.latitude, req.body.longitude, success, fail );
+
+    } else {
+
+      fail( errors );
+
+    }
+
+  } );
 
   router.post('/connect', function( req, res, next ) {
 
@@ -57,7 +122,7 @@ module.exports = function( router, mongoose ) {
 
       if( status === 'token') {
 
-        client.token = true;
+        client.token = false;
 
       }
 
@@ -66,7 +131,7 @@ module.exports = function( router, mongoose ) {
 
     if( !errors ) {
 
-      userDao.updatePassword( req.body.password, req.body.token, success, fail );
+      userDao.updatePassword( req.body.token, req.body.password, success, fail );
 
     } else {
 
@@ -155,13 +220,13 @@ module.exports = function( router, mongoose ) {
 
       if( status === 'nick') {
 
-        client.nick = true;
+        client.nick = false;
 
       }
 
       if( status === 'email') {
 
-        client.email = true;
+        client.email = false;
 
       }
 
