@@ -45,6 +45,7 @@
 		90958F1AA21442548C92366D /* CDVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B3A2E4172A431ABF9D7109 /* CDVConnection.m */; };
 		CA01B16E6F964CD2B0A93653 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F05EF54221E944AE9F132011 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
+		DF0F2DCFECC94DAC9F5A0CBE /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B22C337F544493BCDCB115 /* CDVInAppBrowser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,8 @@
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F05EF54221E944AE9F132011 /* SystemConfiguration.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = War/config.xml; sourceTree = "<group>"; };
+		F7B22C337F544493BCDCB115 /* CDVInAppBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVInAppBrowser.m"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		50DBD258C01B4D48BE185EDD /* CDVInAppBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVInAppBrowser.h"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +231,8 @@
 				35236352D0664FC29327485E /* CDVReachability.h */,
 				D2DB0DA024B64277939953BA /* CDVLocation.m */,
 				B879D995B96047DBB9DC17FF /* CDVLocation.h */,
+				F7B22C337F544493BCDCB115 /* CDVInAppBrowser.m */,
+				50DBD258C01B4D48BE185EDD /* CDVInAppBrowser.h */,
 			);
 			name = Plugins;
 			path = War/Plugins;
@@ -310,6 +315,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 510;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = XCC9ZQ745W;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "War" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -416,6 +426,7 @@
 				90958F1AA21442548C92366D /* CDVConnection.m in Sources */,
 				36467DA3D503498FB8C9906A /* CDVReachability.m in Sources */,
 				2752006D19B9470494F706C1 /* CDVLocation.m in Sources */,
+				DF0F2DCFECC94DAC9F5A0CBE /* CDVInAppBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,7 +12,7 @@
     $.post( 'http://localhost:3000/user', data )
       .done( function( data ) {
 
-        console.log(data);
+        console.log( data );
 
       } );
 

@@ -39,6 +39,7 @@
 /Users/wusley/projects/war/interface/platforms/android/assets/www/js \
 /Users/wusley/projects/war/interface/platforms/android/assets/www/map.html \
 /Users/wusley/projects/war/interface/platforms/android/assets/www/perfil.html \
+/Users/wusley/projects/war/interface/platforms/android/assets/www/pin.html \
 /Users/wusley/projects/war/interface/platforms/android/assets/www/plugins \
 /Users/wusley/projects/war/interface/platforms/android/assets/www/register.html \
 /Users/wusley/projects/war/interface/platforms/android/assets/www/reset-password.html \
@@ -154,6 +155,7 @@
 /Users/wusley/projects/war/interface/platforms/android/assets/www/js/connect.js \
 /Users/wusley/projects/war/interface/platforms/android/assets/www/js/forgot-password.js \
 /Users/wusley/projects/war/interface/platforms/android/assets/www/js/map.js \
+/Users/wusley/projects/war/interface/platforms/android/assets/www/js/pin.js \
 /Users/wusley/projects/war/interface/platforms/android/assets/www/js/register.js \
 /Users/wusley/projects/war/interface/platforms/android/assets/www/js/reset-password.js \
 /Users/wusley/projects/war/interface/platforms/android/assets/www/plugins/org.apache.cordova.device \

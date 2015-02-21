@@ -1,4 +1,4 @@
-module.exports = function( router, mongoose ) {
+module.exports = function( router, mongoose, cache, uuid ) {
 
   // Dependecies
   var userValidator = require( '../service/userValidator' ),
@@ -79,6 +79,23 @@ module.exports = function( router, mongoose ) {
         errors = emailValidator( req );
 
     function success( user ) {
+
+
+      // criar servico add cache
+      // fazer fluxo com client
+
+      cache.add(
+        'user',
+        JSON.stringify( {
+          id: user.nick + ':' + uuid.v1(),
+          nick: user.nick
+        } ),
+        { expire: 60 * 60 * 24, type: 'json' },
+        function ( error, added ) {
+
+        } );
+
+
       client.cod = 200;
 
       res.send( client );

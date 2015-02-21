@@ -5,8 +5,9 @@
   function initialize( lat, lng ) {
 
     var mapOptions = {
-      zoom: 16,
-      center: new google.maps.LatLng( lat, lng )
+      zoom: 14,
+      center: new google.maps.LatLng( lat, lng ),
+      'mapTypeId': google.maps.MapTypeId.ROADMAP
     };
 
     var map = new google.maps.Map( document.getElementById( 'map' ), mapOptions );
