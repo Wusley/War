@@ -80,25 +80,32 @@ module.exports = function( router, mongoose, cache, uuid ) {
 
     function success( user ) {
 
+      var data = {
+        id: user.nick + ':' + uuid.v1(),
+        nick: user.nick
+      };
 
-      // criar servico add cache
-      // fazer fluxo com client
-
-      cache.add(
-        'user',
-        JSON.stringify( {
-          id: user.nick + ':' + uuid.v1(),
-          nick: user.nick
-        } ),
-        { expire: 60 * 60 * 24, type: 'json' },
+      cache.add( 'session', JSON.stringify( { id: data.id, nick: data.nick } ), {
+          expire: 60 * 60 * 24,
+          type: 'json'
+        },
         function ( error, added ) {
+
+          if( !error ) {
+
+            client.cod = 200;
+            client.token = data.id;
+
+          } else {
+
+            client.cod = 500;
+
+          }
+
+          res.send( client );
 
         } );
 
-
-      client.cod = 200;
-
-      res.send( client );
     }
 
     function fail( errors, status ) {
