@@ -8,14 +8,16 @@ module.exports = function( router, mongoose, cache, uuid ) {
       contactUser = require( '../service/contactUser' ),
       user = require( '../model/User' ),
       userDao = require( '../dao/UserDAO' )( mongoose, user );
+      InterceptAccess = require( '../interceptor/interceptAccess' ),
+      moment = require('moment');
 
-  router.get('/user', function( req, res, next ) {
+  var interceptAccess = new InterceptAccess( cache );
 
-    var nick = 'Shin NAtsumeeee2ee';
+  router.get('/user/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
-    var client = {};
-
-    var promise = userDao.findNick( nick );
+    var nick = req.session.nick,
+        client = {},
+        promise = userDao.findNick( nick );
 
     promise
       .then( function( user ) {
@@ -41,11 +43,10 @@ module.exports = function( router, mongoose, cache, uuid ) {
 
   } );
 
-  router.post('/position', function( req, res, next ) {
+  router.post('/position', interceptAccess.checkConnected, function( req, res, next ) {
 
-    var nick = 'Shin NAtsumeeee2ee';
-
-    var client = {},
+    var nick = req.session.nick,
+        client = {},
         errors = positionValidator( req );
 
     function success( user ) {
@@ -81,20 +82,18 @@ module.exports = function( router, mongoose, cache, uuid ) {
     function success( user ) {
 
       var data = {
-        id: user.nick + ':' + uuid.v1(),
-        nick: user.nick
+        token: user.nick + ':' + uuid.v1(),
+        nick: user.nick,
+        expires: moment().add( 1, 'day' )
       };
 
-      cache.add( 'session', JSON.stringify( { id: data.id, nick: data.nick } ), {
-          expire: 60 * 60 * 24,
-          type: 'json'
-        },
-        function ( error, added ) {
+      cache
+        .hmset( data.token, { nick: data.nick, expires: data.expires }, function( error, session ) {
 
           if( !error ) {
 
             client.cod = 200;
-            client.token = data.id;
+            client.token = data.token;
 
           } else {
 
@@ -125,6 +124,35 @@ module.exports = function( router, mongoose, cache, uuid ) {
 
     }
 
+
+  } );
+
+  router.get('/disconnect/:token', interceptAccess.checkConnected, function( req, res, next ) {
+
+    var token = req.params.token,
+        client = {};
+
+    delete req.session.nick;
+
+    cache
+      .del( 'session.' + token,
+          function ( error, session ) {
+
+            // if( !error ) {
+
+              console.log(session);
+
+              client.cod = 200;
+
+            // } else {
+
+              // client.cod = 500;
+
+            // }
+
+            res.send( client );
+
+          } );
 
   } );
 
@@ -214,16 +242,16 @@ module.exports = function( router, mongoose, cache, uuid ) {
 
     function success( user ) {
 
-      // var contact = new contactUser();
+      var contact = new contactUser();
 
-      // contact
-      //   .sendEmail( {
-      //     from: 'Warrr <gpswarrr@gmail.com>',
-      //     to: user.email,
-      //     subject: 'Conta criada com sucesso',
-      //     text: 'Bem vindo ' + user.nick + ' ao mundo Warrr',
-      //     html: 'Batalhas eletrizantes te aguardam...'
-      //   } );
+      contact
+        .sendEmail( {
+          from: 'Warrr <gpswarrr@gmail.com>',
+          to: user.email,
+          subject: 'Conta criada com sucesso',
+          text: 'Bem vindo ' + user.nick + ' ao mundo Warrr',
+          html: 'Batalhas eletrizantes te aguardam...'
+        } );
 
       client.cod = 200;
 
@@ -259,7 +287,7 @@ module.exports = function( router, mongoose, cache, uuid ) {
 
     if( !errors ) {
 
-      userDao.save( req.body.email, success, fail );
+      userDao.save( req.body, success, fail );
 
     } else {
 

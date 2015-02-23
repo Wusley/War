@@ -5,17 +5,37 @@
   var $target = $( '.js-form-connect' ),
       $submit = $target.find( '[type="submit"]' );
 
-  $submit.on( 'click', function() {
+  function cache( token ) {
 
-    var data = $target.serialize();
+    window.localStorage.setItem( 'token', token );
 
-    $.post( 'http://localhost:3000/connect', data )
-      .done( function( data ) {
+  }
 
-        console.log(data);
+  $submit
+    .on( 'click', function() {
 
-      } );
+      var data = $target.serialize();
 
-  } );
+      $.ajax( {
+          url: 'http://localhost:3000/connect',
+          type: 'POST',
+          data: data,
+          dataType: 'json'
+        } )
+        .done( function( data ) {
+
+          if( data.cod === 200 ) {
+
+            cache( data.token );
+
+          } else {
+
+            // console.log( 'Falha ao conectar' );
+
+          }
+
+        } );
+
+    } );
 
 } )( jQuery, window, undefined);

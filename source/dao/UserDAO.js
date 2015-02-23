@@ -4,7 +4,8 @@ module.exports = function( mongoose, Schema ) {
 
   var UserDAO = function( mongoose, Schema ) {
 
-    var userSchema = mongoose.Schema( Schema ),
+    var moment = require('moment'),
+        userSchema = mongoose.Schema( Schema ),
         User = mongoose.model( 'User', userSchema );
 
     return {
@@ -67,7 +68,7 @@ module.exports = function( mongoose, Schema ) {
 
                 var forgotPassword = {
                   'resetPasswordToken': token,
-                  'resetPasswordExpires': Date.now() + 3600000,
+                  'resetPasswordExpires': moment().add( 1, 'hours' ),
                   'resetPasswordStatus': true
                 };
 
@@ -129,11 +130,10 @@ module.exports = function( mongoose, Schema ) {
         findTokenPromise
           .then( function( user ) {
 
-            var dateNow = Date.now(),
-                dateBefore = Date.now() - 3600000,
-                dateExpire = Date.now( user.forgotPassword.resetPasswordExpires );
+            var dateNow = moment(),
+                dateExpire = user.forgotPassword.resetPasswordExpires;
 
-            if( user && dateExpire >= dateBefore && dateExpire <= dateNow && user.forgotPassword.resetPasswordStatus === true ) {
+            if( user && dateNow.diff( dateExpire ) < 0 && user.forgotPassword.resetPasswordStatus === true ) {
 
               var promise = User
                               .update( { _id: user.id }, { 'password': password, 'forgotPassword.resetPasswordStatus': false } ).exec();

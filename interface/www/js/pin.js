@@ -22,23 +22,24 @@
 
   $( document.body ).ready( function () {
 
-    $.get( 'http://localhost:3000/user' )
-      .done( function( data ) {
+      var url = 'http://localhost:3000/user/' + window.localStorage.getItem( 'token' );
 
-        if( data.cod === 200 ) {
+      $.get( url )
+        .done( function( data ) {
 
-          console.log(data);
+          if( data.cod === 200 ) {
 
-          google.maps.event.addDomListener( window, 'load', initialize( data.position.lat, data.position.lng ) );
+            console.log(data);
 
-        } else if( data.cod === 400 ) {
+            google.maps.event.addDomListener( window, 'load', initialize( data.position.lat, data.position.lng ) );
 
-          console.log( data );
+          } else if( data.cod === 400 ) {
 
-        }
+            console.log( data );
 
-      } );
+          }
 
+        } );
 
   } );
 

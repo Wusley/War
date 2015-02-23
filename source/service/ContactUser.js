@@ -10,8 +10,8 @@ module.exports = ( function() {
       port: parseInt(587, 10),
       requiresAuth: true,
       auth: {
-        user: 'webtalk',
-        pass: 'mabe1234'
+        user: 'wusley',
+        pass: '747w747w'
       }
     };
 
