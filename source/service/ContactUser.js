@@ -44,12 +44,10 @@ module.exports = ( function() {
 
           if( !error ) {
 
-            success();
             console.log( 'Message sent: ' + response.message );
 
           } else {
 
-            fail();
             console.log( 'Status: ' + error );
 
           }

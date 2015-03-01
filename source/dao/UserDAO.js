@@ -5,9 +5,10 @@ module.exports = ( function() {
     var moment = require( 'moment' ),
         crypto = require( 'crypto' ),
         schema = require( '../model/User' ),
+        partyConfig = require( '../config/party' ),
         userSchema = mongoose.Schema( schema );
 
-        userSchema.index( { 'position': '2d' } );
+        userSchema.index( { 'position': '2dsphere' } );
 
     var User = mongoose.model( 'User', userSchema );
 
@@ -180,15 +181,16 @@ module.exports = ( function() {
       },
       updatePosition: function( nick, latitude, longitude, success, fail ) {
 
-        var promise = User
-                        .update( { nick: nick }, { 'position': [ parseFloat( latitude ), parseFloat( longitude ) ] } ).exec();
+        var position = [ parseFloat( latitude ), parseFloat( longitude ) ],
+            promise = User
+                        .update( { nick: nick }, { 'position': position } ).exec();
 
           promise
             .then( function( status, details ) {
 
               if( !details.err ) {
 
-                success();
+                success( nick, position );
 
               } else {
 
@@ -243,29 +245,18 @@ module.exports = ( function() {
 
       },
 
+      // ORDER BY NEARBY
+      findUserNearby: function( position, nick ) {
 
-      findGeo: function() {
+        var maxDistance = ( ( 1 /  partyConfig.kmReference ) /  1000 ) * partyConfig.maxDistance,
+            nick = nick || '';
 
-        //find(    { loc : { '$near' : [4.881213, 52.366455] } }    ).limit(5).exec(console.log);
+        // var promise = User.find( { 'nick': { $in: [ 'etc', 'wusley' ] } } ).where( 'position' ).nearSphere( { center: position, maxDistance: maxDistance } ).exec();
+        var promise = User.where( 'position' ).nearSphere( { center: position, maxDistance: maxDistance } ).where( 'nick' ).ne( nick ).exec();
 
-        var promise = User.find( { 'position': { '$near' : [ -23.54124848329108, -46.1575984954834 ] } } ).limit( 5 ).exec( console.log );
-
-        // console.log('teste');
-        promise.then( function() {
-
-
-          console.log( arguments );
-
-        } );
+        return promise;
 
       }
-
-
-
-
-
-
-
 
     };
 

@@ -4,7 +4,6 @@ module.exports = function( router, mongoose, cache, uuid ) {
   var userValidator = require( '../service/userValidator' ),
       emailValidator = require( '../service/emailValidator' ),
       passwordValidator = require( '../service/passwordValidator' ),
-      positionValidator = require( '../service/positionValidator' ),
       contactUser = require( '../service/contactUser' ),
       UserDao = require( '../dao/UserDAO' ),
       InterceptAccess = require( '../interceptor/interceptAccess' );
@@ -12,8 +11,9 @@ module.exports = function( router, mongoose, cache, uuid ) {
   var userDao = new UserDao( mongoose ),
       interceptAccess = new InterceptAccess( cache );
 
-  // IMPORT
+  // IMPORTS
   require( '../controller/AccessController' )( router, mongoose, cache, uuid, userDao );
+  require( '../controller/PositionController' )( router, mongoose, cache, uuid, userDao );
 
   router.post('/user', function( req, res, next ) {
 
@@ -174,89 +174,6 @@ module.exports = function( router, mongoose, cache, uuid ) {
       fail( 'errors', errors );
 
     }
-
-  } );
-
-  router.post('/position', interceptAccess.checkConnected, function( req, res, next ) {
-
-    var nick = req.session.nick,
-        client = {},
-        errors = positionValidator( req );
-
-    function success() {
-      client.cod = 200;
-
-      userDao.findGeo();
-
-      // console.log( req.body.latitude );
-      // console.log( req.body.longitude );
-
-      res.send( client );
-    }
-
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-
-      res.send( client );
-    }
-
-    if( !errors ) {
-
-      userDao.updatePosition( nick, req.body.latitude, req.body.longitude, success, fail );
-
-    } else {
-
-      fail( 'errors', errors );
-
-    }
-
-  } );
-
-  router.get('/position/:token', interceptAccess.checkConnected, function( req, res, next ) {
-
-    var nick = req.session.nick,
-        client = {},
-        promise = userDao.findNick( nick );
-
-    function success( position ) {
-      client.cod = 200;
-      client.position = position;
-
-      res.send( client );
-    }
-
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-      client.position = null;
-
-      if( status === 'position' ) {
-
-        client.position = false;
-
-      }
-
-      res.send( client );
-    }
-
-    promise
-      .then( function( user ) {
-
-        if( user.position ) {
-
-          success( {
-            'lat': user.position[ 0 ],
-            'lng': user.position[ 1 ]
-          } );
-
-        } else {
-
-          fail( 'position' );
-
-        }
-
-      } );
 
   } );
 

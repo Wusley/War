@@ -4,8 +4,8 @@ module.exports = {
  'email': String,
  'password': String,
  'status': Boolean,
+ 'score': Number,
  'position': [],
- '_groupId': String,
  'attack': [],
  'defense': [],
  'forgotPassword': {

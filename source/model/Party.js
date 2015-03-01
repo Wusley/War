@@ -1,5 +1,6 @@
 module.exports = {
  'name': String,
  'description': String,
- 'users': []
+ 'partners': [],
+ 'score': Number
 };
