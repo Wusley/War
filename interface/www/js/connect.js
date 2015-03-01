@@ -7,6 +7,8 @@
 
   function cache( token ) {
 
+    console.log(token);
+
     window.localStorage.setItem( 'token', token );
 
   }

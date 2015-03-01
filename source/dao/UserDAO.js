@@ -1,11 +1,11 @@
-module.exports = function( mongoose, Schema ) {
+module.exports = ( function() {
 
-  var crypto = require('crypto');
+  var UserDAO = function( mongoose ) {
 
-  var UserDAO = function( mongoose, Schema ) {
-
-    var moment = require('moment'),
-        userSchema = mongoose.Schema( Schema ),
+    var moment = require( 'moment' ),
+        crypto = require( 'crypto' ),
+        schema = require( '../model/User' ),
+        userSchema = new mongoose.Schema( schema ),
         User = mongoose.model( 'User', userSchema );
 
     return {
@@ -78,9 +78,17 @@ module.exports = function( mongoose, Schema ) {
                                 .update( { _id: user.id }, { 'forgotPassword': forgotPassword }, { multi: true } ).exec();
 
                 promise
-                  .then( function() {
+                  .then( function( status, details ) {
 
-                    success( user );
+                    if( !details.err ) {
+
+                      success( user );
+
+                    } else {
+
+                      fail();
+
+                    }
 
                   } );
 
@@ -88,17 +96,11 @@ module.exports = function( mongoose, Schema ) {
 
             } else {
 
-              fail();
+              fail( 'user' );
 
             }
 
           } );
-
-      },
-      update: function( user ) {
-
-      },
-      delete: function( id ) {
 
       },
       findId: function( id ) {
@@ -133,17 +135,36 @@ module.exports = function( mongoose, Schema ) {
             var dateNow = moment(),
                 dateExpire = user.forgotPassword.resetPasswordExpires;
 
-            if( user && dateNow.diff( dateExpire ) < 0 && user.forgotPassword.resetPasswordStatus === true ) {
+            if( user ) {
 
-              var promise = User
-                              .update( { _id: user.id }, { 'password': password, 'forgotPassword.resetPasswordStatus': false } ).exec();
+              if( dateNow.diff( dateExpire ) < 0 && user.forgotPassword.resetPasswordStatus === true ) {
 
-              promise
-                .then( function() {
+                var promise = User
+                                .update( { _id: user.id }, { 'password': password, 'forgotPassword.resetPasswordStatus': false } ).exec();
 
-                  success();
+                promise
+                  .then( function( status, details ) {
 
-                } );
+                    if( !details.err ) {
+
+                      success( user );
+
+                    } else {
+
+                      fail();
+
+                    }
+
+                    success();
+
+                  } );
+
+              } else {
+
+                fail( 'expired' );
+
+              }
+
 
             } else {
 
@@ -160,7 +181,17 @@ module.exports = function( mongoose, Schema ) {
                         .update( { nick: nick }, { 'position.latitude': latitude, 'position.longitude': longitude } ).exec();
 
           promise
-            .then( function() {
+            .then( function( status, details ) {
+
+              if( !details.err ) {
+
+                success( user );
+
+              } else {
+
+                fail();
+
+              }
 
               success();
 
@@ -182,13 +213,21 @@ module.exports = function( mongoose, Schema ) {
         findEmailPromise
           .then( function( user ) {
 
-            if( user && user.password === password ) {
+            if( user ) {
 
-              success( user );
+              if( user.password === password ) {
+
+                success( user );
+
+              } else {
+
+                fail( 'password' );
+
+              }
 
             } else {
 
-              fail();
+              fail( 'user' );
 
             }
 
@@ -203,8 +242,9 @@ module.exports = function( mongoose, Schema ) {
 
       }
     };
+
   };
 
-  return new UserDAO( mongoose, Schema );
+  return UserDAO;
 
-};
+} () );

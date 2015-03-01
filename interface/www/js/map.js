@@ -2,121 +2,45 @@
 
   "use strict";
 
-  // function onDeviceReady() {
-  //     document.addEventListener("online", onOnline, false);
-  //     document.addEventListener("resume", onResume, false);
-  //     loadMapsApi();
-  // }
+  function initialize( lat, lng ) {
 
-  // function onOnline() {
-  //     loadMapsApi();
-  // }
+    var mapOptions = {
+      zoom: 14,
+      center: new google.maps.LatLng( lat, lng ),
+      'mapTypeId': google.maps.MapTypeId.ROADMAP
+    };
 
-  // function onResume() {
-  //     loadMapsApi();
-  // }
+    var map = new google.maps.Map( document.getElementById( 'map' ), mapOptions );
 
-  // function loadMapsApi() {
-
-  //     if (navigator.connection.type === Connection.NONE || (window.google !== undefined && window.google.maps)) {
-  //         return;
-  //     }
-
-  //     $.getScript('https://maps.googleapis.com/maps/api/js?signed_in=true&sensor=true&callback=onMapsApiLoaded&v=3.exp');
-
-  // }
-
-  // window.onMapsApiLoaded = function () {
-
-  //   navigator.geolocation.getCurrentPosition( showMap );
-
-  //   function showMap( position ) {
-
-  //     var mapOptions = {
-  //           zoom: 15,
-  //           center: new google.maps.LatLng( position.coords.latitude, position.coords.longitude )
-  //         };
-
-  //     var map = new google.maps.Map(document.getElementById( 'map' ), mapOptions);
-
-
-  //       var rad = 1000;
-
-  //       // rad *= 1600;
-
-  //       draw_circle = new google.maps.Circle({
-  //           center: mapOptions.center,
-  //           radius: rad,
-  //           strokeColor: "#FF0000",
-  //           strokeOpacity: 0.8,
-  //           strokeWeight: 2,
-  //           fillColor: "#FF0000",
-  //           fillOpacity: 0.35,
-  //           map: map
-  //       });
-
-  //   }
-
-  // };
-
-  // document.addEventListener("deviceready", onDeviceReady, false);
-
-  function initialize() {
-
-    navigator.geolocation.getCurrentPosition( showMap );
-
-    function showMap( position ) {
-
-      var mapOptions = {
-        zoom: 14,
-        center: new google.maps.LatLng( position.coords.latitude, position.coords.longitude ),
-        'mapTypeId': google.maps.MapTypeId.ROADMAP
-      };
-
-      var map = new google.maps.Map(document.getElementById( 'map' ), mapOptions );
-
-      var rad = 500;
-
-      // convert mi to km
-      rad = rad / 0.62137;
-
-      var draw_circle = new google.maps.Circle( {
-          center: mapOptions.center,
-          radius: rad,
-          strokeColor: "#FF0000",
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: "#FF0000",
-          fillOpacity: 0.35,
-          map: map
-      } );
-
-      var obj = {
-        'id': 'lol'
-      };
-
-      draw_circle.objInfo = obj;
-
-      google.maps.event.addListener( draw_circle, 'click', function( event ) {
-
-        var data = {
-            'latitude': parseFloat( event.latLng.k ),
-            'longitude': parseFloat( event.latLng.D )
-          };
-
-        $.post( 'http://localhost:3000/position', data )
-          .done( function( data ) {
-
-            console.log( data );
-
-          } );
-
-      } );
-
-    }
+    var marker = new google.maps.Marker({
+      position: mapOptions.center,
+      map: map,
+      title: 'You'
+    } );
 
   }
 
-  google.maps.event.addDomListener(window, 'load', initialize);
+  $( document.body ).ready( function () {
+
+      var url = 'http://localhost:3000/position/' + window.localStorage.getItem( 'token' );
+
+      $.get( url )
+        .done( function( data ) {
+
+          if( data.cod === 200 ) {
+
+            console.log(data);
+
+            google.maps.event.addDomListener( window, 'load', initialize( data.position.lat, data.position.lng ) );
+
+          } else if( data.cod === 400 ) {
+
+            console.log( data );
+
+          }
+
+        } );
+
+  } );
 
 } )( jQuery, window, undefined);

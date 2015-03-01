@@ -16,7 +16,7 @@ module.exports = ( function() {
     };
 
     return {
-      sendEmail: function( mailSettings ) {
+      sendEmail: function( mailSettings, success, fail ) {
 
         console.log(mailSettings);
 
@@ -42,11 +42,18 @@ module.exports = ( function() {
 
           smtpTransport.close();
 
-          console.log( response );
+          if( !error ) {
 
-          if(error) console.log(error);
+            success();
+            console.log( 'Message sent: ' + response.message );
 
-          console.log( 'Message sent: ' + response.message);
+          } else {
+
+            fail();
+            console.log( 'Status: ' + error );
+
+          }
+
 
         } );
 
