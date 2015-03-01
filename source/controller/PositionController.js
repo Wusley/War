@@ -108,7 +108,21 @@ module.exports = function( router, mongoose, cache, uuid, userDao ) {
 
                   } else {
 
-                    _false( 'party' );
+                    var promise = partyDao.createParty( nick );
+
+                    promise.then( function( party ) {
+
+                      if( party ) {
+
+                        _success();
+
+                      } else {
+
+                        _false( 'party' );
+
+                      }
+
+                    } );
 
                   }
 
@@ -129,8 +143,6 @@ module.exports = function( router, mongoose, cache, uuid, userDao ) {
         }
 
       } );
-
-
 
       res.send( client );
 
