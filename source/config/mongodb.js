@@ -1,3 +1,3 @@
 module.exports = {
-  'connect': 'mongodb://nodejitsu:094f15dc574844069237d968fef6fb64@troup.mongohq.com:10077/nodejitsudb4669245437'
+  'connect': 'mongodb://nodejitsu:7319cca49024f1bae799c7213cc710bd@troup.mongohq.com:10088/nodejitsudb9317213501'
 };

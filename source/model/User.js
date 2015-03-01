@@ -4,10 +4,7 @@ module.exports = {
  'email': String,
  'password': String,
  'status': Boolean,
- 'position': {
-    'latitude': Number,
-    'longitude': Number
- },
+ 'position': [],
  '_groupId': String,
  'attack': [],
  'defense': [],

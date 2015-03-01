@@ -5,8 +5,11 @@ module.exports = ( function() {
     var moment = require( 'moment' ),
         crypto = require( 'crypto' ),
         schema = require( '../model/User' ),
-        userSchema = new mongoose.Schema( schema ),
-        User = mongoose.model( 'User', userSchema );
+        userSchema = mongoose.Schema( schema );
+
+        userSchema.index( { 'position': '2d' } );
+
+    var User = mongoose.model( 'User', userSchema );
 
     return {
       save: function( user, success, fail ) {
@@ -178,22 +181,20 @@ module.exports = ( function() {
       updatePosition: function( nick, latitude, longitude, success, fail ) {
 
         var promise = User
-                        .update( { nick: nick }, { 'position.latitude': latitude, 'position.longitude': longitude } ).exec();
+                        .update( { nick: nick }, { 'position': [ parseFloat( latitude ), parseFloat( longitude ) ] } ).exec();
 
           promise
             .then( function( status, details ) {
 
               if( !details.err ) {
 
-                success( user );
+                success();
 
               } else {
 
                 fail();
 
               }
-
-              success();
 
             } );
 
@@ -240,7 +241,32 @@ module.exports = ( function() {
 
         return promise;
 
+      },
+
+
+      findGeo: function() {
+
+        //find(    { loc : { '$near' : [4.881213, 52.366455] } }    ).limit(5).exec(console.log);
+
+        var promise = User.find( { 'position': { '$near' : [ -23.54124848329108, -46.1575984954834 ] } } ).limit( 5 ).exec( console.log );
+
+        // console.log('teste');
+        promise.then( function() {
+
+
+          console.log( arguments );
+
+        } );
+
       }
+
+
+
+
+
+
+
+
     };
 
   };

@@ -183,8 +183,13 @@ module.exports = function( router, mongoose, cache, uuid ) {
         client = {},
         errors = positionValidator( req );
 
-    function success( user ) {
+    function success() {
       client.cod = 200;
+
+      userDao.findGeo();
+
+      // console.log( req.body.latitude );
+      // console.log( req.body.longitude );
 
       res.send( client );
     }
@@ -238,11 +243,11 @@ module.exports = function( router, mongoose, cache, uuid ) {
     promise
       .then( function( user ) {
 
-        if( user.position.latitude && user.position.longitude ) {
+        if( user.position ) {
 
           success( {
-            'lat': user.position.latitude,
-            'lng': user.position.longitude
+            'lat': user.position[ 0 ],
+            'lng': user.position[ 1 ]
           } );
 
         } else {
