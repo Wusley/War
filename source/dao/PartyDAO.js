@@ -25,7 +25,7 @@ module.exports = ( function() {
 
       },
 
-      checkUserHaveParty: function( nick ) {
+      findPartyUser: function( nick ) {
 
         var promise = Party.findOne( { 'partners': { $in: [ nick ] } } ).exec();
 
@@ -45,7 +45,7 @@ module.exports = ( function() {
 
         } );
 
-      }
+      },
 
     };
 

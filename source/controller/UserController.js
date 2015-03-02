@@ -6,14 +6,17 @@ module.exports = function( router, mongoose, cache, uuid ) {
       passwordValidator = require( '../service/passwordValidator' ),
       contactUser = require( '../service/contactUser' ),
       UserDao = require( '../dao/UserDAO' ),
+      PartyDao = require( '../dao/PartyDAO' ),
       InterceptAccess = require( '../interceptor/interceptAccess' );
 
   var userDao = new UserDao( mongoose ),
+      partyDao = new PartyDao( mongoose ),
       interceptAccess = new InterceptAccess( cache );
 
   // IMPORTS
   require( '../controller/AccessController' )( router, mongoose, cache, uuid, userDao );
-  require( '../controller/PositionController' )( router, mongoose, cache, uuid, userDao );
+  require( '../controller/PositionController' )( router, mongoose, cache, uuid, userDao, partyDao );
+  require( '../controller/PartyController' )( router, mongoose, cache, uuid, userDao, partyDao );
 
   router.post('/user', function( req, res, next ) {
 

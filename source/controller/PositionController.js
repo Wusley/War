@@ -1,13 +1,10 @@
-module.exports = function( router, mongoose, cache, uuid, userDao ) {
+module.exports = function( router, mongoose, cache, uuid, userDao, partyDao ) {
 
   // DEPENDENCIES
   var positionValidator = require( '../service/positionValidator' ),
-      PartyDao = require( '../dao/PartyDAO' ),
-      PartyDao = require( '../dao/PartyDAO' ),
       InterceptAccess = require( '../interceptor/interceptAccess' );
 
-  var partyDao = new PartyDao( mongoose ),
-      interceptAccess = new InterceptAccess( cache );
+  var interceptAccess = new InterceptAccess( cache );
 
   router.post('/position', interceptAccess.checkConnected, function( req, res, next ) {
 
@@ -60,7 +57,7 @@ module.exports = function( router, mongoose, cache, uuid, userDao ) {
 
       }
 
-      var promise =  partyDao.checkUserHaveParty( nick );
+      var promise =  partyDao.findPartyUser( nick );
 
       promise.then( function( data ) {
 
