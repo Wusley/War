@@ -2,15 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Cadastro</title>
+  <title>Settings</title>
 </head>
 <body>
 
-  <h1><a href="index.html">Home</a></h1>
-
-  <form action="javascript:void( 0 )" class="js-form-register" method="POST">
+  <form action="javascript:void( 0 )" class="js-form-settings" method="POST">
     <fieldset>
-      <legend>Cadastro</legend>
+      <legend>Settings</legend>
 
       <label for="name">Nome</label>
       <input type="text" name="name" id="name" >
@@ -18,17 +16,20 @@
       <input type="text" name="nick" id="nick" >
       <label for="email">e-mail</label>
       <input type="email" name="email" id="email" >
+      <label for="old-password">Senha antiga</label>
+      <input type="password" name="old-password" id="old-password" >
       <label for="password">senha</label>
       <input type="password" name="password" id="password" >
       <label for="re-password">Re-senha</label>
       <input type="password" name="re-password" id="re-password" >
 
-      <input type="submit" value="Cadastrar">
+      <input type="submit" value="Atualiazar">
     </fieldset>
   </form>
 
   <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="js/register.js"></script>
+    <script src="js/common.js"></script>
+  <script src="js/settings.js"></script>
 
 </body>
 </html>

@@ -5,9 +5,9 @@
 
   var $target = $( '.js-party' ),
       $partners = $target.find( '.js-partners' ),
-      $score = $target.find( '.js-party-score' ),
-      $name = $target.find( '.js-party-name' ),
-      $description = $target.find( '.js-party-description' );
+      $score = $target.find( '.js-score' ),
+      $name = $target.find( '.js-name' ),
+      $description = $target.find( '.js-description' );
 
   $( document.body ).ready( function () {
 
