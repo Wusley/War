@@ -16,9 +16,9 @@ module.exports = ( function() {
       save: function( user, success, fail ) {
 
         var that = this,
-            findNickPromise = that.findNick( user.nick );
+            findUserPromise = that.findUser( user.nick );
 
-        findNickPromise
+        findUserPromise
           .then( function( nck ) {
 
             if( !nck ) {
@@ -114,7 +114,7 @@ module.exports = ( function() {
         return promise;
 
       },
-      findNick: function( nick ) {
+      findUser: function( nick ) {
 
         var promise = User.findOne( { nick: nick } ).exec();
 

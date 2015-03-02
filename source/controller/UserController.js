@@ -18,6 +18,56 @@ module.exports = function( router, mongoose, cache, uuid ) {
   require( '../controller/PositionController' )( router, mongoose, cache, uuid, userDao, partyDao );
   require( '../controller/PartyController' )( router, mongoose, cache, uuid, userDao, partyDao );
 
+  router.get('/user/:token', interceptAccess.checkConnected, function( req, res, next ) {
+
+    var nick = req.session.nick,
+        client = {},
+        promise = userDao.findUser( nick );
+
+    function success( user ) {
+      client.cod = 200;
+      client.user = user;
+
+      res.send( client );
+    }
+
+    function fail( status, errors ) {
+      client.cod = 400;
+      client.errors = errors || null;
+      client.user = null;
+
+      if( status === 'user' ) {
+
+        client.user = false;
+
+      }
+
+      res.send( client );
+    }
+
+    promise
+      .then( function( user ) {
+
+        if( user ) {
+
+          // Handle Data
+          success( {
+            'name': user.name,
+            'nick': user.nick,
+            'email': user.email,
+            'score': user.score
+          } );
+
+        } else {
+
+          fail( 'user' );
+
+        }
+
+      } );
+
+  } );
+
   router.post('/user', function( req, res, next ) {
 
     var client = {},
@@ -71,6 +121,65 @@ module.exports = function( router, mongoose, cache, uuid ) {
       fail( 'errors', errors );
 
     }
+
+  } );
+
+  router.put('/user', interceptAccess.checkConnected, function( req, res, next ) {
+
+    var nick = req.session.nick,
+        client = {},
+        errors = userValidator( req );
+
+        console.log(nick);
+
+    // function success( user ) {
+
+    //   var contact = new contactUser();
+
+    //   contact
+    //     .sendEmail( {
+    //       from: 'Warrr <gpswarrr@gmail.com>',
+    //       to: user.email,
+    //       subject: 'Conta criada com sucesso',
+    //       text: 'Bem vindo ' + user.nick + ' ao mundo Warrr',
+    //       html: 'Batalhas eletrizantes te aguardam...'
+    //     } );
+
+    //   client.cod = 200;
+
+    //   res.send( client );
+    // }
+
+    // function fail( status, errors ) {
+    //   client.cod = 400;
+    //   client.errors = errors || null;
+    //   client.nick = null;
+    //   client.email = null;
+
+    //   if( status === 'nick' ) {
+
+    //     client.nick = false;
+
+    //   }
+
+    //   if( status === 'email' ) {
+
+    //     client.email = false;
+
+    //   }
+
+    //   res.send( client );
+    // }
+
+    // if( !errors ) {
+
+    //   userDao.save( req.body, success, fail );
+
+    // } else {
+
+    //   fail( 'errors', errors );
+
+    // }
 
   } );
 

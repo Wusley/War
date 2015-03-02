@@ -168,7 +168,7 @@ module.exports = function( router, mongoose, cache, uuid, userDao, partyDao ) {
 
     var nick = req.session.nick,
         client = {},
-        promise = userDao.findNick( nick );
+        promise = userDao.findUser( nick );
 
     function success( position ) {
       client.cod = 200;
