@@ -237,9 +237,19 @@ module.exports = ( function() {
           } );
 
       },
-      list: function() {
+      findList: function( users ) {
 
-        var promise = User.find().exec();
+        var promise;
+
+        if( users ) {
+
+          promise = User.find().where( { 'nick': { $in: users } } ).exec( console.log );
+
+        } else {
+
+          promise = User.find().exec();
+
+        }
 
         return promise;
 

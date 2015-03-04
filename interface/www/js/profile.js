@@ -10,7 +10,7 @@
 
   $( document.body ).ready( function () {
 
-      var url = 'http://localhost:3000/user/' + window.localStorage.getItem( 'token' );
+      var url = config.url + '/user/' + window.localStorage.getItem( 'token' );
 
       $.get( url )
         .done( function( data ) {

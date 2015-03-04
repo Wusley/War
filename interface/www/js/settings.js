@@ -10,7 +10,7 @@
 
   $( document.body ).ready( function () {
 
-      var url = 'http://localhost:3000/user/' + window.localStorage.getItem( 'token' );
+      var url = config.url + '/user/' + window.localStorage.getItem( 'token' );
 
       $.get( url )
         .done( function( data ) {
@@ -41,7 +41,7 @@
 
     var data = $target.serialize();
 
-    $.put( 'http://localhost:3000/user', data )
+    $.put( config.url + '/user', data )
       .done( function( data ) {
 
         console.log( data );

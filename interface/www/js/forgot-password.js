@@ -9,7 +9,7 @@
 
     var data = $target.serialize();
 
-    $.post( 'http://localhost:3000/forgot-password', data )
+    $.post( config.url + '/forgot-password', data )
       .done( function( data ) {
 
         console.log(data);

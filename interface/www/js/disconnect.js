@@ -13,7 +13,7 @@
   $target
     .on( 'click', function() {
 
-      var url = 'http://localhost:3000/disconnect/' + window.localStorage.getItem( 'token' );
+      var url = config.url + '/disconnect/' + window.localStorage.getItem( 'token' );
 
       $.get( url )
         .done( function( data ) {

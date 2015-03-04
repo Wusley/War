@@ -11,7 +11,7 @@
 
   $( document.body ).ready( function () {
 
-      var url = 'http://localhost:3000/party/' + window.localStorage.getItem( 'token' );
+      var url = config.url + '/party/' + window.localStorage.getItem( 'token' );
 
       $.get( url )
         .done( function( data ) {

@@ -104,7 +104,7 @@
             'longitude': parseFloat( event.latLng.D )
           };
 
-        $.post( 'http://localhost:3000/position', data )
+        $.post( config.url + '/position', data )
           .done( function( data ) {
 
             console.log( data );

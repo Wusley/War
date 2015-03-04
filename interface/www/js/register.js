@@ -9,7 +9,7 @@
 
     var data = $target.serialize();
 
-    $.post( 'http://localhost:3000/user', data )
+    $.post( config.url + '/user', data )
       .done( function( data ) {
 
         console.log( data );
