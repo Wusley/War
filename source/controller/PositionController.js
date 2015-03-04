@@ -164,15 +164,16 @@ module.exports = function( router, mongoose, cache, uuid, userDao, partyDao ) {
 
   } );
 
-  router.get('/position/:token', interceptAccess.checkConnected, function( req, res, next ) {
+  router.get( '/position/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
         client = {},
-        promise = userDao.findUser( nick );
+        promiseParty = partyDao.findPartyUser( nick );
 
-    function success( position ) {
+    function success( partners ) {
       client.cod = 200;
-      client.position = position;
+      client.nick = nick;
+      client.partners = partners;
 
       res.send( client );
     }
@@ -180,34 +181,72 @@ module.exports = function( router, mongoose, cache, uuid, userDao, partyDao ) {
     function fail( status, errors ) {
       client.cod = 400;
       client.errors = errors || null;
-      client.position = null;
+      client.party = null;
+      client.partners = null;
 
-      if( status === 'position' ) {
+      if( status === 'partners' ) {
 
-        client.position = false;
+        client.partners = false;
+
+      }
+
+      if( status === 'party' ) {
+
+        client.party = false;
 
       }
 
       res.send( client );
     }
 
-    promise
-      .then( function( user ) {
+    promiseParty
+      .then( function( party ) {
 
-        if( user.position ) {
+          if( party ) {
 
-          success( {
-            'lat': user.position[ 0 ],
-            'lng': user.position[ 1 ]
+          var promiseUsers = userDao.findList( party.partners );
+
+          promiseUsers.then( function( users ) {
+
+            if( users ) {
+
+              success( users );
+
+            } else {
+
+              fail( 'partners' );
+
+            }
+
           } );
 
         } else {
 
-          fail( 'position' );
+          fail( 'party' );
 
         }
 
+
+
       } );
+
+    // promise
+    //   .then( function( user ) {
+
+    //     if( user.position ) {
+
+    //       success( {
+    //         'lat': user.position[ 0 ],
+    //         'lng': user.position[ 1 ]
+    //       } );
+
+    //     } else {
+
+    //       fail( 'position' );
+
+    //     }
+
+    //   } );
 
   } );
 

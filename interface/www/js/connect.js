@@ -19,7 +19,7 @@
       var data = $target.serialize();
 
       $.ajax( {
-          url: 'http://localhost:3000/connect',
+          url: config.url + '/connect',
           type: 'POST',
           data: data,
           dataType: 'json'

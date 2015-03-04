@@ -15,7 +15,7 @@
 
     var data = $target.serialize();
 
-    $.post( 'http://localhost:3000/reset-password', data )
+    $.post( config.url + '/reset-password', data )
       .done( function( data ) {
 
         console.log(data);
