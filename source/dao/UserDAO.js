@@ -4,13 +4,16 @@ module.exports = ( function() {
 
     var moment = require( 'moment' ),
         crypto = require( 'crypto' ),
+        PasswordHandle = require( '../service/passwordHandle' ),
         schema = require( '../model/User' ),
         partyConfig = require( '../config/party' ),
         userSchema = mongoose.Schema( schema );
 
-        userSchema.index( { 'position': '2dsphere' } );
+    userSchema.index( { 'position': '2dsphere' } );
 
     var User = mongoose.model( 'User', userSchema );
+
+    passwordHandle = new PasswordHandle();
 
     return {
       save: function( user, success, fail ) {
@@ -30,15 +33,21 @@ module.exports = ( function() {
 
                   if( !eml ) {
 
-                    var dao = new User( user );
+                    user.password = passwordHandle.insurance( user.password );
 
-                    dao.save( function ( err, user ) {
+                    if( user.password ) {
 
-                      if(err) return console.error( err );
+                      var dao = new User( user );
 
-                      success( user );
+                      dao.save( function ( err, user ) {
 
-                    } );
+                        if(err) return console.error( err );
+
+                        success( user );
+
+                      } );
+
+                    }
 
                   } else {
 
@@ -218,7 +227,11 @@ module.exports = ( function() {
 
             if( user ) {
 
-              if( user.password === password ) {
+              password = passwordHandle.compare( user.password, password );
+
+              console.log(password);
+
+              if( password ) {
 
                 success( user );
 

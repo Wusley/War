@@ -1,11 +1,13 @@
-module.exports = function( router, mongoose, cache, uuid, userDao ) {
+module.exports = function( router, mongoose, redis, uuid, userDao ) {
 
   // DEPENDENCIES
   var emailValidator = require( '../service/emailValidator' ),
       InterceptAccess = require( '../interceptor/interceptAccess' ),
+      bcrypt = require( 'bcrypt' ),
+      config = require( '../config/user' ),
       moment = require('moment');
 
-  var interceptAccess = new InterceptAccess( cache );
+  var interceptAccess = new InterceptAccess( redis );
 
   router.post( '/connect', function( req, res, next ) {
 
@@ -13,6 +15,8 @@ module.exports = function( router, mongoose, cache, uuid, userDao ) {
         errors = emailValidator( req );
 
     function success( user ) {
+
+      console.log(user);
 
       function _success( token ) {
 
@@ -38,7 +42,7 @@ module.exports = function( router, mongoose, cache, uuid, userDao ) {
         expires: moment().add( 1, 'day' )
       };
 
-      cache
+      redis
         .hmset( data.token, { nick: data.nick, expires: data.expires }, function( error, session ) {
 
           if( !error ) {
@@ -116,7 +120,7 @@ module.exports = function( router, mongoose, cache, uuid, userDao ) {
       res.send( client );
     }
 
-    cache
+    redis
       .del( 'session.' + token,
           function ( error, session ) {
 
