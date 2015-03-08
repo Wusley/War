@@ -4,7 +4,7 @@ module.exports = ( function() {
 
     var moment = require( 'moment' ),
         crypto = require( 'crypto' ),
-        PasswordHandle = require( '../service/passwordHandle' ),
+        PasswordCrypt = require( '../service/passwordCrypt' ),
         schema = require( '../model/User' ),
         partyConfig = require( '../config/party' ),
         userSchema = mongoose.Schema( schema );
@@ -13,7 +13,7 @@ module.exports = ( function() {
 
     var User = mongoose.model( 'User', userSchema );
 
-    passwordHandle = new PasswordHandle();
+    passwordCrypt = new PasswordCrypt();
 
     return {
       save: function( user, success, fail ) {
@@ -33,7 +33,7 @@ module.exports = ( function() {
 
                   if( !eml ) {
 
-                    user.password = passwordHandle.insurance( user.password );
+                    user.password = passwordCrypt.insurance( user.password );
 
                     if( user.password ) {
 
@@ -210,6 +210,31 @@ module.exports = ( function() {
             } );
 
       },
+      updateJob: function( nick, job, success, fail ) {
+
+        console.log(arguments);
+
+        var promise = User
+                        .update( { nick: nick }, { 'job': job } ).exec();
+
+          promise
+            .then( function( status, details ) {
+
+              console.log(arguments);
+
+              if( !details.err ) {
+
+                success( nick, job );
+
+              } else {
+
+                fail() ;
+
+              }
+
+            } );
+
+      },
       findEmail: function( email ) {
 
         var promise = User.findOne( { email: email } ).exec();
@@ -227,7 +252,7 @@ module.exports = ( function() {
 
             if( user ) {
 
-              password = passwordHandle.compare( user.password, password );
+              password = passwordCrypt.compare( user.password, password );
 
               console.log(password);
 

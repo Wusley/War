@@ -1,3 +1,3 @@
 var config = {
-      url: 'http://192.168.2.158:3000'
+      url: 'http://localhost:3000'
     };

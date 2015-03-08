@@ -1,6 +1,6 @@
 module.exports = ( function() {
 
-  var passwordHandle = function() {
+  var passwordCrypt = function() {
 
     var bcrypt = require( 'bcrypt' ),
         userConfig = require( '../config/user' );
@@ -23,13 +23,11 @@ module.exports = ( function() {
 
         return status;
 
-      },
-
-
+      }
     };
 
   };
 
-  return passwordHandle;
+  return passwordCrypt;
 
 } () );

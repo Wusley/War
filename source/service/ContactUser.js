@@ -3,6 +3,7 @@ module.exports = ( function() {
   var ContactUser = function() {
 
     var nodemailer = require('nodemailer'),
+        smtpConfig = require('../config/smtp'),
         smtpapi = require('smtpapi');
 
     var settings  = {
@@ -10,8 +11,8 @@ module.exports = ( function() {
       port: parseInt(587, 10),
       requiresAuth: true,
       auth: {
-        user: 'wusley',
-        pass: '747w747w'
+        user: smtpConfig.login,
+        pass: smtpConfig.pass
       }
     };
 

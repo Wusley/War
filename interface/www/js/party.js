@@ -2,7 +2,6 @@
 
   "use strict";
 
-
   var $target = $( '.js-party' ),
       $partners = $target.find( '.js-partners' ),
       $score = $target.find( '.js-score' ),

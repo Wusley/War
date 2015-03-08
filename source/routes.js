@@ -12,5 +12,6 @@
   var redis = require('redis').createClient( redisConfig.port, redisConfig.host, { auth_pass: redisConfig.pass } );
 
   require( './controller/UserController' )( router, mongoose, redis, uuid );
+  require( './controller/JobController' )( router, mongoose, redis, uuid );
 
   module.exports = router;

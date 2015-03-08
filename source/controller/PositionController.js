@@ -202,7 +202,7 @@ module.exports = function( router, mongoose, cache, uuid, userDao, partyDao ) {
     promiseParty
       .then( function( party ) {
 
-          if( party ) {
+        if( party ) {
 
           var promiseUsers = userDao.findList( party.partners );
 

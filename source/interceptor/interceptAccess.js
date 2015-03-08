@@ -1,6 +1,6 @@
 module.exports = ( function() {
 
-  var InterceptAcess = function( cache ) {
+  var InterceptAcess = function( redis ) {
 
     var moment = require('moment');
 
@@ -9,20 +9,19 @@ module.exports = ( function() {
 
         var token = req.body.token || req.params.token;
 
-        cache
+        redis
           .hgetall( token, function( error, session ) {
 
-            if( !error && moment().diff( session.expires ) < 0 ) {
+            if( session && moment().diff( session.expires ) < 0 ) {
 
               req.session = { nick: session.nick };
+              next();
 
             } else {
 
-              req.session = { nick: false };
+              res.send( { 'cod': 401 } );
 
             }
-
-            next();
 
           } );
 

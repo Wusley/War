@@ -3,6 +3,7 @@ module.exports = function( router, mongoose, cache, uuid ) {
   // DEPENDENCIES
   var userValidator = require( '../service/userValidator' ),
       emailValidator = require( '../service/emailValidator' ),
+      jobValidator = require( '../service/jobValidator' ),
       passwordValidator = require( '../service/passwordValidator' ),
       contactUser = require( '../service/contactUser' ),
       UserDao = require( '../dao/UserDAO' ),
@@ -124,66 +125,46 @@ module.exports = function( router, mongoose, cache, uuid ) {
 
   } );
 
-  router.put('/user', interceptAccess.checkConnected, function( req, res, next ) {
+  router.put( '/user/job', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
-        client = {},
-        errors = userValidator( req );
+        client = {};
+        errors = jobValidator( req );
 
-        console.log(nick);
+    function success( user ) {
+      client.cod = 200;
+      client.user = user;
 
-    // function success( user ) {
+      res.send( client );
+    }
 
-    //   var contact = new contactUser();
+    function fail( status, errors ) {
+      client.cod = 400;
+      client.errors = errors || null;
+      client.job = null;
 
-    //   contact
-    //     .sendEmail( {
-    //       from: 'Warrr <gpswarrr@gmail.com>',
-    //       to: user.email,
-    //       subject: 'Conta criada com sucesso',
-    //       text: 'Bem vindo ' + user.nick + ' ao mundo Warrr',
-    //       html: 'Batalhas eletrizantes te aguardam...'
-    //     } );
+      if( status === 'job' ) {
 
-    //   client.cod = 200;
+        client.job = false;
 
-    //   res.send( client );
-    // }
+      }
 
-    // function fail( status, errors ) {
-    //   client.cod = 400;
-    //   client.errors = errors || null;
-    //   client.nick = null;
-    //   client.email = null;
+      res.send( client );
+    }
 
-    //   if( status === 'nick' ) {
+    if( !errors ) {
 
-    //     client.nick = false;
+      userDao.updateJob( nick, req.body.job, success, fail );
 
-    //   }
+    } else {
 
-    //   if( status === 'email' ) {
+      fail( 'errors', errors );
 
-    //     client.email = false;
-
-    //   }
-
-    //   res.send( client );
-    // }
-
-    // if( !errors ) {
-
-    //   userDao.save( req.body, success, fail );
-
-    // } else {
-
-    //   fail( 'errors', errors );
-
-    // }
+    }
 
   } );
 
-  router.post('/reset-password', function( req, res, next ) {
+  router.post( '/reset-password', function( req, res, next ) {
 
     var client = {},
         errors = passwordValidator( req );
@@ -227,7 +208,7 @@ module.exports = function( router, mongoose, cache, uuid ) {
 
   } );
 
-  router.post('/forgot-password', function( req, res, next ) {
+  router.post( '/forgot-password', function( req, res, next ) {
 
     var client = {},
         errors = emailValidator( req );

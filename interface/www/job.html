@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro Jobs</title>
+
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <form action="javascript:void( 0 )" class="js-form-job" method="POST">
+    <fieldset>
+      <legend>Job</legend>
+
+      <label for="name">Nome</label>
+      <input type="text" name="name" id="name" >
+
+      <label for="description">Descrição</label>
+      <input type="text" name="description" id="description" >
+
+      <label for="str">Str</label>
+      <input type="text" name="attributes.str" id="str" >
+
+      <label for="vit">vit</label>
+      <input type="text" name="attributes.vit" id="vit" >
+
+      <label for="agi">agi</label>
+      <input type="text" name="attributes.agi" id="agi" >
+
+      <label for="dex">dex</label>
+      <input type="text" name="attributes.dex" id="dex" >
+
+      <label for="int">int</label>
+      <input type="text" name="attributes.int" id="int" >
+
+      <label for="luk">luk</label>
+      <input type="text" name="attributes.luk" id="luk" >
+
+      <input type="submit" value="Cadastrar">
+    </fieldset>
+  </form>
+
+  <script src="js/config.js"></script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="js/job.js"></script>
+
+</body>
+</html>

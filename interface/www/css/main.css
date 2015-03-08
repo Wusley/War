@@ -1,0 +1,12 @@
+html, body, #map {
+  height: 100%;
+  margin: 0px;
+  padding: 0px
+
+  -webkit-transform: rotateZ(360deg);
+}
+
+input {
+  display: block;
+  margin-bottom: 10px;
+}
