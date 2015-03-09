@@ -16,8 +16,6 @@ module.exports = function( router, mongoose, redis, uuid, userDao ) {
 
     function success( user ) {
 
-      console.log(user);
-
       function _success( token ) {
 
         client.cod = 200;
@@ -41,6 +39,8 @@ module.exports = function( router, mongoose, redis, uuid, userDao ) {
         nick: user.nick,
         expires: moment().add( 1, 'day' )
       };
+
+      console.log( redis );
 
       redis
         .hmset( data.token, { nick: data.nick, expires: data.expires }, function( error, session ) {

@@ -1,4 +1,3 @@
-
 module.exports = function( req ) {
 
   req.assert( 'password', 'min-max' ).len( 6, 20 );

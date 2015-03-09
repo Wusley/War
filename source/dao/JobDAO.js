@@ -14,7 +14,7 @@ module.exports = ( function() {
         var that = this,
             findPromise = that.find( job.name );
 
-        findPromise.then( function( jobs) {
+        findPromise.then( function( jobs ) {
 
           if( !jobs ) {
 
@@ -49,6 +49,29 @@ module.exports = ( function() {
         var promise = Job.find().exec();
 
         return promise;
+
+      },
+      updateJobSkill: function( name, skills, success, fail ) {
+
+          var promise = Job
+                          .update( { name: name }, { 'skills': skills } ).exec();
+
+          promise
+            .then( function( status, details ) {
+
+              console.log(arguments);
+
+              if( !details.err ) {
+
+                success();
+
+              } else {
+
+                fail() ;
+
+              }
+
+            } );
 
       }
     };

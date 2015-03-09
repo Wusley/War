@@ -1,7 +1,8 @@
 module.exports = function( router, mongoose, cache, uuid ) {
 
   // DEPENDENCIES
-  var JobDao = require( '../dao/JobDao' );
+  var JobDao = require( '../dao/JobDao' ),
+      treatSkillsService = require( '../service/treatSkillsService' );
 
   var jobDao = new JobDao( mongoose );
 
@@ -72,9 +73,37 @@ module.exports = function( router, mongoose, cache, uuid ) {
 
       }
 
-      console.log( jobs );
-
     } );
+
+  } );
+
+
+  router.put( '/job/skills', function( req, res, next ) {
+
+    var client = {};
+        req.body.skills = treatSkillsService( req.body.skills );
+
+    function success( job ) {
+      client.cod = 200;
+
+      res.send( client );
+    }
+
+    function fail( status, errors ) {
+      client.cod = 400;
+      client.errors = errors || null;
+      client.skills = null;
+
+      if( status === 'skills' ) {
+
+        client.job = false;
+
+      }
+
+      res.send( client );
+    }
+
+    jobDao.updateJobSkill( req.body.name, req.body.skills, success, fail );
 
   } );
 

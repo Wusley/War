@@ -212,8 +212,6 @@ module.exports = ( function() {
       },
       updateJob: function( nick, job, success, fail ) {
 
-        console.log(arguments);
-
         var promise = User
                         .update( { nick: nick }, { 'job': job } ).exec();
 
