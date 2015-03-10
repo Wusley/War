@@ -14,7 +14,7 @@
   redis
     .on( 'connect', function() {
 
-        console.log( 'connected' );
+      // console.log( 'connected' );
 
     } );
 
@@ -25,6 +25,11 @@
 
     } );
 
+  var Schedule = require( './service/Schedule' );
+
+  var schedule = new Schedule();
+
+  schedule.start( 1000 );
 
   require( './controller/UserController' )( router, mongoose, redis, uuid );
   require( './controller/JobController' )( router, mongoose, redis, uuid );

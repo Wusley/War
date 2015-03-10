@@ -16,4 +16,10 @@ app.use( cookieParser() );
 
 app.use( '/', cors, routes );
 
+// process.nextTick( function() {
+
+//   console.log( 'nextTick callback teste' );
+
+// } );
+
 module.exports = app;
