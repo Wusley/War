@@ -1,25 +1,13 @@
-module.exports = function( router, mongoose, cache, uuid ) {
+module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
-  // DEPENDENCIES
+  // DEPENDENCIEs
   var userValidator = require( '../service/userValidator' ),
       emailValidator = require( '../service/emailValidator' ),
       jobValidator = require( '../service/jobValidator' ),
       passwordValidator = require( '../service/passwordValidator' ),
-      contactUser = require( '../service/contactUser' ),
-      UserDao = require( '../dao/UserDAO' ),
-      PartyDao = require( '../dao/PartyDAO' ),
-      InterceptAccess = require( '../interceptor/interceptAccess' );
+      contactUser = require( '../service/contactUser' );
 
-  var userDao = new UserDao( mongoose ),
-      partyDao = new PartyDao( mongoose ),
-      interceptAccess = new InterceptAccess( cache );
-
-  // IMPORTS
-  require( '../controller/AccessController' )( router, mongoose, cache, uuid, userDao );
-  require( '../controller/PositionController' )( router, mongoose, cache, uuid, userDao, partyDao );
-  require( '../controller/PartyController' )( router, mongoose, cache, uuid, userDao, partyDao );
-
-  router.get('/user/:token', interceptAccess.checkConnected, function( req, res, next ) {
+  router.get( '/user/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
         client = {},
@@ -69,7 +57,7 @@ module.exports = function( router, mongoose, cache, uuid ) {
 
   } );
 
-  router.post('/user', function( req, res, next ) {
+  router.post( '/user', function( req, res, next ) {
 
     var client = {},
         errors = userValidator( req );

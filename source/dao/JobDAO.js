@@ -4,7 +4,7 @@ module.exports = ( function() {
 
     var schema = require( '../model/Job' ),
         jobConfig = require( '../config/job' ),
-        jobSchema = mongoose.Schema( schema );
+        jobSchema = new mongoose.Schema( schema );
 
     var Job = mongoose.model( 'Job', jobSchema );
 

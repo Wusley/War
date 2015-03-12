@@ -1,10 +1,7 @@
-module.exports = function( router, mongoose, cache, uuid, userDao, partyDao ) {
+module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
-  // DEPENDENCIES
-  var positionValidator = require( '../service/positionValidator' ),
-      InterceptAccess = require( '../interceptor/interceptAccess' );
-
-  var interceptAccess = new InterceptAccess( cache );
+  // DEPENDENCIEs
+  var positionValidator = require( '../service/positionValidator' );
 
   router.post('/position', interceptAccess.checkConnected, function( req, res, next ) {
 

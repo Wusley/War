@@ -1,10 +1,7 @@
-module.exports = function( router, mongoose, cache, uuid ) {
+module.exports = function( router, uuid, jobDao ) {
 
-  // DEPENDENCIES
-  var JobDao = require( '../dao/JobDao' ),
-      treatSkillsService = require( '../service/treatSkillsService' );
-
-  var jobDao = new JobDao( mongoose );
+  // DEPENDENCIEs
+  var treatSkillsService = require( '../service/treatSkillsService' );
 
   router.post( '/job', function( req, res, next ) {
 

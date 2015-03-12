@@ -1,8 +1,8 @@
-
   // Config routes
   var express = require( 'express' ),
       mongodbConfig = require( './config/mongodb' ),
       redisConfig = require( './config/redis' ),
+      Schedule = require( './service/Schedule' ),
       mongoose = require( 'mongoose' ),
       uuid = require( 'node-uuid' ),
       router = express.Router();
@@ -25,14 +25,36 @@
 
     } );
 
-  var Schedule = require( './service/Schedule' );
+  // var schedule = new Schedule();
 
-  var schedule = new Schedule();
+  // schedule.start( 1000, check );
 
-  schedule.start( 1000 );
+  // function check( id ) {
 
-  require( './controller/UserController' )( router, mongoose, redis, uuid );
-  require( './controller/JobController' )( router, mongoose, redis, uuid );
-  require( './controller/SkillController' )( router, mongoose, redis, uuid );
+  //   console.log( id );
+
+  // }
+
+  // DEPENDENCIEs
+  var UserDao = require( './dao/UserDAO' ),
+      PartyDao = require( './dao/PartyDAO' ),
+      JobDao = require( './dao/JobDAO' ),
+      SkillDao = require( './dao/SkillDAO' ),
+      InterceptAccess = require( './interceptor/interceptAccess' );
+
+  // DAOs
+  var userDao = new UserDao( mongoose ),
+      partyDao = new PartyDao( mongoose ),
+      jobDao = new JobDao( mongoose ),
+      skillDao = new SkillDao( mongoose ),
+      interceptAccess = new InterceptAccess( redis );
+
+  require( './controller/UserController' )( router, interceptAccess, userDao, partyDao );
+  require( './controller/AccessController' )( router, redis, uuid, interceptAccess, userDao );
+  require( './controller/PositionController' )( router, interceptAccess, userDao, partyDao );
+  require( './controller/PartyController' )( router, interceptAccess, userDao, partyDao );
+  require( './controller/JobController' )( router, jobDao );
+  require( './controller/SkillController' )( router, skillDao );
+  require( './controller/ActionController' )( router, interceptAccess );
 
   module.exports = router;

@@ -1,13 +1,10 @@
-module.exports = function( router, mongoose, redis, uuid, userDao ) {
+module.exports = function( router, redis, uuid, interceptAccess, userDao ) {
 
-  // DEPENDENCIES
+  // DEPENDENCIEs
   var emailValidator = require( '../service/emailValidator' ),
-      InterceptAccess = require( '../interceptor/interceptAccess' ),
       bcrypt = require( 'bcrypt' ),
       config = require( '../config/user' ),
       moment = require('moment');
-
-  var interceptAccess = new InterceptAccess( redis );
 
   router.post( '/connect', function( req, res, next ) {
 
@@ -39,8 +36,6 @@ module.exports = function( router, mongoose, redis, uuid, userDao ) {
         nick: user.nick,
         expires: moment().add( 1, 'day' )
       };
-
-      console.log( redis );
 
       redis
         .hmset( data.token, { nick: data.nick, expires: data.expires }, function( error, session ) {

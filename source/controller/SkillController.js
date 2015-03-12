@@ -1,9 +1,4 @@
-module.exports = function( router, mongoose, cache, uuid ) {
-
-  // DEPENDENCIES
-  var SkillDao = require( '../dao/SkillDAO' );
-
-  var skillDao = new SkillDao( mongoose );
+module.exports = function( router, skillDao ) {
 
   router.post( '/skill', function( req, res, next ) {
 

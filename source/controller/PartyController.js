@@ -1,9 +1,4 @@
-module.exports = function( router, mongoose, cache, uuid, userDao, partyDao ) {
-
-  // DEPENDENCIES
-  var InterceptAccess = require( '../interceptor/interceptAccess' );
-
-  var interceptAccess = new InterceptAccess( cache );
+module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
   router.get('/party/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
