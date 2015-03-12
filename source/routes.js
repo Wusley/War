@@ -4,12 +4,13 @@
       redisConfig = require( './config/redis' ),
       Schedule = require( './service/Schedule' ),
       mongoose = require( 'mongoose' ),
+      redis = require( 'redis' ),
       uuid = require( 'node-uuid' ),
       router = express.Router();
 
   mongoose.connect( mongodbConfig.connect );
 
-  var redis = require('redis').createClient( redisConfig.port, redisConfig.host, { auth_pass: redisConfig.pass } );
+  redis = redis.createClient( redisConfig.port, redisConfig.host, { auth_pass: redisConfig.pass } );
 
   redis
     .on( 'connect', function() {
@@ -42,7 +43,7 @@
       SkillDao = require( './dao/SkillDAO' ),
       InterceptAccess = require( './interceptor/interceptAccess' );
 
-  // DAOs
+  // INSTANCES
   var userDao = new UserDao( mongoose ),
       partyDao = new PartyDao( mongoose ),
       jobDao = new JobDao( mongoose ),
