@@ -2,39 +2,51 @@
 
   "use strict";
 
-  function initialize( nick, partners ) {
+  function initialize( user, partners, enemies ) {
 
     var mapOptions = {
       zoom: 14,
-      // center: new google.maps.LatLng( partners[0].position[0], partners[0].position[1] ),
       'mapTypeId': google.maps.MapTypeId.ROADMAP
     };
 
     var map = new google.maps.Map( document.getElementById( 'map' ), mapOptions );
 
-    var id = 0,
-        partnersLength = partners.length;
+    var id,
+        partnersLength = partners.length,
+        enemiesLength = enemies.length;
 
+    addYou( map, user );
+
+    id = 0;
     for( ; id < partnersLength; id = id + 1 ) {
 
-      if( partners[ id ].nick !== nick ) {
-
-        addPartner( map, partners[ id ] );
-
-      } else {
-
-        addYou( map, partners[ id ] );
-
-      }
+      addPartner( map, partners[ id ] );
 
     }
 
+    id = 0;
+    for( ; id < enemiesLength; id = id + 1 ) {
+
+      addEnemy( map, enemies[ id ] );
+
+    }
+
+  }
+
+  function addEnemy( map, partner ) {
+    return new google.maps.Marker( {
+      position: new google.maps.LatLng( partner.position[ 0 ], partner.position[ 1 ] ),
+      map: map,
+      icon: 'images/enemy.png',
+      title: 'Enemy'
+    } );
   }
 
   function addPartner( map, partner ) {
     return new google.maps.Marker( {
       position: new google.maps.LatLng( partner.position[ 0 ], partner.position[ 1 ] ),
       map: map,
+      icon: 'images/ally.png',
       title: 'Partner'
     } );
   }
@@ -65,9 +77,7 @@
 
           if( data.cod === 200 ) {
 
-            console.log(data);
-
-            google.maps.event.addDomListener( window, 'load', initialize( data.nick, data.partners ) );
+            google.maps.event.addDomListener( window, 'load', initialize( data.user, data.partners, data.enemies ) );
 
           } else if( data.cod === 400 ) {
 

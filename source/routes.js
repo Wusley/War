@@ -2,10 +2,12 @@
   var express = require( 'express' ),
       mongodbConfig = require( './config/mongodb' ),
       redisConfig = require( './config/redis' ),
-      Schedule = require( './service/Schedule' ),
+      Schedule = require( './service/schedule' ),
+      JobCompose = require( './service/jobCompose' ),
       mongoose = require( 'mongoose' ),
       redis = require( 'redis' ),
       uuid = require( 'node-uuid' ),
+      cache = {},
       router = express.Router();
 
   mongoose.connect( mongodbConfig.connect );
@@ -50,12 +52,28 @@
       skillDao = new SkillDao( mongoose ),
       interceptAccess = new InterceptAccess( redis );
 
-  require( './controller/UserController' )( router, interceptAccess, userDao, partyDao );
-  require( './controller/AccessController' )( router, redis, uuid, interceptAccess, userDao );
-  require( './controller/PositionController' )( router, interceptAccess, userDao, partyDao );
-  require( './controller/PartyController' )( router, interceptAccess, userDao, partyDao );
-  require( './controller/JobController' )( router, jobDao );
-  require( './controller/SkillController' )( router, skillDao );
-  require( './controller/ActionController' )( router, interceptAccess );
+  var jobCompose = new JobCompose( jobDao, skillDao );
+
+  jobCompose.list( success, fail );
+
+  function success( data ) {
+
+    cache.jobs = data;
+
+    require( './controller/UserController' )( router, interceptAccess, userDao, partyDao );
+    require( './controller/AccessController' )( router, redis, uuid, interceptAccess, userDao );
+    require( './controller/PositionController' )( router, interceptAccess, cache, userDao, partyDao );
+    require( './controller/PartyController' )( router, interceptAccess, userDao, partyDao );
+    require( './controller/JobController' )( router, jobDao );
+    require( './controller/SkillController' )( router, interceptAccess, cache, skillDao, userDao );
+    require( './controller/ActionController' )( router, interceptAccess );
+
+  }
+
+  function fail() {
+
+
+
+  }
 
   module.exports = router;

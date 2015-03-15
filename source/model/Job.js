@@ -9,7 +9,7 @@ module.exports = {
     'int': { type: Number, default: 0 },
     'luk': { type: Number, default: 0 }
   },
-  'turns': [],
+  'sight': { type: Number, default: 1000 },
   'skills': [],
   'status': Boolean
 };

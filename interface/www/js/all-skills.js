@@ -6,7 +6,7 @@
 
   $( document.body ).ready( function () {
 
-    var url = config.url + '/skills/' + window.localStorage.getItem( 'token' );
+    var url = config.url + '/skills';
 
     $.get( url )
       .done( function( data ) {

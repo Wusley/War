@@ -1,4 +1,4 @@
-module.exports = function( router, uuid, jobDao ) {
+module.exports = function( router, jobDao ) {
 
   // DEPENDENCIEs
   var treatSkillsService = require( '../service/treatSkillsService' );

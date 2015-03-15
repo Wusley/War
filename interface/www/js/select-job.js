@@ -3,7 +3,7 @@
   "use strict";
 
   var $target = $( '.js-form-Job' ),
-      $select = $target.find( '.js-select' ),
+      $select = $( '.js-select' ),
       $submit = $target.find( '[type="submit"]' );
 
   $( document.body ).ready( function () {
@@ -25,7 +25,6 @@
             }
 
           }
-
 
         } else if( data.cod === 400 ) {
 

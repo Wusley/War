@@ -7,9 +7,7 @@
 
   $submit.on( 'click', function() {
 
-    console.log('teste');
     var data = $target.serialize();
-
 
     $.post( config.url + '/skill', data )
       .done( function( data ) {

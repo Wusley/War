@@ -218,8 +218,6 @@ module.exports = ( function() {
           promise
             .then( function( status, details ) {
 
-              console.log(arguments);
-
               if( !details.err ) {
 
                 success( nick, job );
@@ -252,8 +250,6 @@ module.exports = ( function() {
 
               password = passwordCrypt.compare( user.password, password );
 
-              console.log(password);
-
               if( password ) {
 
                 success( user );
@@ -279,7 +275,7 @@ module.exports = ( function() {
 
         if( users ) {
 
-          promise = User.find().where( { 'nick': { $in: users } } ).exec( console.log );
+          promise = User.find().where( { 'nick': { $in: users } } ).exec();
 
         } else {
 
@@ -292,13 +288,25 @@ module.exports = ( function() {
       },
 
       // ORDER BY NEARBY
-      findUserNearby: function( position, nick ) {
+      findUserNearby: function( position, nick, distance ) {
 
-        var maxDistance = ( ( 1 /  partyConfig.kmReference ) /  1000 ) * partyConfig.maxDistance,
+        distance = distance || partyConfig.maxDistance;
+
+        var maxDistance = ( ( 1 /  partyConfig.kmReference ) /  1000 ) * distance,
             nick = nick || '';
 
-        // var promise = User.find( { 'nick': { $in: [ 'etc', 'wusley' ] } } ).where( 'position' ).nearSphere( { center: position, maxDistance: maxDistance } ).exec();
         var promise = User.where( 'position' ).nearSphere( { center: position, maxDistance: maxDistance } ).where( 'nick' ).ne( nick ).exec();
+
+        return promise;
+
+      },
+
+      // ORDER BY NEARBY
+      findEnemyNearby: function( position, distance, except ) {
+
+        var maxDistance = ( ( 1 /  partyConfig.kmReference ) /  1000 ) * distance;
+
+        var promise = User.where( 'position' ).nearSphere( { center: position, maxDistance: maxDistance } ).where( 'nick' ).nin( except ).exec();
 
         return promise;
 

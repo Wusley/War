@@ -1,4 +1,4 @@
-module.exports = function( router, interceptAccess, userDao, partyDao ) {
+module.exports = function( router, interceptAccess, cache, userDao, partyDao ) {
 
   // DEPENDENCIEs
   var positionValidator = require( '../service/positionValidator' );
@@ -165,12 +165,14 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
     var nick = req.session.nick,
         client = {},
-        promiseParty = partyDao.findPartyUser( nick );
+        promiseParty = partyDao.findPartyUser( nick ),
+        promiseEnemy = partyDao.findPartyUser( nick );
 
-    function success( partners ) {
+    function success( user, partners, enemies ) {
       client.cod = 200;
-      client.nick = nick;
+      client.user = user;
       client.partners = partners;
+      client.enemies = enemies || false;
 
       res.send( client );
     }
@@ -199,6 +201,8 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
     promiseParty
       .then( function( party ) {
 
+        var user, exceptPartners = [], partners = [], enemies = [];
+
         if( party ) {
 
           var promiseUsers = userDao.findList( party.partners );
@@ -207,7 +211,39 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
             if( users ) {
 
-              success( users );
+              var id = 0,
+                  usersLength = users.length;
+              for( ; id < usersLength; id = id + 1 ) {
+
+                exceptPartners.push( users[ id ].nick );
+
+                if( users[ id ].nick !== nick ) {
+
+                  partners.push( users[ id ] );
+
+                } else {
+
+                  user = users[ id ];
+
+                }
+
+              }
+
+              var promiseEnemies = userDao.findEnemyNearby( user.position, cache.jobs[ user.job ].sight, exceptPartners );
+
+              promiseEnemies.then( function( enemies ) {
+
+                if( enemies ) {
+
+                  success( user, partners, enemies );
+
+                } else {
+
+                  success( user, partners );
+
+                }
+
+              } );
 
             } else {
 
@@ -223,27 +259,7 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
         }
 
-
-
       } );
-
-    // promise
-    //   .then( function( user ) {
-
-    //     if( user.position ) {
-
-    //       success( {
-    //         'lat': user.position[ 0 ],
-    //         'lng': user.position[ 1 ]
-    //       } );
-
-    //     } else {
-
-    //       fail( 'position' );
-
-    //     }
-
-    //   } );
 
   } );
 

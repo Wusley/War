@@ -6,7 +6,7 @@ html, body, #map {
   -webkit-transform: rotateZ(360deg);
 }
 
-input, textarea {
+input, textarea, select {
   display: block;
   margin-bottom: 10px;
 }
