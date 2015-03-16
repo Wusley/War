@@ -1,4 +1,4 @@
-module.exports = ( function( req ) {
+module.exports = ( function() {
 
   var treatSkills = function( skills ) {
 

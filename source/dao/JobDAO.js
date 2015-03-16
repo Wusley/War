@@ -59,8 +59,6 @@ module.exports = ( function() {
           promise
             .then( function( status, details ) {
 
-              console.log(arguments);
-
               if( !details.err ) {
 
                 success();

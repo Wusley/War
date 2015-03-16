@@ -28,16 +28,6 @@
 
     } );
 
-  // var schedule = new Schedule();
-
-  // schedule.start( 1000, check );
-
-  // function check( id ) {
-
-  //   console.log( id );
-
-  // }
-
   // DEPENDENCIEs
   var UserDao = require( './dao/UserDAO' ),
       PartyDao = require( './dao/PartyDAO' ),
@@ -56,23 +46,32 @@
 
   jobCompose.list( success, fail );
 
+  var schedule = new Schedule();
+
+
   function success( data ) {
 
     cache.jobs = data;
 
-    require( './controller/UserController' )( router, interceptAccess, userDao, partyDao );
-    require( './controller/AccessController' )( router, redis, uuid, interceptAccess, userDao );
-    require( './controller/PositionController' )( router, interceptAccess, cache, userDao, partyDao );
-    require( './controller/PartyController' )( router, interceptAccess, userDao, partyDao );
-    require( './controller/JobController' )( router, jobDao );
-    require( './controller/SkillController' )( router, interceptAccess, cache, skillDao, userDao );
-    require( './controller/ActionController' )( router, interceptAccess );
+    var promise = schedule.start( 3000, userDao );
+
+    promise
+      .then( function() {
+
+        require( './controller/UserController' )( router, interceptAccess, userDao, partyDao );
+        require( './controller/AccessController' )( router, redis, uuid, interceptAccess, userDao );
+        require( './controller/PositionController' )( router, interceptAccess, cache, userDao, partyDao );
+        require( './controller/PartyController' )( router, interceptAccess, userDao, partyDao );
+        require( './controller/JobController' )( router, jobDao );
+        require( './controller/SkillController' )( router, interceptAccess, cache, schedule, skillDao, userDao );
+        require( './controller/ActionController' )( router, interceptAccess );
+
+      } );
+
 
   }
 
   function fail() {
-
-
 
   }
 

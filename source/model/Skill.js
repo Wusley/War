@@ -1,4 +1,5 @@
 module.exports = {
+  'lv': Number,
   'name': String,
   'type': String,
   'description': String,

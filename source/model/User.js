@@ -7,6 +7,7 @@ module.exports = {
  'soul': { type: Number, default: 100 },
  'position': [],
  'job': String,
+ 'skillUpgrading': [],
  'skillUpgrades': [],
  'attack': [],
  'defense': [],
@@ -16,5 +17,6 @@ module.exports = {
     'resetPasswordStatus': Boolean
   },
  'status': Boolean,
+ 'turns': [],
  'role': { type: Number, default: 0 }
 };

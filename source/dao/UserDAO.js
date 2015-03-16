@@ -153,7 +153,7 @@ module.exports = ( function() {
               if( dateNow.diff( dateExpire ) < 0 && user.forgotPassword.resetPasswordStatus === true ) {
 
                 var promise = User
-                                .update( { _id: user.id }, { 'password': password, 'forgotPassword.resetPasswordStatus': false } ).exec();
+                                .findOneAndUpdate( { _id: user.id }, { 'password': password, 'forgotPassword.resetPasswordStatus': false } ).exec();
 
                 promise
                   .then( function( status, details ) {
@@ -192,7 +192,7 @@ module.exports = ( function() {
 
         var position = [ parseFloat( latitude ), parseFloat( longitude ) ],
             promise = User
-                        .update( { nick: nick }, { 'position': position } ).exec();
+                        .findOneAndUpdate( { nick: nick }, { 'position': position } ).exec();
 
           promise
             .then( function( status, details ) {
@@ -213,7 +213,7 @@ module.exports = ( function() {
       updateJob: function( nick, job, success, fail ) {
 
         var promise = User
-                        .update( { nick: nick }, { 'job': job } ).exec();
+                        .findOneAndUpdate( { nick: nick }, { 'job': job } ).exec();
 
           promise
             .then( function( status, details ) {
@@ -229,6 +229,38 @@ module.exports = ( function() {
               }
 
             } );
+
+      },
+      findSkillUpgrading: function() {
+
+        var promise = User
+                        .find( { 'skillUpgrading': { $exists: true, $not: { $size: 0 } } } ).exec();
+
+        return promise;
+
+      },
+      updateSkillUpgrading: function( nick, soul, upgrading, success, fail ) {
+
+        var promise = User
+                        .findOneAndUpdate( { nick: nick }, { 'soul': soul, $push: { 'skillUpgrading': upgrading } } ).exec();
+
+        return promise;
+
+      },
+      updateSkillUpgrade: function( nick, upgrading ) {
+
+        var promise = User
+                        .findOneAndUpdate( { nick: nick }, { $pull: { 'skillUpgrading': { 'skill': upgrading.skill } }, $push: { 'skillUpgrades': upgrading } }, { multi: true } ).exec();
+
+        return promise;
+
+      },
+      removeSkillUpgrading: function( nick, skill ) {
+
+        var promise = User
+                        .findOneAndUpdate( { nick: nick }, { $pull: { 'skillUpgrading': { 'skill': skill } } } ).exec();
+
+        return promise;
 
       },
       findEmail: function( email ) {
