@@ -14,4 +14,10 @@ module.exports = function( router, interceptAccess ) {
 
   } );
 
+  router.get( '/active/:token', function( req, res, next ) {
+
+    //
+
+  } );
+
 };

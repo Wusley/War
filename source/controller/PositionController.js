@@ -165,8 +165,7 @@ module.exports = function( router, interceptAccess, cache, userDao, partyDao ) {
 
     var nick = req.session.nick,
         client = {},
-        promiseParty = partyDao.findPartyUser( nick ),
-        promiseEnemy = partyDao.findPartyUser( nick );
+        promiseParty = partyDao.findPartyUser( nick );
 
     function success( user, partners, enemies ) {
       client.cod = 200;
@@ -232,6 +231,9 @@ module.exports = function( router, interceptAccess, cache, userDao, partyDao ) {
               var promiseEnemies = userDao.findEnemyNearby( user.position, cache.jobs[ user.job ].sight, exceptPartners );
 
               promiseEnemies.then( function( enemies ) {
+
+                console.log(enemies);
+
 
                 if( enemies ) {
 

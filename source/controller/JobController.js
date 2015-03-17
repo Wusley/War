@@ -1,7 +1,7 @@
 module.exports = function( router, jobDao ) {
 
   // DEPENDENCIEs
-  var treatSkillsService = require( '../service/treatSkillsService' );
+  var treatSkills = require( '../service/treatSkills' );
 
   router.post( '/job', function( req, res, next ) {
 
@@ -78,7 +78,7 @@ module.exports = function( router, jobDao ) {
   router.put( '/job/skills', function( req, res, next ) {
 
     var client = {};
-        req.body.skills = treatSkillsService( req.body.skills );
+        req.body.skills = treatSkills( req.body.skills );
 
     function success( job ) {
       client.cod = 200;

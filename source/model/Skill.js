@@ -4,7 +4,8 @@ module.exports = {
   'type': String,
   'description': String,
   'observation': String,
-  'castSoul': Number,
+  'delay': { type: Date, default: 0 },
+  'soul': Number,
   'upgradeSoul': Number,
   'upgradeTime': Number, // minute
   'turns': { type: Number, default: 0 }, // #default 0 - infinity

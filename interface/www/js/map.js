@@ -2,12 +2,12 @@
 
   "use strict";
 
-  function initialize( user, partners, enemies ) {
+  var mapOptions = {
+    zoom: 14,
+    'mapTypeId': google.maps.MapTypeId.ROADMAP
+  };
 
-    var mapOptions = {
-      zoom: 14,
-      'mapTypeId': google.maps.MapTypeId.ROADMAP
-    };
+  function initialize( user, partners, enemies ) {
 
     var map = new google.maps.Map( document.getElementById( 'map' ), mapOptions );
 
@@ -60,12 +60,53 @@
 
     map.setCenter( new google.maps.LatLng( partner.position[ 0 ], partner.position[ 1 ] ) );
 
-    return new google.maps.Marker( {
+     var mapOptions = {
+        zoom: 14,
+        center: new google.maps.LatLng( partner.position[ 0 ], partner.position[ 1 ] ),
+        'mapTypeId': google.maps.MapTypeId.ROADMAP
+      };
+
+      var rad = 500;
+
+      // convert mi to km
+      rad = rad / 0.62137;
+
+      var draw_circle = new google.maps.Circle( {
+          center: mapOptions.center,
+          radius: rad,
+          strokeColor: "red",
+          strokeOpacity: 0.6,
+          strokeWeight: 1,
+          fillColor: "transparent",
+          fillOpacity: 0.35,
+          map: map
+      } );
+
+      var obj = {
+        'id': 'lol'
+      };
+
+      draw_circle.objInfo = obj;
+
+
+    var marker = new google.maps.Marker( {
       position: new google.maps.LatLng( partner.position[ 0 ], partner.position[ 1 ] ),
       map: map,
       icon: 'images/pin.png',
       title: 'You'
     } );
+
+    var contentString = 'Teste';
+
+    var infowindow = new google.maps.InfoWindow( {
+      content: contentString
+    } );
+
+    google.maps.event.addListener( marker, 'click', function() {
+      infowindow.open( map, marker );
+    } );
+
+    return marker;
   }
 
   $( document.body ).ready( function () {

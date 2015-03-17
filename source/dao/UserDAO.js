@@ -1,10 +1,11 @@
-module.exports = ( function() {
+  module.exports = ( function() {
 
-  var UserDAO = function( mongoose ) {
+  var UserDAO = function( mongoose, cache ) {
 
     var moment = require( 'moment' ),
         crypto = require( 'crypto' ),
         PasswordCrypt = require( '../service/passwordCrypt' ),
+        treatUser = require( '../service/treatUser' ),
         schema = require( '../model/User' ),
         partyConfig = require( '../config/party' ),
         userSchema = mongoose.Schema( schema );
@@ -215,20 +216,20 @@ module.exports = ( function() {
         var promise = User
                         .findOneAndUpdate( { nick: nick }, { 'job': job } ).exec();
 
-          promise
-            .then( function( status, details ) {
+        promise
+          .then( function( status, details ) {
 
-              if( !details.err ) {
+            if( !details.err ) {
 
-                success( nick, job );
+              success( nick, job );
 
-              } else {
+            } else {
 
-                fail() ;
+              fail() ;
 
-              }
+            }
 
-            } );
+          } );
 
       },
       findSkillUpgrading: function() {
@@ -338,7 +339,19 @@ module.exports = ( function() {
 
         var maxDistance = ( ( 1 /  partyConfig.kmReference ) /  1000 ) * distance;
 
-        var promise = User.where( 'position' ).nearSphere( { center: position, maxDistance: maxDistance } ).where( 'nick' ).nin( except ).exec();
+        var promise = User.where( 'position' ).nearSphere( { center: position, maxDistance: maxDistance } ).where( 'nick' ).nin( except ).lean().exec( function( err, data ) {
+
+          if( !err ) {
+
+            treatUser( data, cache.jobs );
+
+          } else {
+
+            console.log( err );
+
+          }
+
+        } );
 
         return promise;
 

@@ -29,18 +29,12 @@
     } );
 
   // DEPENDENCIEs
-  var UserDao = require( './dao/UserDAO' ),
-      PartyDao = require( './dao/PartyDAO' ),
-      JobDao = require( './dao/JobDAO' ),
-      SkillDao = require( './dao/SkillDAO' ),
-      InterceptAccess = require( './interceptor/interceptAccess' );
+  var JobDao = require( './dao/JobDAO' ),
+      SkillDao = require( './dao/SkillDAO' );
 
   // INSTANCES
-  var userDao = new UserDao( mongoose ),
-      partyDao = new PartyDao( mongoose ),
-      jobDao = new JobDao( mongoose ),
-      skillDao = new SkillDao( mongoose ),
-      interceptAccess = new InterceptAccess( redis );
+  var jobDao = new JobDao( mongoose ),
+      skillDao = new SkillDao( mongoose );
 
   var jobCompose = new JobCompose( jobDao, skillDao );
 
@@ -48,10 +42,19 @@
 
   var schedule = new Schedule();
 
-
   function success( data ) {
 
     cache.jobs = data;
+
+    // DEPENDENCIEs
+    var UserDao = require( './dao/UserDAO' ),
+        PartyDao = require( './dao/PartyDAO' ),
+        InterceptAccess = require( './interceptor/interceptAccess' );
+
+    // INSTANCES
+    var userDao = new UserDao( mongoose, cache ),
+        partyDao = new PartyDao( mongoose ),
+        interceptAccess = new InterceptAccess( redis );
 
     var promise = schedule.start( 3000, userDao );
 
@@ -67,7 +70,6 @@
         require( './controller/ActionController' )( router, interceptAccess );
 
       } );
-
 
   }
 
