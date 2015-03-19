@@ -33,9 +33,9 @@
 
   }
 
-  function addEnemy( map, partner ) {
+  function addEnemy( map, enemy ) {
     return new google.maps.Marker( {
-      position: new google.maps.LatLng( partner.position[ 0 ], partner.position[ 1 ] ),
+      position: new google.maps.LatLng( enemy.position[ 0 ], enemy.position[ 1 ] ),
       map: map,
       icon: 'images/enemy.png',
       title: 'Enemy'
@@ -51,46 +51,45 @@
     } );
   }
 
-  function addYou( map, partner ) {
+  function addYou( map, user ) {
 
     var pin = {
       path: 'images/pin.png',
       scale: 1
     };
 
-    map.setCenter( new google.maps.LatLng( partner.position[ 0 ], partner.position[ 1 ] ) );
+    var mapOptions = {
+      zoom: 14,
+      center: new google.maps.LatLng( user.position[ 0 ], user.position[ 1 ] ),
+      'mapTypeId': google.maps.MapTypeId.ROADMAP
+    };
 
-     var mapOptions = {
-        zoom: 14,
-        center: new google.maps.LatLng( partner.position[ 0 ], partner.position[ 1 ] ),
-        'mapTypeId': google.maps.MapTypeId.ROADMAP
-      };
+    map.setCenter( mapOptions.center );
 
-      var rad = 500;
+    var rad = user.job.sight;
 
-      // convert mi to km
-      rad = rad / 0.62137;
+    // convert mi to km
+    rad = rad / 0.62137;
 
-      var draw_circle = new google.maps.Circle( {
-          center: mapOptions.center,
-          radius: rad,
-          strokeColor: "red",
-          strokeOpacity: 0.6,
-          strokeWeight: 1,
-          fillColor: "transparent",
-          fillOpacity: 0.35,
-          map: map
-      } );
+    var draw_circle = new google.maps.Circle( {
+      center: mapOptions.center,
+      radius: rad,
+      strokeColor: "red",
+      strokeOpacity: 0.6,
+      strokeWeight: 1,
+      fillColor: "transparent",
+      fillOpacity: 0.35,
+      map: map
+    } );
 
-      var obj = {
-        'id': 'lol'
-      };
+    var obj = {
+      'id': 'lol'
+    };
 
-      draw_circle.objInfo = obj;
-
+    draw_circle.objInfo = obj;
 
     var marker = new google.maps.Marker( {
-      position: new google.maps.LatLng( partner.position[ 0 ], partner.position[ 1 ] ),
+      position: mapOptions.center,
       map: map,
       icon: 'images/pin.png',
       title: 'You'

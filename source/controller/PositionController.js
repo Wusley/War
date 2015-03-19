@@ -1,7 +1,21 @@
 module.exports = function( router, interceptAccess, cache, userDao, partyDao ) {
 
   // DEPENDENCIEs
-  var positionValidator = require( '../service/positionValidator' );
+  var mapConfig = require( '../config/map' ),
+      positionValidator = require( '../service/positionValidator' );
+
+  router.get( '/map/:token', interceptAccess.checkConnected, function( req, res, next ) {
+
+    var nick = req.session.nick,
+        client = {};
+
+    client.cod = 200;
+    client.map = {};
+    client.map[ 'limit-position' ] = mapConfig[ 'limit-position' ];
+
+    res.send( client );
+
+  } );
 
   router.post('/position', interceptAccess.checkConnected, function( req, res, next ) {
 
@@ -228,12 +242,9 @@ module.exports = function( router, interceptAccess, cache, userDao, partyDao ) {
 
               }
 
-              var promiseEnemies = userDao.findEnemyNearby( user.position, cache.jobs[ user.job ].sight, exceptPartners );
+              var promiseEnemies = userDao.findEnemyNearby( user.position, user.job.sight, exceptPartners );
 
               promiseEnemies.then( function( enemies ) {
-
-                console.log(enemies);
-
 
                 if( enemies ) {
 

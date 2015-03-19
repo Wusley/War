@@ -5,7 +5,7 @@
     var moment = require( 'moment' ),
         crypto = require( 'crypto' ),
         PasswordCrypt = require( '../service/passwordCrypt' ),
-        treatUser = require( '../service/treatUser' ),
+        treatUser = require( '../service/treatUser' )( cache.jobs ),
         schema = require( '../model/User' ),
         partyConfig = require( '../config/party' ),
         userSchema = mongoose.Schema( schema );
@@ -119,14 +119,14 @@
       },
       findId: function( id ) {
 
-        var promise = User.findOne( { _id: id } ).exec();
+        var promise = User.findOne( { _id: id } ).lean().exec( treatUser );
 
         return promise;
 
       },
       findUser: function( nick ) {
 
-        var promise = User.findOne( { nick: nick } ).exec();
+        var promise = User.findOne( { nick: nick } ).lean().exec( treatUser );
 
         return promise;
 
@@ -193,7 +193,7 @@
 
         var position = [ parseFloat( latitude ), parseFloat( longitude ) ],
             promise = User
-                        .findOneAndUpdate( { nick: nick }, { 'position': position } ).exec();
+                        .findOneAndUpdate( { nick: nick }, { 'position': position } ).lean().exec( treatUser );
 
           promise
             .then( function( status, details ) {
@@ -214,7 +214,7 @@
       updateJob: function( nick, job, success, fail ) {
 
         var promise = User
-                        .findOneAndUpdate( { nick: nick }, { 'job': job } ).exec();
+                        .findOneAndUpdate( { nick: nick }, { 'job': job } ).lean().exec( treatUser );
 
         promise
           .then( function( status, details ) {
@@ -235,7 +235,7 @@
       findSkillUpgrading: function() {
 
         var promise = User
-                        .find( { 'skillUpgrading': { $exists: true, $not: { $size: 0 } } } ).exec();
+                        .find( { 'skillUpgrading': { $exists: true, $not: { $size: 0 } } } ).lean().exec( treatUser );
 
         return promise;
 
@@ -243,7 +243,7 @@
       updateSkillUpgrading: function( nick, soul, upgrading, success, fail ) {
 
         var promise = User
-                        .findOneAndUpdate( { nick: nick }, { 'soul': soul, $push: { 'skillUpgrading': upgrading } } ).exec();
+                        .findOneAndUpdate( { nick: nick }, { 'soul': soul, $push: { 'skillUpgrading': upgrading } } ).lean().exec( treatUser );
 
         return promise;
 
@@ -251,7 +251,7 @@
       updateSkillUpgrade: function( nick, upgrading ) {
 
         var promise = User
-                        .findOneAndUpdate( { nick: nick }, { $pull: { 'skillUpgrading': { 'skill': upgrading.skill } }, $push: { 'skillUpgrades': upgrading } }, { multi: true } ).exec();
+                        .findOneAndUpdate( { nick: nick }, { $pull: { 'skillUpgrading': { 'skill': upgrading.skill } }, $push: { 'skillUpgrades': upgrading } }, { multi: true } ).lean().exec( treatUser );
 
         return promise;
 
@@ -259,7 +259,7 @@
       removeSkillUpgrading: function( nick, skill ) {
 
         var promise = User
-                        .findOneAndUpdate( { nick: nick }, { $pull: { 'skillUpgrading': { 'skill': skill } } } ).exec();
+                        .findOneAndUpdate( { nick: nick }, { $pull: { 'skillUpgrading': { 'skill': skill } } } ).lean().exec( treatUser );
 
         return promise;
 
@@ -308,11 +308,11 @@
 
         if( users ) {
 
-          promise = User.find().where( { 'nick': { $in: users } } ).exec();
+          promise = User.find().where( { 'nick': { $in: users } } ).lean().exec( treatUser );
 
         } else {
 
-          promise = User.find().exec();
+          promise = User.find().lean().exec( treatUser );
 
         }
 
@@ -328,7 +328,7 @@
         var maxDistance = ( ( 1 /  partyConfig.kmReference ) /  1000 ) * distance,
             nick = nick || '';
 
-        var promise = User.where( 'position' ).nearSphere( { center: position, maxDistance: maxDistance } ).where( 'nick' ).ne( nick ).exec();
+        var promise = User.where( 'position' ).nearSphere( { center: position, maxDistance: maxDistance } ).where( 'nick' ).ne( nick ).lean().exec( treatUser );
 
         return promise;
 
@@ -339,19 +339,7 @@
 
         var maxDistance = ( ( 1 /  partyConfig.kmReference ) /  1000 ) * distance;
 
-        var promise = User.where( 'position' ).nearSphere( { center: position, maxDistance: maxDistance } ).where( 'nick' ).nin( except ).lean().exec( function( err, data ) {
-
-          if( !err ) {
-
-            treatUser( data, cache.jobs );
-
-          } else {
-
-            console.log( err );
-
-          }
-
-        } );
+        var promise = User.where( 'position' ).nearSphere( { center: position, maxDistance: maxDistance } ).where( 'nick' ).nin( except ).lean().exec( treatUser );
 
         return promise;
 

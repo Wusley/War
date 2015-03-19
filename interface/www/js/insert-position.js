@@ -61,7 +61,7 @@
 
   // document.addEventListener("deviceready", onDeviceReady, false);
 
-  function initialize() {
+  function initialize( settings ) {
 
     navigator.geolocation.getCurrentPosition( showMap );
 
@@ -75,7 +75,7 @@
 
       var map = new google.maps.Map( document.getElementById( 'map' ), mapOptions );
 
-      var rad = 500;
+      var rad = settings[ 'limit-position' ];
 
       // convert mi to km
       rad = rad / 0.62137;
@@ -117,6 +117,25 @@
 
   }
 
-  google.maps.event.addDomListener(window, 'load', initialize);
+  $( document.body ).ready( function () {
+
+    var url = config.url + '/map/' + window.localStorage.getItem( 'token' );
+
+    $.get( url )
+      .done( function( data ) {
+
+        if( data.cod === 200 ) {
+
+          google.maps.event.addDomListener( window, 'load', initialize( data.map ) );
+
+        } else if( data.cod === 400 ) {
+
+          console.log( data );
+
+        }
+
+      } );
+
+  } );
 
 } )( jQuery, window, undefined);

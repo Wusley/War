@@ -1,12 +1,10 @@
-module.exports = ( function() {
+module.exports = function( jobs ) {
 
-  var treatUser = function( users, jobs ) {
+  var treatUser = function( err, users ) {
 
-    if( users.length === 1 ) {
+    var type = users.constructor.name;
 
-      users.job = jobs[ users.job ];
-
-    } else if( users.length > 1 ) {
+    if( !err && type === 'Array' && users && users.length > 0 ) {
 
       var id = 0,
           usersLength = users.length;
@@ -16,10 +14,14 @@ module.exports = ( function() {
 
       }
 
+    } else if( !err && type === 'Object' && users  ) {
+
+      users.job = jobs[ users.job ];
+
     }
 
   }
 
   return treatUser;
 
-} () );
+};

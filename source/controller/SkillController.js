@@ -109,7 +109,7 @@ module.exports = function( router, interceptAccess, cache, schedule, skillDao, u
 
       if( user ) {
 
-        success( cache.jobs[ user.job ].skills, user.upgrades );
+        success( user.job.skills, user.upgrades );
 
       } else {
 
@@ -291,7 +291,7 @@ module.exports = function( router, interceptAccess, cache, schedule, skillDao, u
 
           if( user ) {
 
-            var status = checkSkillUpgrade( cache.jobs, user.job, user.skillUpgrading, user.skillUpgrades, skill.name );
+            var status = checkSkillUpgrade( user.job, user.skillUpgrading, user.skillUpgrades, skill.name );
 
             switch( status ) {
               case 'job': fail( 'job' );
