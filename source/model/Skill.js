@@ -10,6 +10,6 @@ module.exports = {
   'upgradeTime': Number, // minute
   'turns': { type: Number, default: 0 }, // #default 0 - infinity
   'recipe': {},
-  'common': Boolean,
+  'common': Boolean, // basic skill
   'status': Boolean
 };

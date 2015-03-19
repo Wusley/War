@@ -1,6 +1,6 @@
 module.exports = ( function() {
 
-  var checkSkillUpgrade = function( userJob, userSkillUpgrading, userUpgrades, skillName ) {
+  var checkSkillUpgrade = function( userJob, userSkillUpgrading, userSkillUpgrades, skillName ) {
 
     var status = {};
 
@@ -33,11 +33,14 @@ module.exports = ( function() {
 
     };
 
+        console.log( userSkillUpgrades);
     var upgrade = 0,
-        userUpgradesLength = userUpgrades.length;
-    for( ; upgrade < userUpgradesLength ; upgrade = upgrade + 1 ) {
+        userSkillUpgradesLength = userSkillUpgrades.length;
 
-      if( userUpgrades[ upgrade ].skill === skillName ) {
+
+    for( ; upgrade < userSkillUpgradesLength ; upgrade = upgrade + 1 ) {
+
+      if( userSkillUpgrades[ upgrade ].skill === skillName ) {
 
         status.upgrade = true;
 
@@ -66,6 +69,8 @@ module.exports = ( function() {
       status = '';
 
     }
+
+    console.log( status );
 
     return status;
 

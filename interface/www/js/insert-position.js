@@ -75,25 +75,17 @@
 
       var map = new google.maps.Map( document.getElementById( 'map' ), mapOptions );
 
-      var rad = settings[ 'limit-position' ];
-
-      // convert mi to km
-      rad = rad / 0.62137;
-
       var draw_circle = new google.maps.Circle( {
-          center: mapOptions.center,
-          radius: rad,
-          strokeColor: "#FF0000",
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: "#FF0000",
-          fillOpacity: 0.35,
-          map: map
-      } );
-
-      var obj = {
-        'id': 'lol'
-      };
+            center: mapOptions.center,
+            radius: settings[ 'limit-position' ],
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: "#FF0000",
+            fillOpacity: 0.35,
+            map: map
+          } ),
+          obj = { 'id': 'lol' };
 
       draw_circle.objInfo = obj;
 

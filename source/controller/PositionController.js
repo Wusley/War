@@ -17,7 +17,7 @@ module.exports = function( router, interceptAccess, cache, userDao, partyDao ) {
 
   } );
 
-  router.post('/position', interceptAccess.checkConnected, function( req, res, next ) {
+  router.post( '/position', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
         client = {},

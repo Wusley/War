@@ -1,9 +1,20 @@
-// schedule = new Schedule(),
+module.exports = {
+  passiveSkills: function( user ) {
 
-  // schedule.start( 1000, check );
+    if( user && user.skillUpgrades ) {
 
-  // function check( id ) {
+      var id = 0,
+          skillsLength = user.skillUpgrades.length;
+      for( ; id < skillsLength; id = id + 1 ) {
 
-  //   console.log( id );
+        console.log( user.skillUpgrades[ id ].name );
 
-  // }
+      }
+
+      return user;
+
+    }
+
+  }
+
+};
