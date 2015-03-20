@@ -1,4 +1,4 @@
-module.exports = function( router, interceptAccess, cache, schedule, skillDao, userDao ) {
+module.exports = function( router, interceptAccess, schedule, skillDao, userDao ) {
 
   // DEPENDENCIEs
   var checkSkillUpgrade = require( '../service/checkSkillUpgrade' ),

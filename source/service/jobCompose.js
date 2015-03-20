@@ -2,6 +2,8 @@ module.exports = ( function() {
 
   var JobCompose = function( jobDao, skillDao ) {
 
+    var extend = require( 'extend' );
+
     return {
       list: function( success, fail ) {
 
@@ -42,14 +44,14 @@ module.exports = ( function() {
           var skill = 0,
               skillsLength = skills.length,
               skillsObj = {},
-              commonCollection = [];
+              commonCollection = {};
           for( ; skill < skillsLength ; skill = skill + 1 ) {
 
             skillsObj[ skills[ skill ].name ] = skills[ skill ];
 
             if( skills[ skill ].common ) {
 
-              commonCollection.push( skills[ skill ] );
+              commonCollection[ skills[ skill ].name ] = skills[ skill ];
 
             }
 
@@ -62,16 +64,16 @@ module.exports = ( function() {
 
             var skill = 0,
                 skills = jobs[ job ].skills,
-                skillsLength = skills.length,
-                skillsCollection = [];
+                skillsLength = skills.length;
+
+                jobsObj[ jobs[ job ].name ] = jobs[ job ].toObject();
+                jobsObj[ jobs[ job ].name ].skills = commonCollection;
+
             for( ; skill < skillsLength ; skill = skill + 1 ) {
 
-              skillsCollection.push( skillsObj[ jobs[ job ].skills[ skill ] ] );
+              jobs[ job ].skills[ skills[ skill ] ] = skillsObj[ skills[ skill ] ];
 
             };
-
-            jobs[ job ].skills = commonCollection.concat( skillsCollection );
-            jobsObj[ jobs[ job ].name ] = jobs[ job ];
 
           };
 

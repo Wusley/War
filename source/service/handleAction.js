@@ -7,7 +7,7 @@ module.exports = {
           skillsLength = user.skillUpgrades.length;
       for( ; id < skillsLength; id = id + 1 ) {
 
-        console.log( user.skillUpgrades[ id ].name );
+        console.log( user.job.skills[ user.skillUpgrades[ id ].skill ] );
 
       }
 

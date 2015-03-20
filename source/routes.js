@@ -51,6 +51,7 @@
         PartyDao = require( './dao/PartyDAO' ),
         InterceptAccess = require( './interceptor/interceptAccess' );
 
+
     // INSTANCES
     var userDao = new UserDao( mongoose, cache ),
         partyDao = new PartyDao( mongoose ),
@@ -63,10 +64,10 @@
 
         require( './controller/UserController' )( router, interceptAccess, userDao, partyDao );
         require( './controller/AccessController' )( router, redis, uuid, interceptAccess, userDao );
-        require( './controller/PositionController' )( router, interceptAccess, cache, userDao, partyDao );
+        require( './controller/PositionController' )( router, interceptAccess, userDao, partyDao );
         require( './controller/PartyController' )( router, interceptAccess, userDao, partyDao );
         require( './controller/JobController' )( router, jobDao );
-        require( './controller/SkillController' )( router, interceptAccess, cache, schedule, skillDao, userDao );
+        require( './controller/SkillController' )( router, interceptAccess, schedule, skillDao, userDao );
         require( './controller/ActionController' )( router, interceptAccess );
 
       } );

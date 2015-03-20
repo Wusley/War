@@ -1,4 +1,4 @@
-module.exports = function( router, interceptAccess, cache, userDao, partyDao ) {
+module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
   // DEPENDENCIEs
   var mapConfig = require( '../config/map' ),
