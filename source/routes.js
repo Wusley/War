@@ -10,6 +10,9 @@
       cache = {},
       router = express.Router();
 
+  // add function type in mongoose
+  require( 'mongoose-function' )( mongoose );
+
   mongoose.connect( mongodbConfig.connect );
 
   redis = redis.createClient( redisConfig.port, redisConfig.host, { auth_pass: redisConfig.pass } );
@@ -50,7 +53,6 @@
     var UserDao = require( './dao/UserDAO' ),
         PartyDao = require( './dao/PartyDAO' ),
         InterceptAccess = require( './interceptor/interceptAccess' );
-
 
     // INSTANCES
     var userDao = new UserDao( mongoose, cache ),

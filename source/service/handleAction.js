@@ -7,7 +7,11 @@ module.exports = {
           skillsLength = user.skillUpgrades.length;
       for( ; id < skillsLength; id = id + 1 ) {
 
-        console.log( user.job.skills[ user.skillUpgrades[ id ].skill ] );
+        if( user.job.type === 'Passive' ) {
+
+          user.job = user.job.skills[ user.skillUpgrades[ id ].skill ].recipe( user.job );
+
+        }
 
       }
 
@@ -15,6 +19,32 @@ module.exports = {
 
     }
 
-  }
+  },
+  actveSkill: function( user, target ) {
 
+    if( user && user.skillUpgrades ) {
+
+    }
+
+    return user;
+
+  },
+  attackSkill: function( user ) {
+
+    if( user && user.skillUpgrades ) {
+
+    }
+
+    return user;
+
+  },
+  defenseSkill: function( user ) {
+
+    if( user && user.skillUpgrades ) {
+
+    }
+
+    return user;
+
+  }
 };

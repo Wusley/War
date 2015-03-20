@@ -291,8 +291,6 @@ module.exports = function( router, interceptAccess, schedule, skillDao, userDao 
 
           if( user ) {
 
-            console.log(user);
-
             var status = checkSkillUpgrade( user.job, user.skillUpgrading, user.skillUpgrades, skill.name );
 
             switch( status ) {

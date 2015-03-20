@@ -5,7 +5,6 @@ module.exports = function( jobs ) {
     var type = users.constructor.name,
         handleAction = require( '../service/handleAction' );
 
-
     if( !err && type === 'Array' && users && users.length > 0 ) {
 
       var id = 0,

@@ -18,8 +18,6 @@ module.exports = ( function() {
 
           function ping( queue ) {
 
-            console.log( queue );
-
             var id = 0, length = queue.length, now = moment();
             for( ; id < length ; id = id + 1 ) {
 

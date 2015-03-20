@@ -36,7 +36,6 @@ module.exports = ( function() {
 
           }
 
-
         } );
 
         function injectSkill( jobs, skills ) {
@@ -67,13 +66,15 @@ module.exports = ( function() {
                 skillsLength = skills.length;
 
                 jobsObj[ jobs[ job ].name ] = jobs[ job ].toObject();
-                jobsObj[ jobs[ job ].name ].skills = commonCollection;
+                jobsObj[ jobs[ job ].name ].skills = {};
 
             for( ; skill < skillsLength ; skill = skill + 1 ) {
 
-              jobs[ job ].skills[ skills[ skill ] ] = skillsObj[ skills[ skill ] ];
+              jobsObj[ jobs[ job ].name ].skills[ skills[ skill ] ] = skillsObj[ skills[ skill ] ];
 
             };
+
+            jobsObj[ jobs[ job ].name ].skills = extend( jobsObj[ jobs[ job ].name ].skills, commonCollection );
 
           };
 

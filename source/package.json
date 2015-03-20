@@ -16,6 +16,7 @@
     "extend": "^2.0.0",
     "moment": "^2.9.0",
     "mongoose": "^3.8.23",
+    "mongoose-function": "^0.1.0",
     "morgan": "~1.5.1",
     "node-cache": "^1.1.0",
     "node-uuid": "^1.4.2",

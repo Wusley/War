@@ -9,7 +9,7 @@ module.exports = {
   'upgradeSoul': Number,
   'upgradeTime': Number, // minute
   'turns': { type: Number, default: 0 }, // #default 0 - infinity
-  'recipe': {},
+  'recipe': Function,
   'common': Boolean, // basic skill
   'status': Boolean
 };
