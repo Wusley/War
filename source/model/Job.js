@@ -11,5 +11,6 @@ module.exports = {
   },
   'sight': { type: Number, default: 1000 },
   'skills': [],
+  'turns': [],
   'status': Boolean
 };

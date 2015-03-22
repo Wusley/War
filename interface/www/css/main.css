@@ -10,3 +10,20 @@ input, textarea, select {
   display: block;
   margin-bottom: 10px;
 }
+
+.btn {
+  cursor: pointer;
+  margin: 3px 0;
+}
+.btn.atk {
+  color: red;
+}
+.btn.def {
+  color: green;
+}
+.btn.act {
+  color: orange;
+}
+.btn.ctr {
+  color: red;
+}

@@ -17,6 +17,5 @@ module.exports = {
     'resetPasswordStatus': Boolean
   },
  'status': Boolean,
- 'turns': [],
  'role': { type: Number, default: 0 }
 };

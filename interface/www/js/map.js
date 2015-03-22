@@ -4,8 +4,54 @@
 
   var mapOptions = {
     zoom: 14,
+    maxZoom: 14,
+    minZoom: 14,
+    zoomControl: false,
+    disableDefaultUI: true,
+    disableDoubleClickZoom: true,
+    // draggable: false,
+    keyboardShortcuts: false,
+    mapMaker: false,
+    mapTypeControl: false,
+    noClear: false,
+    overviewMapControl: false,
+    panControl: false,
+    rotateControl: true,
+    streetViewControl: false,
     'mapTypeId': google.maps.MapTypeId.ROADMAP
   };
+
+  var infobox = {
+    addListeners: function() {
+
+      $( '.js-attack' ).on( 'click', function() {
+
+        attack( $( this ) );
+
+      } );
+    }
+  };
+
+  function attack( $this ) {
+
+    var enemy = $this.attr( 'id' );
+
+    mountAction( enemy );
+
+  }
+
+  function mountSelector() {
+
+  }
+
+  function mountAction( enemy ) {
+
+    console.log( JSON.parse( window.localStorage.getItem( 'user' ) ) );
+    console.log( enemy );
+
+    //request enemy data
+
+  }
 
   function initialize( user, partners, enemies ) {
 
@@ -34,16 +80,42 @@
   }
 
   function addEnemy( map, enemy ) {
-    return new google.maps.Marker( {
+    var marker = new google.maps.Marker( {
       position: new google.maps.LatLng( enemy.position[ 0 ], enemy.position[ 1 ] ),
       map: map,
       icon: 'images/enemy.png',
       title: 'Enemy'
     } );
+
+    var contentString = '<div class="btn atk js-attack" id="' + enemy.nick + '">Attack</div>\
+                        <div class="btn ctr js-counter-attack" id="' + enemy.nick + '">Counter-Attack</div>\
+                        <div class="btn def js-defense" id="' + enemy.nick + '">Defense</div>\
+                        <div class="btn act js-active" id="' + enemy.nick + '">Active</div>';
+
+    var infowindow = new google.maps.InfoWindow( {
+
+      content: contentString
+
+    } );
+
+    google.maps.event.addListener( marker, 'click', function() {
+
+      infowindow.open( map, marker );
+
+    } );
+
+    google.maps.event.addListener( infowindow, 'closeclick', function() {
+
+
+
+    } );
+
+    google.maps.event.addListener( infowindow, 'domready', infobox.addListeners );
+
   }
 
   function addPartner( map, partner ) {
-    return new google.maps.Marker( {
+    var marker = new google.maps.Marker( {
       position: new google.maps.LatLng( partner.position[ 0 ], partner.position[ 1 ] ),
       map: map,
       icon: 'images/ally.png',
@@ -104,8 +176,6 @@
     google.maps.event.addListener( marker, 'click', function() {
       infowindow.open( map, marker );
     } );
-
-    return marker;
   }
 
   $( document.body ).ready( function () {
@@ -117,6 +187,7 @@
 
           if( data.cod === 200 ) {
 
+            window.localStorage.setItem( 'user', JSON.stringify( data.user ) );
             google.maps.event.addDomListener( window, 'load', initialize( data.user, data.partners, data.enemies ) );
 
           } else if( data.cod === 400 ) {

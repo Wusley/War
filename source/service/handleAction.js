@@ -7,7 +7,7 @@ module.exports = {
           skillsLength = user.skillUpgrades.length;
       for( ; id < skillsLength; id = id + 1 ) {
 
-        if( user.job.type === 'Passive' ) {
+        if( user.job.skills[ user.skillUpgrades[ id ].skill ].type === 'Passive' ) {
 
           user.job = user.job.skills[ user.skillUpgrades[ id ].skill ].recipe( user.job );
 

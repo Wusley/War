@@ -9,14 +9,10 @@ module.exports = ( function() {
     status.upgrade = false;
 
     // for in ca sa porra
-    var skill = 0,
-        skills = userJob.skills,
-        skillsLength = userJob.skills.length;
-    for( skill in skills ) {
+    var skill = 0;
+    for( skill in userJob.skills ) {
 
-      console.log(skills[ skill ].name);
-
-      if( skills[ skill ].name === skillName ) {
+      if( userJob.skills[ skill ] && userJob.skills[ skill ].name === skillName ) {
 
         status.job = true;
 
@@ -38,7 +34,6 @@ module.exports = ( function() {
 
     var upgrade = 0,
         userSkillUpgradesLength = userSkillUpgrades.length;
-
     for( ; upgrade < userSkillUpgradesLength ; upgrade = upgrade + 1 ) {
 
       if( userSkillUpgrades[ upgrade ].skill === skillName ) {
@@ -48,7 +43,6 @@ module.exports = ( function() {
       }
 
     };
-
 
     if( !status.job ) {
 
