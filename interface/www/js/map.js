@@ -26,6 +26,8 @@
 
       $( '.js-attack' ).on( 'click', function() {
 
+        console.log( 'teste ');
+
         attack( $( this ) );
 
       } );
@@ -44,12 +46,36 @@
 
   }
 
-  function mountAction( enemy ) {
+  function mountAction( id ) {
 
-    console.log( JSON.parse( window.localStorage.getItem( 'user' ) ) );
-    console.log( enemy );
+    // console.log( JSON.parse( window.localStorage.getItem( 'user' ) ) );
 
-    //request enemy data
+    getTarget( id, templateAction );
+
+  }
+
+  function templateAction( user, target ) {
+
+  }
+
+  function getTarget( id, template ) {
+
+    var url = config.url + '/action/' + id + '/' + window.localStorage.getItem( 'token' );
+
+    $.get( url )
+      .done( function( data ) {
+
+        if( data.cod === 200 ) {
+
+
+
+        } else if( data.cod === 400 ) {
+
+          console.log( data );
+
+        }
+
+      } );
 
   }
 
@@ -87,10 +113,9 @@
       title: 'Enemy'
     } );
 
-    var contentString = '<div class="btn atk js-attack" id="' + enemy.nick + '">Attack</div>\
-                        <div class="btn ctr js-counter-attack" id="' + enemy.nick + '">Counter-Attack</div>\
-                        <div class="btn def js-defense" id="' + enemy.nick + '">Defense</div>\
-                        <div class="btn act js-active" id="' + enemy.nick + '">Active</div>';
+    var contentString = '<div class="btn attack js-attack" id="' + enemy.nick + '">Attack</div>\
+                        <div class="btn action js-action" id="' + enemy.nick + '">Action</div>\
+                        <div class="btn active js-active" id="' + enemy.nick + '">Active</div>';
 
     var infowindow = new google.maps.InfoWindow( {
 
@@ -106,11 +131,21 @@
 
     google.maps.event.addListener( infowindow, 'closeclick', function() {
 
-
+      infowindow.close();
 
     } );
 
-    google.maps.event.addListener( infowindow, 'domready', infobox.addListeners );
+    google.maps.event.addListener( infowindow, 'domready', function() {
+
+      $( '.js-attack' ).on( 'click', function() {
+
+        infowindow.close();
+
+      } );
+
+      infobox.addListeners();
+
+    } );
 
   }
 

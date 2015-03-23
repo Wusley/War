@@ -3,7 +3,6 @@ module.exports = ( function() {
   var SkillDAO = function( mongoose ) {
 
     var schema = require( '../model/Skill' ),
-        skillConfig = require( '../config/skill' ),
         skillSchema = mongoose.Schema( schema );
 
     var Skill = mongoose.model( 'Skill', skillSchema );

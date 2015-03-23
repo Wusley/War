@@ -10,6 +10,66 @@
 
   </head>
   <body>
+    <!-- <div class="modal line js-modal">
+      <div class="update js-update">Update</div>
+      <div class="close js-close">X</div>
+      <header>
+        <h2>Line</h2>
+      </header>
+
+      <div class="js-line">
+        <nav>
+          <ul class="js-list">list attack / defense</ul>
+        </nav>
+      </div>
+    </div> -->
+
+    <div class="modal action js-modal js-modal-action">
+      <div class="update js-update">Update</div>
+      <div class="close js-close">X</div>
+      <header>
+        <h2>Action</h2>
+      </header>
+
+      <div class="js-line">
+        <div>Job: <small class="js-job"></small></div>
+        <div>Name: <small class="js-target"></small></div>
+        <div>Score: <small class="js-score"></small></div>
+
+        <nav>
+          <h3>Attackers</h3>
+          <ul class="js-attackers"></ul>
+        </nav>
+
+        <nav>
+          <h3>Defensers</h3>
+          <ul class="js-defenders"></ul>
+        </nav>
+
+        <form action="javascript:void( 0 )" class="js-form-action" method="POST">
+          <fieldset>
+            <legend>Action</legend>
+
+            <label for="name">Nome</label>
+            <input type="text" name="name" id="name" >
+
+            <label for="soul">Soul</label>
+            <input type="number" name="soul" id="soul" min="0" >
+
+            <label for="skills">Skills</label>
+            <textarea name="skills" cols="50" rows="5"></textarea>
+
+            Obs: Skills e Souls custam souls. 1 Soul = 1 soul, skills possuem custos individuais :)
+
+            <input type="submit" class="js-submit" value="">
+          </fieldset>
+        </form>
+
+        <nav>
+          <h3>Skills</h3>
+        </nav>
+      </div>
+    </div>
 
     <div id="map"></div>
 
@@ -18,6 +78,7 @@
     <!-- <script src="cordova.js"></script> -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="js/common.js"></script>
+    <script src="js/modal.js"></script>
     <script src="js/map.js"></script>
 
   </body>

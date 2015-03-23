@@ -15,15 +15,52 @@ input, textarea, select {
   cursor: pointer;
   margin: 3px 0;
 }
-.btn.atk {
+
+.btn.attack {
   color: red;
 }
-.btn.def {
-  color: green;
+
+.btn.action {
+  color: blue;
 }
-.btn.act {
+
+.btn.active {
   color: orange;
 }
-.btn.ctr {
-  color: red;
+
+.modal {
+  position: fixed;
+  padding: 20px;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  background-color: rgba( 255, 255, 255, .9 );
+  border-radius: 10px;
+  overflow: scroll;
+  z-index: 9999;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: arial;
+  font-size: 22px;
+  font-weight: bold;
+  padding: 20px;
+  color: black;
+  cursor: pointer;
+}
+
+.update {
+  position: absolute;
+  top: 0;
+  right: 60px;
+  font-family: arial;
+  font-size: 19px;
+  font-weight: bold;
+  padding: 20px;
+  color: black;
+  cursor: pointer;
 }
