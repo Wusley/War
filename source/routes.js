@@ -70,7 +70,7 @@
         require( './controller/PartyController' )( router, interceptAccess, userDao, partyDao );
         require( './controller/JobController' )( router, jobDao );
         require( './controller/SkillController' )( router, interceptAccess, schedule, skillDao, userDao );
-        require( './controller/ActionController' )( router, interceptAccess );
+        require( './controller/ActionController' )( router, interceptAccess, userDao );
 
       } );
 

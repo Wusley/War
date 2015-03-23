@@ -1,4 +1,4 @@
-module.exports = function( router, interceptAccess, schedule, skillDao ) {
+module.exports = function( router, interceptAccess, userDao ) {
 
   // DEPENDENCIEs
 
@@ -22,6 +22,73 @@ module.exports = function( router, interceptAccess, schedule, skillDao ) {
 
   } );
 
+  router.get( '/action/enemy/:id/:token', interceptAccess.checkConnected, function( req, res, next ) {
+
+    var nick = req.session.nick,
+        id = req.params.id,
+        client = {},
+        promiseUser = userDao.findUser( nick );
+        promiseEnemy = userDao.findId( id );
+
+    function success( user, enemy ) {
+      client.cod = 200;
+      client.user = user;
+      client.enemy = enemy;
+
+      res.send( client );
+    }
+
+    function fail( status, errors ) {
+      client.cod = 400;
+      client.errors = errors || null;
+      client.user = null;
+      client.enemy = null;
+
+      if( status === 'user' ) {
+
+        client.user = false;
+
+      }
+
+      if( status === 'enemy' ) {
+
+        client.enemy = false;
+
+      }
+
+      res.send( client );
+    }
+
+    promiseUser
+      .then( function( user ) {
+
+        if( user ) {
+
+          promiseEnemy
+            .then( function( enemy ) {
+
+              if( enemy ) {
+
+                // Handle Data
+                success( user, enemy );
+
+              } else {
+
+                fail( 'enemy' );
+
+              }
+
+            } );
+
+        } else {
+
+          fail( 'user' );
+
+        }
+
+      } );
+
+  } );
 
   router.post( '/attack/:token', interceptAccess.checkConnected, function( req, res, next ) {
 

@@ -29,6 +29,7 @@ input, textarea, select {
 }
 
 .modal {
+  display: none;
   position: fixed;
   padding: 20px;
   top: 20px;

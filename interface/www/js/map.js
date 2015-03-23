@@ -26,48 +26,106 @@
 
       $( '.js-attack' ).on( 'click', function() {
 
-        console.log( 'teste ');
-
-        attack( $( this ) );
+        action( 'new attack', $( this ) );
 
       } );
+
     }
   };
 
-  function attack( $this ) {
+  function action( type ,$this ) {
 
-    var enemy = $this.attr( 'id' );
+    var enemyId = $this.attr( 'id' );
 
-    mountAction( enemy );
-
-  }
-
-  function mountSelector() {
+    mountAction( type, enemyId );
 
   }
 
-  function mountAction( id ) {
+  function mountAction( type, enemyId ) {
 
     // console.log( JSON.parse( window.localStorage.getItem( 'user' ) ) );
 
-    getTarget( id, templateAction );
+    var template;
+
+    switch( type ) {
+
+      case 'new attack': template = templateSimpleAttack;
+      break;
+
+      default: template = templateSimpleAttack;
+      break;
+
+    }
+
+    getTarget( enemyId, template );
 
   }
 
-  function templateAction( user, target ) {
+  function templateSimpleAttack( user, target ) {
+    var $modal = $( '.js-modal-simple-attack' ),
+
+        $user = $modal.find( '.js-user' ),
+        $target = $modal.find( '.js-target' ),
+
+        $userjob = $user.find( '.js-job' ),
+        $userName = $user.find( '.js-name' ),
+        $userScore = $user.find( '.js-score' ),
+
+        $targetJob = $target.find( '.js-job' ),
+        $targetName = $target.find( '.js-name' ),
+        $targetScore = $target.find( '.js-score' ),
+
+        $skills = $modal.find( '.js-skills' ),
+
+        $form = $modal.find( '.js-form-simple-attack' ),
+        $name = $form.find( '[name="name"]' ),
+        $soul = $form.find( '[name="soul"]' );
+
+    $userName.html( user.nick );
+    $userjob.html( user.job.name );
+    $userScore.html( user.score);
+
+    $targetName.html( target.nick );
+    $targetJob.html( target.job.name );
+    $targetScore.html( target.score );
+
+    $soul.attr( { 'max': user.soul } );
+
+    $skills.html( '' );
+
+    var id;
+    for( id in user.job.skills ) {
+
+      if( user.job.skills.hasOwnProperty( id ) ) {
+
+        $skills.append( '<li>' + user.job.skills[ id ].name + '</li>' );
+
+      }
+
+    }
+
+    $modal.fadeIn( 300 );
+
+  }
+
+  function templateCompostAttack( user, target ) {
+
+  }
+
+  function templateCompostDefense( user, target ) {
 
   }
 
   function getTarget( id, template ) {
 
-    var url = config.url + '/action/' + id + '/' + window.localStorage.getItem( 'token' );
+    var url = config.url + '/action/enemy/' + id + '/' + window.localStorage.getItem( 'token' );
 
     $.get( url )
       .done( function( data ) {
 
         if( data.cod === 200 ) {
 
-
+          template( data.user, data.enemy )
 
         } else if( data.cod === 400 ) {
 
@@ -113,9 +171,9 @@
       title: 'Enemy'
     } );
 
-    var contentString = '<div class="btn attack js-attack" id="' + enemy.nick + '">Attack</div>\
-                        <div class="btn action js-action" id="' + enemy.nick + '">Action</div>\
-                        <div class="btn active js-active" id="' + enemy.nick + '">Active</div>';
+    var contentString = '<div class="btn attack js-attack" id="' + enemy._id + '">Attack</div>\
+                        <div class="btn line js-line" id="' + enemy._id + '">Line</div>\
+                        <div class="btn active js-active" id="' + enemy._id + '">Active</div>';
 
     var infowindow = new google.maps.InfoWindow( {
 

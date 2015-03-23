@@ -24,19 +24,30 @@
       </div>
     </div> -->
 
-    <div class="modal action js-modal js-modal-action">
+    <div class="modal action js-modal js-modal-simple-attack">
       <div class="update js-update">Update</div>
       <div class="close js-close">X</div>
+
       <header>
-        <h2>Action</h2>
+        <h2>Attack</h2>
       </header>
 
-      <div class="js-line">
-        <div>Job: <small class="js-job"></small></div>
-        <div>Name: <small class="js-target"></small></div>
-        <div>Score: <small class="js-score"></small></div>
 
-        <nav>
+      <section class="js-user">
+        <h3>You</h3>
+        <div>Score: <small class="js-score"></small></div>
+        <div>Name: <small class="js-name"></small></div>
+        <div>Job: <small class="js-job"></small></div>
+      </section>
+
+      <section class="js-target">
+        <h3>Enemy</h3>
+        <div>Score: <small class="js-score"></small></div>
+        <div>Name: <small class="js-name"></small></div>
+        <div>Job: <small class="js-job"></small></div>
+      </section>
+
+<!--         <nav>
           <h3>Attackers</h3>
           <ul class="js-attackers"></ul>
         </nav>
@@ -45,30 +56,30 @@
           <h3>Defensers</h3>
           <ul class="js-defenders"></ul>
         </nav>
+ -->
+      <form action="javascript:void( 0 )" class="js-form-simple-attack" method="POST">
+        <fieldset>
+          <legend>Attack</legend>
 
-        <form action="javascript:void( 0 )" class="js-form-action" method="POST">
-          <fieldset>
-            <legend>Action</legend>
+          <label for="name">Nome</label>
+          <input type="text" name="name" id="name" >
 
-            <label for="name">Nome</label>
-            <input type="text" name="name" id="name" >
+          <label for="soul">Soul</label>
+          <input type="number" name="soul" id="soul" min="0" >
 
-            <label for="soul">Soul</label>
-            <input type="number" name="soul" id="soul" min="0" >
+          <label for="skills">Skills</label>
+          <textarea name="skills" cols="50" rows="5"></textarea>
 
-            <label for="skills">Skills</label>
-            <textarea name="skills" cols="50" rows="5"></textarea>
+          Obs: Skills e Souls custam souls. 1 Soul = 1 soul, skills possuem custos individuais :)
 
-            Obs: Skills e Souls custam souls. 1 Soul = 1 soul, skills possuem custos individuais :)
+          <input type="submit" class="js-submit" value="Attack">
+        </fieldset>
+      </form>
 
-            <input type="submit" class="js-submit" value="">
-          </fieldset>
-        </form>
-
-        <nav>
-          <h3>Skills</h3>
-        </nav>
-      </div>
+      <nav>
+        <h3>Skills</h3>
+        <ul class="js-skills"></ul>
+      </nav>
     </div>
 
     <div id="map"></div>
