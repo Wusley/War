@@ -7,16 +7,19 @@ module.exports = ( function() {
         queue = [];
 
     return {
-      start: function( delay, userDao ) {
+      start: function( delay, userDao, actionDao ) {
 
         var that = this,
-            promiseUserSkill = userDao.findSkillUpgrading();
+            promiseUserSkill = userDao.findSkillUpgrading(),
+            promiseAction = actionDao.findActionsActive();
 
         function success() {
 
           cron = setInterval( ping, delay, queue );
 
           function ping( queue ) {
+
+            console.log( queue );
 
             var id = 0, length = queue.length, now = moment();
             for( ; id < length ; id = id + 1 ) {
@@ -37,6 +40,43 @@ module.exports = ( function() {
 
         }
 
+        promiseAction
+          .then( function( actions ) {
+
+            if( actions ) {
+
+              var id = 0, actionsLength = actions.length;
+              for( ; id < actionsLength ; id = id + 1 ) {
+
+                that.add( {
+                  'id': 'action-' + actions[ id ]._id,
+                  'schedule': actions[ id ].schedule,
+                  'callback': function() {
+
+                    console.log( 'BOOOOOOOM' );
+
+                    // var promiseUserUpgrade = userDao.updateSkillUpgrade( nick, upgrading );
+
+                    // promiseUserUpgrade
+                    //   .then( function( user ) {
+
+                    //     if( user ) {
+
+                    //       console.log( user );
+
+                    //     }
+
+                    //   } );
+
+                  }
+                } );
+
+              };
+
+            }
+
+          } );
+
         promiseUserSkill
           .then( function( users ) {
 
@@ -53,7 +93,7 @@ module.exports = ( function() {
                       _skillUpgrading = users[ user ].skillUpgrading[ skill ];
 
                   that.add( {
-                    'id': 'skill-' + users[ user ].skillUpgrading[ skill ].lv + '-' + users[ user ]._id,
+                    'id': 'skill-' + users[ user ].skillUpgrading[ skill ].id + '-' + users[ user ]._id,
                     'schedule': users[ user ].skillUpgrading[ skill ].schedule,
                     'callback': function() {
 

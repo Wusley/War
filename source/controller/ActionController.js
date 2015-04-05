@@ -13,11 +13,13 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
     function success( user, target, title, souls, skills ) {
 
+      var distance = parseFloat( target.dis.toFixed( 3 ) ) * 1000; // convert km in meters
+
       var action = {
         'title': title,
-        'distance': target.dis, // meters
+        'distance': distance, // meters
         'date': moment(), // date
-        'schedule': moment().add( castTime( target.dis ), 'minutes' ), // schedule
+        'schedule': moment().add( castTime( distance ), 'minutes' ), // schedule
         'attack': {
           'nick': user.nick,
           'position': user.position
@@ -29,33 +31,47 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
         'atks': [ { 'nick': user.nick, 'skills': skills } ] // list attackers
       };
 
-      function _success( attack ) {
+      function _success( action ) {
 
-        console.log( attack );
+        var promiseUser = userDao.updateAction( user.nick, ( user.souls - souls ) );
 
-        // schedule
-        //   .add( {
-        //     // 'id': 'attack-' + upgrading.lv + '-' + user._id,
-        //     'schedule': action.schedule,
-        //     'callback': function() {
+        promiseUser.then( function( user ) {
 
-        //       console.log( 'BOOOOOOOM' );
+          if( user ) {
 
-        //       // var promiseUserUpgrade = userDao.updateSkillUpgrade( nick, upgrading );
+            schedule
+              .add( {
+                'id': 'action-' + action._id,
+                'schedule': action.schedule,
+                'callback': function() {
 
-        //       // promiseUserUpgrade
-        //       //   .then( function( user ) {
+                  // realizar calculos de batalha.
+                  // desativar action
+                  // atualizar os envolvidos
 
-        //       //     if( user ) {
+                  console.log( 'BOOOOOOOM' );
 
-        //       //       console.log( user );
+                  // var promiseUserUpgrade = userDao.updateSkillUpgrade( nick, upgrading );
 
-        //       //     }
+                  // promiseUserUpgrade
+                  //   .then( function( user ) {
 
-        //       //   } );
+                  //     if( user ) {
 
-        //     }
-        //   } );
+                  //       console.log( user );
+
+                  //     }
+
+                  //   } );
+
+                }
+              } );
+
+          }
+
+
+        } );
+
 
         res.send( client );
 
@@ -72,20 +88,12 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
     function fail( status, errors ) {
       client.cod = 400;
       client.errors = errors || null;
-      client.user = null;
-      client.enemy = null;
 
-      if( status === 'user' ) {
+      // if( status === 'enemy' ) {
 
-        client.user = false;
+      //   client.enemy = false;
 
-      }
-
-      if( status === 'enemy' ) {
-
-        client.enemy = false;
-
-      }
+      // }
 
       res.send( client );
     }
@@ -99,8 +107,6 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
       fail( 'errors', errors );
 
     }
-
-    // subtrai dados do db com client, resultado volta pro db. dados client armazena em forma de ataque no doc action
 
   } );
 

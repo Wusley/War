@@ -63,7 +63,7 @@
         interceptAccess = new InterceptAccess( redis );
 
 
-    var promise = schedule.start( 3000, userDao );
+    var promise = schedule.start( 3000, userDao, actionDao );
 
     promise
       .then( function() {

@@ -5,8 +5,8 @@ module.exports = {
   'description': String,
   'observation': String,
   'delay': { type: Date, default: 0 }, // time waiting
-  'soul': Number, // cost spell
-  'upgradeSoul': Number, // cost buy
+  'souls': Number, // cost spell
+  'upgradeSouls': Number, // cost buy
   'upgradeTime': Number, // minute
   'turns': { type: Number, default: 0 }, // #default 0 - infinity
   'recipe': Function,

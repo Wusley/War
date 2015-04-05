@@ -7,8 +7,6 @@
 
   $submit.on( 'click', function() {
 
-    console.log( 'teste' );
-
     var data = $target.serialize();
 
     $.post( config.url + '/attack', data )
@@ -16,11 +14,11 @@
 
         if( data.cod === 200 ) {
 
-          console.log( 'success' );
+          console.log( data );
 
         } else {
 
-          console.log( 'error' );
+          console.log( data );
 
         }
 

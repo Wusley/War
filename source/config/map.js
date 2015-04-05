@@ -7,7 +7,8 @@ module.exports = ( function() {
 
   return {
     'limit-position': limitPosition,
-    'radiusInKm': 6378.137
+    'radiusInKm': 6378.137,
+    'metersPerMinute': 50
   };
 
 } () );

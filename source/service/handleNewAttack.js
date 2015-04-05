@@ -29,7 +29,7 @@ module.exports = ( function() {
 
       } else {
 
-        fail( 'user' );
+        fail( 'errors', action.errors );
 
       }
 

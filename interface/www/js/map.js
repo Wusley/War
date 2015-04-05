@@ -81,7 +81,7 @@
 
         $form = $modal.find( '.js-form-simple-attack' ),
         $name = $form.find( '[name="name"]' ),
-        $soul = $form.find( '[name="soul"]' );
+        $souls = $form.find( '[name="souls"]' );
 
     $userName.html( user.nick );
     $userjob.html( user.job.name );
@@ -92,7 +92,7 @@
     $targetScore.html( target.score );
     $formTargetNick.val( target.nick );
 
-    $soul.attr( { 'max': user.soul } );
+    $souls.attr( { 'max': user.souls } );
 
     $skills.html( '' );
 

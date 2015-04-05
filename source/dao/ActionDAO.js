@@ -26,6 +26,13 @@ module.exports = ( function() {
 
         } );
 
+      },
+      findActionsActive: function() {
+
+        var promise = Action.find( { status: true } ).exec();
+
+        return promise;
+
       }
     };
 

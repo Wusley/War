@@ -7,11 +7,13 @@ module.exports = ( function() {
 
     var action = {};
 
+    action.errors = {};
+
     // CHECK PARAMS
     if( user && data ) {
 
       var skills = treatSkills( data.skills ),
-          souls = parseInt( data.soul ),
+          souls = parseInt( data.souls ),
           turns = 0;
 
       if( skills ) {
@@ -24,18 +26,19 @@ module.exports = ( function() {
 
           turns = turns + 1;
 
-          souls = souls + user.job.skills[ skills[ id ] ].soul;
+          souls = souls + user.job.skills[ skills[ id ] ].souls;
 
         };
 
-        // CHECK USER SOUL
-        if( user.soul >= souls ) {
+        // CHECK USER SOULS
+        if( user.souls >= souls ) {
 
           action.souls = souls;
 
         } else {
 
           action.error = true;
+          action.errors.souls = false;
 
         }
 
@@ -47,18 +50,21 @@ module.exports = ( function() {
         } else {
 
           action.error = true;
+          action.errors.turns = false;
 
         }
 
       } else {
 
         action.error = true;
+        action.errors.skills = false;
 
       }
 
     } else {
 
       action.error = true;
+      action.errors.data = false;
 
     }
 

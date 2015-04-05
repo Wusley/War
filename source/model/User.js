@@ -4,7 +4,7 @@ module.exports = {
   'email': String,
   'password': String,
   'score': { type: Number, default: 0 },
-  'soul': { type: Number, default: 100 },
+  'souls': { type: Number, default: 100 },
   'position': [],
   'job': String,
   'skillUpgrading': [],

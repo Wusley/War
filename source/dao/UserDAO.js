@@ -241,10 +241,10 @@ module.exports = ( function() {
         return promise;
 
       },
-      updateSkillUpgrading: function( nick, soul, upgrading, success, fail ) {
+      updateSkillUpgrading: function( nick, souls, upgrading, success, fail ) {
 
         var promise = User
-                        .findOneAndUpdate( { nick: nick }, { 'soul': soul, $push: { 'skillUpgrading': upgrading } } ).lean().exec( treatUser );
+                        .findOneAndUpdate( { nick: nick }, { 'souls': souls, $push: { 'skillUpgrading': upgrading } } ).lean().exec( treatUser );
 
         return promise;
 
@@ -253,6 +253,14 @@ module.exports = ( function() {
 
         var promise = User
                         .findOneAndUpdate( { nick: nick }, { $pull: { 'skillUpgrading': { 'skill': upgrading.skill } }, $push: { 'skillUpgrades': upgrading } }, { multi: true } ).lean().exec( treatUser );
+
+        return promise;
+
+      },
+      updateAction: function( nick, souls ) {
+
+        var promise = User
+                        .findOneAndUpdate( { nick: nick }, { souls: souls } ).lean().exec( treatUser );
 
         return promise;
 

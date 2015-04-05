@@ -2,7 +2,7 @@ module.exports = function( router, interceptAccess, schedule, skillDao, userDao 
 
   // DEPENDENCIEs
   var checkSkillUpgrade = require( '../service/checkSkillUpgrade' ),
-      checkUserSoul = require( '../service/checkUserSoul' ),
+      checkUserSouls = require( '../service/checkUserSouls' ),
       moment = require( 'moment' );
 
   router.post( '/skill', function( req, res, next ) {
@@ -133,12 +133,13 @@ module.exports = function( router, interceptAccess, schedule, skillDao, userDao 
       client.cod = 200;
 
       var upgrading = {
+        'id': skill._id,
         'lv': skill.lv,
         'skill': skill.name,
         'schedule': moment().add( skill.upgradeTime, 'minutes' )
       };
 
-      var soul = checkUserSoul( user.soul, skill.upgradeSoul );
+      var souls = checkUserSouls( user.souls, skill.upgradeSouls );
 
       function _success( upgrading ) {
 
@@ -153,10 +154,10 @@ module.exports = function( router, interceptAccess, schedule, skillDao, userDao 
 
         client.cod = 500;
 
-        if( status === 'soul' ) {
+        if( status === 'souls' ) {
 
           client.cod = 200;
-          client.soul = false;
+          client.souls = false;
 
         }
 
@@ -164,14 +165,16 @@ module.exports = function( router, interceptAccess, schedule, skillDao, userDao 
 
       }
 
-      if( soul >= 0 ) {
+      if( souls >= 0 ) {
 
-        var promiseUserUpgrading = userDao.updateSkillUpgrading( nick, soul, upgrading );
+        var promiseUserUpgrading = userDao.updateSkillUpgrading( nick, souls, upgrading );
 
         promiseUserUpgrading
           .then( function( user ) {
 
             if( user ) {
+
+              console.log('skill-' + upgrading.id + '-' + user._id);
 
               schedule.add( {
                 'id': 'skill-' + upgrading.lv + '-' + user._id,
@@ -206,7 +209,7 @@ module.exports = function( router, interceptAccess, schedule, skillDao, userDao 
 
       } else {
 
-        _fail( 'soul' );
+        _fail( 'souls' );
 
       }
 
