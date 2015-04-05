@@ -28,6 +28,8 @@ module.exports = function( router, jobDao ) {
       res.send( client );
     }
 
+    console.log(req.body);
+
     jobDao.save( req.body, success, fail );
 
   } );

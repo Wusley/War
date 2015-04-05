@@ -8,6 +8,7 @@ module.exports = ( function() {
         treatUser = require( '../service/treatUser' )( cache.jobs ),
         schema = require( '../model/User' ),
         partyConfig = require( '../config/party' ),
+        mapConfig = require( '../config/map' ),
         userSchema = mongoose.Schema( schema );
 
     userSchema.index( { 'position': '2dsphere' } );
@@ -133,7 +134,7 @@ module.exports = ( function() {
       },
       findToken: function( token ) {
 
-        var promise = User.findOne( { 'forgotPassword.resetPasswordToken': token } ).exec();
+        var promise = User.findOne( { 'forgotPassword.resetPasswordToken': token } ).lean().exec( treatUser );
 
         return promise;
 
@@ -196,11 +197,11 @@ module.exports = ( function() {
                         .findOneAndUpdate( { nick: nick }, { 'position': position } ).lean().exec( treatUser );
 
           promise
-            .then( function( status, details ) {
+            .then( function( user ) {
 
-              if( !details.err ) {
+              if( user ) {
 
-                success( nick, position );
+                success( user.nick, user.position );
 
               } else {
 
@@ -343,6 +344,23 @@ module.exports = ( function() {
 
         return promise;
 
+      },
+
+      findUserTargetAndDistance: function( user, targetNick, success, fail ) {
+
+        var promise = User.geoNear( user.position, { spherical : true, distanceMultiplier: mapConfig.radiusInKm, query: { 'nick': targetNick } }, function( err, target, stats ) {
+
+          if( !err ) {
+
+            success( user, target[ 0 ] );
+
+          } else {
+
+            fail( 'target' );
+
+          }
+
+        } );
       }
 
     };

@@ -33,6 +33,14 @@ module.exports = ( function() {
 
       },
 
+      findTargetInParty: function( nick, target ) {
+
+        var promise = Party.find().where( { 'partners': { $in: [ nick, target ] } } ).exec();
+
+        return promise;
+
+      },
+
       createParty: function( nick ) {
 
         var dao = new Party( { 'partners': [ nick ], 'score': 0 } );

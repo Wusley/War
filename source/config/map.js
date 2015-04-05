@@ -6,7 +6,8 @@ module.exports = ( function() {
   limitPosition = limit / kmInMiles; // convert mi to meters
 
   return {
-    'limit-position': limitPosition
+    'limit-position': limitPosition,
+    'radiusInKm': 6378.137
   };
 
 } () );

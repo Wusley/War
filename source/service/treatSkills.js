@@ -2,14 +2,18 @@ module.exports = ( function() {
 
   var treatSkills = function( skills ) {
 
-    var skills = skills.split( ',' );
+    if( skills ) {
 
-    var id;
-    for( id in skills ) {
+      var skills = skills.split( ',' );
 
-      if( skills.hasOwnProperty( id ) ) {
+      var id;
+      for( id in skills ) {
 
-        skills[ id ] = skills[ id ].trim();
+        if( skills.hasOwnProperty( id ) ) {
+
+          skills[ id ] = skills[ id ].trim();
+
+        }
 
       }
 

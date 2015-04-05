@@ -72,7 +72,7 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
           to: user.email,
           subject: 'Conta criada com sucesso',
           text: 'Bem vindo ' + user.nick + ' ao mundo Warrr',
-          html: 'Batalhas eletrizantes te aguardam...'
+          html: 'Batalhas eletrizantes o aguardam...'
         } );
 
       client.cod = 200;

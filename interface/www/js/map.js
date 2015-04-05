@@ -33,7 +33,7 @@
     }
   };
 
-  function action( type ,$this ) {
+  function action( type, $this ) {
 
     var enemyId = $this.attr( 'id' );
 
@@ -66,14 +66,16 @@
 
         $user = $modal.find( '.js-user' ),
         $target = $modal.find( '.js-target' ),
+        $form = $modal.find( '.js-form-simple-attack' ),
 
         $userjob = $user.find( '.js-job' ),
-        $userName = $user.find( '.js-name' ),
+        $userName = $user.find( '.js-nick' ),
         $userScore = $user.find( '.js-score' ),
 
         $targetJob = $target.find( '.js-job' ),
-        $targetName = $target.find( '.js-name' ),
+        $targetNick = $target.find( '.js-nick' ),
         $targetScore = $target.find( '.js-score' ),
+        $formTargetNick = $form.find( '.js-form-target-nick' ),
 
         $skills = $modal.find( '.js-skills' ),
 
@@ -85,9 +87,10 @@
     $userjob.html( user.job.name );
     $userScore.html( user.score);
 
-    $targetName.html( target.nick );
+    $targetNick.html( target.nick );
     $targetJob.html( target.job.name );
     $targetScore.html( target.score );
+    $formTargetNick.val( target.nick );
 
     $soul.attr( { 'max': user.soul } );
 

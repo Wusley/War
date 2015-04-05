@@ -8,14 +8,29 @@ module.exports = ( function() {
     var Action = mongoose.model( 'Action', actionSchema );
 
     return {
-      save: function( action, success, fail ) {
+      saveAttack: function( attack, success, fail ) {
 
+       var dao = new Action( attack );
+
+        dao.save( function ( err, attack ) {
+
+          if( !err ) {
+
+            success( attack );
+
+          } else {
+
+            fail();
+
+          }
+
+        } );
 
       }
     };
 
   };
 
-  return SkillDAO;
+  return ActionDAO;
 
 } () );

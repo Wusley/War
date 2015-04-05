@@ -4,8 +4,6 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
 
-
-
   <link rel="stylesheet" href="css/main.css">
 
   </head>
@@ -36,14 +34,14 @@
       <section class="js-user">
         <h3>You</h3>
         <div>Score: <small class="js-score"></small></div>
-        <div>Name: <small class="js-name"></small></div>
+        <div>Name: <small class="js-nick"></small></div>
         <div>Job: <small class="js-job"></small></div>
       </section>
 
       <section class="js-target">
         <h3>Enemy</h3>
         <div>Score: <small class="js-score"></small></div>
-        <div>Name: <small class="js-name"></small></div>
+        <div>Name: <small class="js-nick"></small></div>
         <div>Job: <small class="js-job"></small></div>
       </section>
 
@@ -61,8 +59,10 @@
         <fieldset>
           <legend>Attack</legend>
 
-          <label for="name">Nome</label>
-          <input type="text" name="name" id="name" >
+          <input type="hidden" name="target" class="js-form-target-nick" >
+
+          <label for="title">Titulo attack</label>
+          <input type="text" name="title" id="title" >
 
           <label for="soul">Soul</label>
           <input type="number" name="soul" id="soul" min="0" >
@@ -90,6 +90,7 @@
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="js/common.js"></script>
     <script src="js/modal.js"></script>
+    <script src="js/simple-attack.js"></script>
     <script src="js/map.js"></script>
 
   </body>

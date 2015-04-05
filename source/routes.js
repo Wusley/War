@@ -49,15 +49,19 @@
 
     cache.jobs = data;
 
+
     // DEPENDENCIEs
     var UserDao = require( './dao/UserDAO' ),
         PartyDao = require( './dao/PartyDAO' ),
+        ActionDao = require( './dao/ActionDAO' ),
         InterceptAccess = require( './interceptor/interceptAccess' );
 
     // INSTANCES
     var userDao = new UserDao( mongoose, cache ),
         partyDao = new PartyDao( mongoose ),
+        actionDao = new ActionDao( mongoose ),
         interceptAccess = new InterceptAccess( redis );
+
 
     var promise = schedule.start( 3000, userDao );
 
@@ -70,7 +74,7 @@
         require( './controller/PartyController' )( router, interceptAccess, userDao, partyDao );
         require( './controller/JobController' )( router, jobDao );
         require( './controller/SkillController' )( router, interceptAccess, schedule, skillDao, userDao );
-        require( './controller/ActionController' )( router, interceptAccess, userDao );
+        require( './controller/ActionController' )( router, interceptAccess, schedule, actionDao, userDao, partyDao );
 
       } );
 

@@ -1,13 +1,17 @@
 module.exports = {
-  'name': String,
-  'nick': String,
-  'date': Date,
-  'schedule': Double,
-  'attacker': String,
-  'target': String,
-  'attackerPosition': [],
-  'targetPosition': [],
-  'attackers': [],
-  'defenders': [],
-  'status': Boolean
+  'title': String,
+  'distance': Number,
+  'date': Date, // date
+  'schedule': Date, // schedule
+  'attack': { // attacker
+    'nick': String,
+    'position': []
+  },
+  'target': { // target
+    'nick': String,
+    'position': []
+  },
+  'atks': [], // list attackers
+  'defs': [], // list defenders
+  'status': { type: Boolean, default: true }
 };

@@ -2,24 +2,28 @@ module.exports = function( jobs ) {
 
   var treatUser = function( err, users ) {
 
-    var type = users.constructor.name,
-        handleAction = require( '../service/handleAction' );
+    if( users ) {
 
-    if( !err && type === 'Array' && users && users.length > 0 ) {
+      var type = users.constructor.name,
+          handleAction = require( '../service/handleAction' );
 
-      var id = 0,
-          usersLength = users.length;
-      for( ; id < usersLength; id = id + 1 ) {
+      if( !err && type === 'Array' && users.length > 0 ) {
 
-        users[ id ].job = jobs[ users[ id ].job ];
-        users[ id ] = handleAction.passiveSkills( users[ id ] );
+        var id = 0,
+            usersLength = users.length;
+        for( ; id < usersLength; id = id + 1 ) {
+
+          users[ id ].job = jobs[ users[ id ].job ];
+          users[ id ] = handleAction.passiveSkills( users[ id ] );
+
+        }
+
+      } else if( !err && type === 'Object'  ) {
+
+        users.job = jobs[ users.job ];
+        users = handleAction.passiveSkills( users );
 
       }
-
-    } else if( !err && type === 'Object' && users  ) {
-
-      users.job = jobs[ users.job ];
-      users = handleAction.passiveSkills( users );
 
     }
 

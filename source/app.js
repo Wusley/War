@@ -8,10 +8,18 @@ var express = require( 'express' ),
     routes = require( './routes' ),
     app = express();
 
+var customValidator = {
+    customValidators: {
+      gte: function( param, num ) {
+          return param >= num;
+      }
+    }
+  };
+
 app.use( logger( 'dev' ) );
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded( { extended: false } ) );
-app.use( expressValidator() );
+app.use( expressValidator( customValidator ) );
 app.use( cookieParser() );
 
 app.use( '/', cors, routes );
