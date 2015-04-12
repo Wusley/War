@@ -6,7 +6,6 @@
       JobCompose = require( './service/jobCompose' ),
       mongoose = require( 'mongoose' ),
       redis = require( 'redis' ),
-      uuid = require( 'node-uuid' ),
       cache = {},
       router = express.Router();
 
@@ -49,19 +48,19 @@
 
     cache.jobs = data;
 
-
     // DEPENDENCIEs
     var UserDao = require( './dao/UserDAO' ),
         PartyDao = require( './dao/PartyDAO' ),
         ActionDao = require( './dao/ActionDAO' ),
+        AuthDao = require( './dao/AuthDAO' ),
         InterceptAccess = require( './interceptor/interceptAccess' );
 
     // INSTANCES
     var userDao = new UserDao( mongoose, cache ),
         partyDao = new PartyDao( mongoose ),
         actionDao = new ActionDao( mongoose ),
+        authDao = new AuthDao( redis ),
         interceptAccess = new InterceptAccess( redis );
-
 
     var promise = schedule.start( 3000, userDao, actionDao );
 
@@ -69,9 +68,9 @@
       .then( function() {
 
         require( './controller/UserController' )( router, interceptAccess, userDao, partyDao );
-        require( './controller/AccessController' )( router, redis, uuid, interceptAccess, userDao );
+        require( './controller/AccessController' )( router, interceptAccess, userDao, authDao );
         require( './controller/PositionController' )( router, interceptAccess, userDao, partyDao );
-        require( './controller/PartyController' )( router, interceptAccess, userDao, partyDao );
+        require( './controller/PartyController' )( router, interceptAccess, partyDao );
         require( './controller/JobController' )( router, jobDao );
         require( './controller/SkillController' )( router, interceptAccess, schedule, skillDao, userDao );
         require( './controller/ActionController' )( router, interceptAccess, schedule, actionDao, userDao, partyDao );

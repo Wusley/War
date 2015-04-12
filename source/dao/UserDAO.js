@@ -18,22 +18,22 @@ module.exports = ( function() {
     passwordCrypt = new PasswordCrypt();
 
     return {
-      save: function( user, success, fail ) {
+      save: function( user, response ) {
 
         var that = this,
             findUserPromise = that.findUser( user.nick );
 
         findUserPromise
-          .then( function( nck ) {
+          .then( function( nickExist ) {
 
-            if( !nck ) {
+            if( !nickExist ) {
 
               var findEmailPromise = that.findEmail( user.email );
 
               findEmailPromise
-                .then( function( eml ) {
+                .then( function( emailExist ) {
 
-                  if( !eml ) {
+                  if( !emailExist ) {
 
                     user.password = passwordCrypt.insurance( user.password );
 
@@ -43,9 +43,16 @@ module.exports = ( function() {
 
                       dao.save( function ( err, user ) {
 
-                        if(err) return console.error( err );
+                        if( !err ) {
 
-                        success( user );
+                          response.success( { 'user': user } );
+
+                        } else {
+
+                          response.fail( 'server' );
+
+                        }
+
 
                       } );
 
@@ -53,7 +60,7 @@ module.exports = ( function() {
 
                   } else {
 
-                    fail( 'email' );
+                    response.fail( 'email-exist' );
 
                   }
 
@@ -61,14 +68,14 @@ module.exports = ( function() {
 
             } else {
 
-              fail( 'nick' );
+              response.fail( 'nick-exist' );
 
             }
 
         } );
 
       },
-      updateForgotPassword: function( email, success, fail ) {
+      updateForgotPassword: function( email, response ) {
 
         var that = this,
             findEmailPromise = that.findEmail( email );
@@ -93,15 +100,15 @@ module.exports = ( function() {
                                 .update( { _id: user.id }, { 'forgotPassword': forgotPassword }, { multi: true } ).exec();
 
                 promise
-                  .then( function( status, details ) {
+                  .then( function( result ) {
 
-                    if( !details.err ) {
+                    if( result.ok > 0 ) {
 
-                      success( user );
+                      response.success( { 'user': user } );
 
                     } else {
 
-                      fail();
+                      response.fail();
 
                     }
 
@@ -111,7 +118,7 @@ module.exports = ( function() {
 
             } else {
 
-              fail( 'user' );
+              response.fail( 'user' );
 
             }
 
@@ -139,7 +146,7 @@ module.exports = ( function() {
         return promise;
 
       },
-      updatePassword: function( token, password, success, fail ) {
+      updatePassword: function( token, password, response ) {
 
         var that = this,
             findTokenPromise = that.findToken( token );
@@ -155,78 +162,76 @@ module.exports = ( function() {
               if( dateNow.diff( dateExpire ) < 0 && user.forgotPassword.resetPasswordStatus === true ) {
 
                 var promise = User
-                                .findOneAndUpdate( { _id: user.id }, { 'password': password, 'forgotPassword.resetPasswordStatus': false } ).exec();
+                                .update( { _id: user.id }, { 'password': password, 'forgotPassword.resetPasswordStatus': false } ).exec();
 
                 promise
-                  .then( function( status, details ) {
+                  .then( function( result ) {
 
-                    if( !details.err ) {
+                    if( result.ok > 0 ) {
 
-                      success( user );
+                      response.success( { 'user': user } );
 
                     } else {
 
-                      fail();
+                      response.fail( 'server' );
 
                     }
-
-                    success();
 
                   } );
 
               } else {
 
-                fail( 'expired' );
+                response.fail( 'expired' );
 
               }
 
 
             } else {
 
-              fail( 'token' );
+              response.fail( 'token' );
 
             }
 
           } );
 
       },
-      updatePosition: function( nick, latitude, longitude, success, fail ) {
+      updatePosition: function( nick, latitude, longitude, response ) {
 
         var position = [ parseFloat( latitude ), parseFloat( longitude ) ],
             promise = User
-                        .findOneAndUpdate( { nick: nick }, { 'position': position } ).lean().exec( treatUser );
+                        .update( { nick: nick }, { 'position': position } ).lean().exec( treatUser );
 
           promise
-            .then( function( user ) {
+            .then( function( result ) {
 
-              if( user ) {
+            if( result.ok > 0 ) {
 
-                success( user.nick, user.position );
+                response.success( { 'nick': user.nick, 'position': user.position } );
 
               } else {
 
-                fail();
+                response.fail( 'server' );
 
               }
 
             } );
 
       },
-      updateJob: function( nick, job, success, fail ) {
+      updateJob: function( nick, job, response ) {
 
         var promise = User
-                        .findOneAndUpdate( { nick: nick }, { 'job': job } ).lean().exec( treatUser );
+                        .update( { nick: nick }, { 'job': job } ).lean().exec( treatUser );
 
         promise
-          .then( function( status, details ) {
+          .then( function( result ) {
 
-            if( !details.err ) {
+            if( result.ok > 0 ) {
 
-              success( nick, job );
+              response.success( { 'job': job } );
 
             } else {
 
-              fail() ;
+              response.fail() ;
 
             }
 
@@ -241,7 +246,7 @@ module.exports = ( function() {
         return promise;
 
       },
-      updateSkillUpgrading: function( nick, souls, upgrading, success, fail ) {
+      updateSkillUpgrading: function( nick, souls, upgrading ) {
 
         var promise = User
                         .findOneAndUpdate( { nick: nick }, { 'souls': souls, $push: { 'skillUpgrading': upgrading } } ).lean().exec( treatUser );
@@ -257,7 +262,7 @@ module.exports = ( function() {
         return promise;
 
       },
-      updateAction: function( nick, souls ) {
+      updatePay: function( nick, souls ) {
 
         var promise = User
                         .findOneAndUpdate( { nick: nick }, { souls: souls } ).lean().exec( treatUser );
@@ -280,7 +285,7 @@ module.exports = ( function() {
         return promise;
 
       },
-      authenticate: function( email, password, success, fail ) {
+      authenticate: function( email, password, response ) {
 
         var that = this,
             findEmailPromise = that.findEmail( email );
@@ -294,17 +299,17 @@ module.exports = ( function() {
 
               if( password ) {
 
-                success( user );
+                response.success( { 'user': user } );
 
               } else {
 
-                fail( 'password' );
+                response.fail( 'password' );
 
               }
 
             } else {
 
-              fail( 'user' );
+              response.fail( 'user' );
 
             }
 
@@ -354,17 +359,17 @@ module.exports = ( function() {
 
       },
 
-      findUserTargetAndDistance: function( user, targetNick, success, fail ) {
+      findUserTargetAndDistance: function( user, targetNick, response ) {
 
         var promise = User.geoNear( user.position, { spherical : true, distanceMultiplier: mapConfig.radiusInKm, query: { 'nick': targetNick } }, function( err, target, stats ) {
 
           if( !err ) {
 
-            success( user, target[ 0 ] );
+            response.success( { 'user': user, 'target': target[ 0 ] } );
 
           } else {
 
-            fail( 'target' );
+            response.fail( 'server' );
 
           }
 

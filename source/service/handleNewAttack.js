@@ -2,48 +2,52 @@ module.exports = ( function() {
 
   var checkRulesAction = require( '../service/checkRulesAction' );
 
-  var handleNewAttack = function( nick, action, userDao, partyDao, success, fail ) {
+  var handleNewAttack = function( nick, action, userDao, partyDao, response ) {
 
     var promiseUser = userDao.findUser( nick ),
         promiseParty = partyDao.findTargetInParty( nick, action.target );
-
-    function _success( user, target ) {
-
-      var data = checkRulesAction( user, action );
-
-      if( !data.error ) {
-
-        promiseParty.then( function( party ) {
-
-          if( party.length === 2 ) {
-
-            success( user, target, action.title, data.souls, data.skills );
-
-          } else {
-
-            fail( 'party' );
-
-          }
-
-        } );
-
-      } else {
-
-        fail( 'errors', action.errors );
-
-      }
-
-    }
 
     promiseUser.then( function( user ) {
 
       if( user ) {
 
-        userDao.findUserTargetAndDistance( user, action.target, _success, fail );
+        userDao.findUserTargetAndDistance( user, action.target, { 'success': function( user, target ) {
+
+          var data = checkRulesAction( user, action );
+
+          if( !data.error ) {
+
+            promiseParty.then( function( party ) {
+
+              if( party.length === 2 ) {
+
+                response.success( {
+                  'user': user,
+                  'target': target,
+                  'title': action.title,
+                  'souls': data.souls,
+                  'skills': data.skills
+                } );
+
+              } else {
+
+                response.fail( 'party' );
+
+              }
+
+            } );
+
+          } else {
+
+            response.fail( { 'errors': action.errors } );
+
+          }
+
+        }, 'fail': response.fail } );
 
       } else {
 
-        fail( 'user' )
+        response.fail( 'empty-user' )
 
       }
 

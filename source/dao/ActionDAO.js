@@ -8,19 +8,19 @@ module.exports = ( function() {
     var Action = mongoose.model( 'Action', actionSchema );
 
     return {
-      saveAttack: function( attack, success, fail ) {
+      saveAttack: function( attack, response ) {
 
        var dao = new Action( attack );
 
-        dao.save( function ( err, attack ) {
+        dao.save( function ( err, action ) {
 
           if( !err ) {
 
-            success( attack );
+            response.success( { 'action': action } );
 
           } else {
 
-            fail();
+            response.fail( 'server' );
 
           }
 

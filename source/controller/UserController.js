@@ -5,34 +5,14 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
       emailValidator = require( '../service/emailValidator' ),
       jobValidator = require( '../service/jobValidator' ),
       passwordValidator = require( '../service/passwordValidator' ),
+      treatResponse = require( '../service/treatResponse' ),
       contactUser = require( '../service/contactUser' );
 
   router.get( '/user/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
-        client = {},
+        response = treatResponse( res ),
         promise = userDao.findUser( nick );
-
-    function success( user ) {
-      client.cod = 200;
-      client.user = user;
-
-      res.send( client );
-    }
-
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-      client.user = null;
-
-      if( status === 'user' ) {
-
-        client.user = false;
-
-      }
-
-      res.send( client );
-    }
 
     promise
       .then( function( user ) {
@@ -40,7 +20,7 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
         if( user ) {
 
           // Handle Data
-          success( {
+          response.success( {
             'name': user.name,
             'nick': user.nick,
             'email': user.email,
@@ -49,7 +29,7 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
         } else {
 
-          fail( 'user' );
+          response.fail( 'empty' );
 
         }
 
@@ -59,55 +39,31 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
   router.post( '/user', function( req, res, next ) {
 
-    var client = {},
+    var response = treatResponse( res ),
         errors = userValidator( req );
-
-    function success( user ) {
-
-      var contact = new contactUser();
-
-      contact
-        .sendEmail( {
-          from: 'Warrr <gpswarrr@gmail.com>',
-          to: user.email,
-          subject: 'Conta criada com sucesso',
-          text: 'Bem vindo ' + user.nick + ' ao mundo Warrr',
-          html: 'Batalhas eletrizantes o aguardam...'
-        } );
-
-      client.cod = 200;
-
-      res.send( client );
-    }
-
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-      client.nick = null;
-      client.email = null;
-
-      if( status === 'nick' ) {
-
-        client.nick = false;
-
-      }
-
-      if( status === 'email' ) {
-
-        client.email = false;
-
-      }
-
-      res.send( client );
-    }
 
     if( !errors ) {
 
-      userDao.save( req.body, success, fail );
+      userDao.save( req.body, { 'success': function( data ) {
+
+        var contact = new contactUser();
+
+        contact
+          .sendEmail( {
+            from: 'Warrr <gpswarrr@gmail.com>',
+            to: data.user.email,
+            subject: 'Conta criada com sucesso',
+            text: 'Bem vindo ' + data.user.nick + ' ao mundo Warrr',
+            html: 'Batalhas eletrizantes o aguardam...'
+          } );
+
+        response.success( { 'user': data.user } );
+
+      }, 'fail': response.fail } );
 
     } else {
 
-      fail( 'errors', errors );
+      response.fail( { 'errors': errors } );
 
     }
 
@@ -116,37 +72,16 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
   router.put( '/user/job', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
-        client = {};
+        response = treatResponse( res ),
         errors = jobValidator( req );
-
-    function success( user ) {
-      client.cod = 200;
-      client.user = user;
-
-      res.send( client );
-    }
-
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-      client.job = null;
-
-      if( status === 'job' ) {
-
-        client.job = false;
-
-      }
-
-      res.send( client );
-    }
 
     if( !errors ) {
 
-      userDao.updateJob( nick, req.body.job, success, fail );
+      userDao.updateJob( nick, req.body.job, response );
 
     } else {
 
-      fail( 'errors', errors );
+      response.fail( { 'errors': errors } );
 
     }
 
@@ -154,43 +89,16 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
   router.post( '/reset-password', function( req, res, next ) {
 
-    var client = {},
+    var response = treatResponse( res ),
         errors = passwordValidator( req );
-
-    function success() {
-      client.cod = 200;
-
-      res.send( client );
-    }
-
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-      client.token = null;
-      client.expired = null;
-
-      if( status === 'token' ) {
-
-        client.token = false;
-
-      }
-
-      if( status === 'expired' ) {
-
-        client.expired = false;
-
-      }
-
-      res.send( client );
-    }
 
     if( !errors ) {
 
-      userDao.updatePassword( req.body.token, req.body.password, success, fail );
+      userDao.updatePassword( req.body.token, req.body.password, response );
 
     } else {
 
-      fail( 'errors' ,errors );
+      response.fail( { 'errors': errors } );
 
     }
 
@@ -198,61 +106,31 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
   router.post( '/forgot-password', function( req, res, next ) {
 
-    var client = {},
+    var response = treatResponse( res ),
         errors = emailValidator( req );
-
-    function success( user ) {
-
-      function _success() {
-
-        client.cod = 200;
-
-        res.send( client );
-
-      }
-
-      function _fail( status, errors ) {
-
-        client.cod = 400;
-        client.errors = errors || null;
-
-        res.send( client );
-
-      }
-
-      var contact = new contactUser();
-
-      contact
-        .sendEmail( {
-          from: 'Warrr <gpswarrr@gmail.com>',
-          to: user.email,
-          subject: 'Resetar senha',
-          text: 'Resetar senha',
-          html: 'Olá, ' + user.nick + '. Para resetar sua senha, clique no link a seguir. <a href="http://localhost/reset-password.html?token=' + user.forgotPassword.resetPasswordToken + '">Reset password</a>'
-        }, _success, _fail );
-    }
-
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-      client.user = null;
-
-      if( status === 'user' ) {
-
-        client.user = false;
-
-      }
-
-      res.send( client );
-    }
 
     if( !errors ) {
 
-      userDao.updateForgotPassword( req.body.email, success, fail );
+      userDao.updateForgotPassword( req.body.email, function( user ) {
+
+        var contact = new contactUser();
+
+        contact
+          .sendEmail( {
+            from: 'Warrr <gpswarrr@gmail.com>',
+            to: user.email,
+            subject: 'Resetar senha',
+            text: 'Resetar senha',
+            html: 'Olá, ' + user.nick + '. Para resetar sua senha, clique no link a seguir. <a href="http://localhost/reset-password.html?token=' + user.forgotPassword.resetPasswordToken + '">Reset password</a>'
+          } );
+
+        response.success();
+
+      }, response.fail );
 
     } else {
 
-      fail( 'errors', errors );
+      response.fail( { 'errors': errors } );
 
     }
 

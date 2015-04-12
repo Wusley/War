@@ -7,9 +7,9 @@ module.exports = ( function() {
         smtpapi = require('smtpapi');
 
     var settings  = {
-      host: 'smtp.sendgrid.net',
-      port: parseInt(587, 10),
-      requiresAuth: true,
+      host: smtpConfig.host,
+      port: smtpConfig.port,
+      requiresAuth: smtpConfig.auth,
       auth: {
         user: smtpConfig.login,
         pass: smtpConfig.pass
@@ -17,9 +17,7 @@ module.exports = ( function() {
     };
 
     return {
-      sendEmail: function( mailSettings, success, fail ) {
-
-        console.log(mailSettings);
+      sendEmail: function( mailSettings ) {
 
         var header = new smtpapi();
 
@@ -39,20 +37,15 @@ module.exports = ( function() {
           headers: headers
         };
 
-        smtpTransport.sendMail( mailOptions, function( error, response ) {
+        smtpTransport.sendMail( mailOptions, function( error, res ) {
 
           smtpTransport.close();
 
-          if( !error ) {
+          if( error ) {
 
-            console.log( 'Message sent: ' + response.message );
-
-          } else {
-
-            console.log( 'Status: ' + error );
+            console.log( 'send' );
 
           }
-
 
         } );
 

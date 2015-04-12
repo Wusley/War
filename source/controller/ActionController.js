@@ -3,150 +3,77 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
   // DEPENDENCIEs
   var handleNewAttack = require( '../service/handleNewAttack' ),
       attackValidator = require( '../service/attackValidator' ),
+      treatAction = require( '../service/treatAction' ),
+      treatResponse = require( '../service/treatResponse' ),
       castTime = require( '../service/castTime' ),
       moment = require( 'moment' );
 
   router.post( '/attack', interceptAccess.checkConnected, function( req, res, next ) {
+
     var nick = req.session.nick,
-        client = {};
+        response = treatResponse( res ),
         errors = attackValidator( req );
-
-    function success( user, target, title, souls, skills ) {
-
-      var distance = parseFloat( target.dis.toFixed( 3 ) ) * 1000; // convert km in meters
-
-      var action = {
-        'title': title,
-        'distance': distance, // meters
-        'date': moment(), // date
-        'schedule': moment().add( castTime( distance ), 'minutes' ), // schedule
-        'attack': {
-          'nick': user.nick,
-          'position': user.position
-        },
-        'target': { // target
-          'nick': target.obj.nick,
-          'position': target.obj.position
-        },
-        'atks': [ { 'nick': user.nick, 'skills': skills } ] // list attackers
-      };
-
-      function _success( action ) {
-
-        var promiseUser = userDao.updateAction( user.nick, ( user.souls - souls ) );
-
-        promiseUser.then( function( user ) {
-
-          if( user ) {
-
-            schedule
-              .add( {
-                'id': 'action-' + action._id,
-                'schedule': action.schedule,
-                'callback': function() {
-
-                  // realizar calculos de batalha.
-                  // desativar action
-                  // atualizar os envolvidos
-
-                  console.log( 'BOOOOOOOM' );
-
-                  // var promiseUserUpgrade = userDao.updateSkillUpgrade( nick, upgrading );
-
-                  // promiseUserUpgrade
-                  //   .then( function( user ) {
-
-                  //     if( user ) {
-
-                  //       console.log( user );
-
-                  //     }
-
-                  //   } );
-
-                }
-              } );
-
-          }
-
-
-        } );
-
-
-        res.send( client );
-
-      }
-
-      function _fail() {
-
-      }
-
-      var promiseAction = actionDao.saveAttack( action, _success, _fail );
-
-    }
-
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-
-      // if( status === 'enemy' ) {
-
-      //   client.enemy = false;
-
-      // }
-
-      res.send( client );
-    }
 
     if( !errors ) {
 
-      handleNewAttack( nick, req.body, userDao, partyDao, success, fail );
+      handleNewAttack( nick, req.body, userDao, partyDao, { 'success': function ( data ) {
+
+        var user = data.user,
+            target = data.target,
+            title = data.title,
+            souls = data.souls,
+            skills = data.skills;
+
+        var distance = parseFloat( target.dis.toFixed( 3 ) ) * 1000; // convert km in meters
+
+        var action = {
+          'title': title,
+          'distance': distance, // meters
+          'date': moment(), // date
+          'schedule': moment().add( castTime( distance ), 'minutes' ), // schedule
+          'attack': {
+            'nick': user.nick,
+            'position': user.position
+          },
+          'target': { // target
+            'nick': target.obj.nick,
+            'position': target.obj.position
+          },
+          'atks': [ { 'nick': user.nick, 'skills': skills } ] // list attackers
+        };
+
+        var promiseAction = actionDao.saveAttack( action, { 'success': function ( data ) {
+
+          var action = data.action;
+
+          var promiseUser = userDao.updatePay( user.nick, ( user.souls - souls ) );
+
+          promiseUser.then( function( user ) {
+
+            if( user ) {
+
+              schedule
+                .add( treatAction( action ) );
+
+              response.success( action );
+
+            } else {
+
+              response.fail( 'user-broke' );
+
+            }
+
+          } );
+
+        }, 'fail': response.fail } );
+
+      }, 'fail': response.fail } );
 
     } else {
 
-      fail( 'errors', errors );
+      response.fail( { 'errors': errors } );
 
     }
-
-  } );
-
-  router.put( '/attack/:id', interceptAccess.checkConnected, function( req, res, next ) {
-    var nick = req.session.nick,
-        client = {};
-
-    function success( user, enemy ) {
-      client.cod = 200;
-      client.user = user;
-      client.enemy = enemy;
-
-      res.send( client );
-    }
-
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-      client.user = null;
-      client.enemy = null;
-
-      if( status === 'user' ) {
-
-        client.user = false;
-
-      }
-
-      if( status === 'enemy' ) {
-
-        client.enemy = false;
-
-      }
-
-      res.send( client );
-    }
-
-    singleAttackValidator( nick, target, success, fail );
-
-    // pega dados do db
-    // subtrai dados do db com client, resultado volta pro db. dados client armazena em forma de ataque no doc action
 
   } );
 
@@ -154,38 +81,9 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
     var nick = req.session.nick,
         id = req.params.id,
-        client = {},
+        response = treatResponse( res ),
         promiseUser = userDao.findUser( nick );
         promiseEnemy = userDao.findId( id );
-
-    function success( user, enemy ) {
-      client.cod = 200;
-      client.user = user;
-      client.enemy = enemy;
-
-      res.send( client );
-    }
-
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-      client.user = null;
-      client.enemy = null;
-
-      if( status === 'user' ) {
-
-        client.user = false;
-
-      }
-
-      if( status === 'enemy' ) {
-
-        client.enemy = false;
-
-      }
-
-      res.send( client );
-    }
 
     promiseUser
       .then( function( user ) {
@@ -198,11 +96,11 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
               if( enemy ) {
 
                 // Handle Data
-                success( user, enemy );
+                response.success( { 'user': user, 'enemy': enemy } );
 
               } else {
 
-                fail( 'enemy' );
+                response.fail( 'server' );
 
               }
 
@@ -210,29 +108,11 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
         } else {
 
-          fail( 'user' );
+          response.fail( 'empty-user' );
 
         }
 
       } );
-
-  } );
-
-  router.post( '/attack/:token', interceptAccess.checkConnected, function( req, res, next ) {
-
-
-
-  } );
-
-  router.post( '/defense/:token', interceptAccess.checkConnected, function( req, res, next ) {
-
-
-
-  } );
-
-  router.get( '/active/:token', function( req, res, next ) {
-
-    //
 
   } );
 

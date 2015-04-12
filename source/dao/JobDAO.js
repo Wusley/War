@@ -9,7 +9,7 @@ module.exports = ( function() {
     var Job = mongoose.model( 'Job', jobSchema );
 
     return {
-      save: function( job, success, fail ) {
+      save: function( job, response ) {
 
         var that = this,
             findPromise = that.find( job.name );
@@ -22,15 +22,22 @@ module.exports = ( function() {
 
             dao.save( function ( err, job ) {
 
-              if(err) return console.error( err );
+              if( !err ) {
 
-              success( job );
+                response.success( { 'job': job } );
+
+              } else {
+
+                response.fail( 'save' );
+
+              }
+
 
             } );
 
           } else {
 
-            fail( 'job' );
+            response.fail( 'exist' );
 
           }
 
@@ -51,25 +58,25 @@ module.exports = ( function() {
         return promise;
 
       },
-      updateJobSkill: function( name, skills, success, fail ) {
+      updateJobSkill: function( name, skills, response ) {
 
-          var promise = Job
-                          .update( { name: name }, { 'skills': skills } ).exec();
+        var promise = Job
+                        .update( { name: name }, { 'skills': skills } ).exec();
 
-          promise
-            .then( function( status, details ) {
+        promise
+          .then( function( result ) {
 
-              if( !details.err ) {
+            if( result.ok > 0 ) {
 
-                success();
+              response.success( { 'skills': skills } );
 
-              } else {
+            } else {
 
-                fail() ;
+              response.fail() ;
 
-              }
+            }
 
-            } );
+          } );
 
       }
     };

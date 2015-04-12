@@ -1,5 +1,8 @@
 module.exports = ( function() {
 
+  var treatAction = require( '../service/treatAction' ),
+      treatSkillUpgrading = require( '../service/treatSkillUpgrading' );
+
   var Schedule = function() {
 
     var moment = require( 'moment' ),
@@ -19,7 +22,7 @@ module.exports = ( function() {
 
           function ping( queue ) {
 
-            console.log( queue );
+            // console.log( queue );
 
             var id = 0, length = queue.length, now = moment();
             for( ; id < length ; id = id + 1 ) {
@@ -48,28 +51,7 @@ module.exports = ( function() {
               var id = 0, actionsLength = actions.length;
               for( ; id < actionsLength ; id = id + 1 ) {
 
-                that.add( {
-                  'id': 'action-' + actions[ id ]._id,
-                  'schedule': actions[ id ].schedule,
-                  'callback': function() {
-
-                    console.log( 'BOOOOOOOM' );
-
-                    // var promiseUserUpgrade = userDao.updateSkillUpgrade( nick, upgrading );
-
-                    // promiseUserUpgrade
-                    //   .then( function( user ) {
-
-                    //     if( user ) {
-
-                    //       console.log( user );
-
-                    //     }
-
-                    //   } );
-
-                  }
-                } );
+                that.add( treatAction( actions[ id ], actionDao ) );
 
               };
 
@@ -86,32 +68,13 @@ module.exports = ( function() {
                   usersLength = users.length;
               for( ; user < usersLength ; user = user + 1 ) {
 
-                var skill = 0, skillUpgradingLength = users[ user ].skillUpgrading.length;
+                var skill = 0,
+                    skillUpgradingLength = users[ user ].skillUpgrading.length;
                 for( ; skill < skillUpgradingLength ; skill = skill + 1 ) {
 
-                  var _user = users[ user ],
-                      _skillUpgrading = users[ user ].skillUpgrading[ skill ];
+                  var skillUpgrading = users[ user ].skillUpgrading[ skill ];
 
-                  that.add( {
-                    'id': 'skill-' + users[ user ].skillUpgrading[ skill ].id + '-' + users[ user ]._id,
-                    'schedule': users[ user ].skillUpgrading[ skill ].schedule,
-                    'callback': function() {
-
-                      var promiseUserSkillUserUpgrade = userDao.updateSkillUpgrade( _user.nick, _skillUpgrading );
-
-                      promiseUserSkillUserUpgrade
-                        .then( function( user ) {
-
-                          if( user ) {
-
-                            console.log( user );
-
-                          }
-
-                        } );
-
-                    }
-                  } );
+                  that.add( treatSkillUpgrading( users[ user ].nick, skillUpgrading, userDao ) );
 
                 };
 
@@ -128,24 +91,32 @@ module.exports = ( function() {
       },
       add: function( data ) {
 
-        queue.push( { 'id': data.id, 'expire': data.schedule, 'callback': data.callback } );
+        if( data ) {
+
+          queue.push( { 'expire': data.schedule, 'callback': data.callback } );
+
+        }
 
       },
       rm: function( refer ) {
 
-        var id = 0, length = queue.length;
-        for( ; id < length ; id = id + 1 ) {
+        if( refer ) {
 
-          if( queue[ id ].id === refer ) {
+          var id = 0, length = queue.length;
+          for( ; id < length ; id = id + 1 ) {
 
-            queue.splice( id, 1 );
+            if( queue[ id ].id === refer ) {
 
-            break;
+              queue.splice( id, 1 );
 
-          }
+              break;
 
+            }
 
-        };
+          };
+
+        }
+
 
       }
     };

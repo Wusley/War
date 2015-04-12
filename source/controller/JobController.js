@@ -1,108 +1,45 @@
 module.exports = function( router, jobDao ) {
 
   // DEPENDENCIEs
-  var treatSkills = require( '../service/treatSkills' );
+  var treatSkills = require( '../service/treatSkills' ),
+      treatResponse = require( '../service/treatResponse' );
 
   router.post( '/job', function( req, res, next ) {
 
-    var client = {};
+    var response = treatResponse( res );
 
-    function success( data ) {
-      client.cod = 200;
-      client.job = data;
-
-      res.send( client );
-    }
-
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-      client.job = null;
-
-      if( status === 'job' ) {
-
-        client.job = false;
-
-      }
-
-      res.send( client );
-    }
-
-    console.log(req.body);
-
-    jobDao.save( req.body, success, fail );
+    jobDao.save( req.body, response );
 
   } );
 
   router.get( '/jobs', function( req, res, next ) {
 
-    var client = {},
+    var response = treatResponse( res ),
         promise = jobDao.findList();
 
-    function success( jobs ) {
-      client.cod = 200;
-      client.jobs = jobs;
+    promise
+      .then( function( jobs ) {
 
-      res.send( client );
-    }
+        if( jobs ) {
 
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-      client.jobs = null;
+          response.success( { 'jobs': jobs } );
 
-      if( status === 'jobs' ) {
+        } else {
 
-        client.jobs = false;
+          response.fail( 'empty' );
 
-      }
+        }
 
-      res.send( client );
-    }
-
-    promise.then( function( jobs ) {
-
-      if( jobs ) {
-
-        success( jobs );
-
-      } else {
-
-        fail( 'jobs' );
-
-      }
-
-    } );
+      } );
 
   } );
 
-
   router.put( '/job/skills', function( req, res, next ) {
 
-    var client = {};
-        req.body.skills = treatSkills( req.body.skills );
+    var response = treatResponse( res ),
+        skills = treatSkills( req.body.skills );
 
-    function success( job ) {
-      client.cod = 200;
-
-      res.send( client );
-    }
-
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-      client.skills = null;
-
-      if( status === 'skills' ) {
-
-        client.job = false;
-
-      }
-
-      res.send( client );
-    }
-
-    jobDao.updateJobSkill( req.body.name, req.body.skills, success, fail );
+    jobDao.updateJobSkill( req.body.name, skills, response );
 
   } );
 

@@ -1,135 +1,39 @@
-module.exports = function( router, redis, uuid, interceptAccess, userDao ) {
+module.exports = function( router, interceptAccess, userDao, authDao ) {
 
   // DEPENDENCIEs
-  var emailValidator = require( '../service/emailValidator' ),
-      bcrypt = require( 'bcrypt' ),
-      config = require( '../config/user' ),
-      moment = require('moment');
+  var authValidator = require( '../service/authValidator' ),
+      treatResponse = require( '../service/treatResponse' ),
+      config = require( '../config/user' );
 
   router.post( '/connect', function( req, res, next ) {
 
-    var client = {},
-        errors = emailValidator( req );
-
-    function success( user ) {
-
-      function _success( token ) {
-
-        client.cod = 200;
-        client.token = token;
-
-        res.send( client );
-
-      }
-
-      function _fail( status, errors ) {
-
-        client.cod = 400;
-        client.errors = errors || null;
-
-        res.send( client );
-
-      }
-
-      var data = {
-        token: user.nick + ':' + uuid.v1(),
-        nick: user.nick,
-        expires: moment().add( 1, 'day' )
-      };
-
-      redis
-        .hmset( data.token, { nick: data.nick, expires: data.expires }, function( error, session ) {
-
-          if( !error ) {
-
-            _success( data.token );
-
-          } else {
-
-            _fail();
-
-          }
-
-        } );
-
-    }
-
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-      client.user = null;
-      client.user = null;
-      client.password = null;
-
-      if( status === 'user' ) {
-
-        client.user = false;
-
-      }
-
-      if( status === 'password' ) {
-
-        client.password = false;
-
-      }
-
-      res.send( client );
-    }
+    var response = treatResponse( res ),
+        errors = authValidator( req );
 
     if( !errors ) {
 
-      userDao.authenticate( req.body.email, req.body.password, success, fail );
+      userDao.authenticate( req.body.email, req.body.password, { 'success': function( data ) {
+
+        authDao.save( data.user.nick, response );
+
+      }, 'fail': response.fail } );
 
     } else {
 
-      fail( 'errors', errors );
+      response.fail( { 'errors': errors } );
 
     }
-
 
   } );
 
   router.get( '/disconnect/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
     var token = req.params.token,
-        client = {};
+        response = treatResponse( res );
 
     delete req.session.nick;
 
-    function success() {
-      client.cod = 200;
-
-      res.send( client );
-    }
-
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-
-      if( status === 'server' ) {
-
-        client.cod = 500;
-
-      }
-
-      res.send( client );
-    }
-
-    redis
-      .del( 'session.' + token,
-          function ( error, session ) {
-
-            if( !error ) {
-
-              success();
-
-            } else {
-
-              fail( 'server' );
-
-            }
-
-          } );
+    authDao.delete( token, response );
 
   } );
 

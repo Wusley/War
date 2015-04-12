@@ -8,7 +8,7 @@ module.exports = ( function() {
     var Skill = mongoose.model( 'Skill', skillSchema );
 
     return {
-      save: function( skill, success, fail ) {
+      save: function( skill, response ) {
 
         var that = this,
             findPromise = that.find( skill.name );
@@ -21,15 +21,21 @@ module.exports = ( function() {
 
             dao.save( function ( err, skill ) {
 
-              if( err ) return console.error( err );
+              if( !err ) {
 
-              success( skill );
+                response.success( { 'skill': skill } );
+
+              } else {
+
+                response.fail( 'server' );
+
+              }
 
             } );
 
           } else {
 
-            fail( 'skill' );
+            response.fail( 'skill' );
 
           }
 

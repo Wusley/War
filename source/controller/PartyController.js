@@ -1,31 +1,12 @@
-module.exports = function( router, interceptAccess, userDao, partyDao ) {
+module.exports = function( router, interceptAccess, partyDao ) {
+
+  var treatResponse = require( '../service/treatResponse' );
 
   router.get('/party/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
-        client = {},
+        response = treatResponse( res ),
         promise = partyDao.findPartyUser( nick );
-
-    function success( party ) {
-      client.cod = 200;
-      client.party = party;
-
-      res.send( client );
-    }
-
-    function fail( status, errors ) {
-      client.cod = 400;
-      client.errors = errors || null;
-      client.party = null;
-
-      if( status === 'party' ) {
-
-        client.party = false;
-
-      }
-
-      res.send( client );
-    }
 
     promise
       .then( function( party ) {
@@ -33,7 +14,7 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
         if( party ) {
 
           // Handle Data
-          success( {
+          response.success( {
             'name': party.name,
             'description': party.description,
             'partners': party.partners,
@@ -42,7 +23,7 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
         } else {
 
-          fail( 'party' );
+          response.fail( 'empty' );
 
         }
 

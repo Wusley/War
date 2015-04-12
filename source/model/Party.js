@@ -2,5 +2,5 @@ module.exports = {
  'name': String,
  'description': String,
  'partners': [],
- 'score': Number
+ 'score': { type: Number, default: 0 }
 };

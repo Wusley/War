@@ -9,6 +9,26 @@ module.exports = ( function() {
     var Party = mongoose.model( 'Party', partySchema );
 
     return {
+      createParty: function( nick, response ) {
+
+        var dao = new Party( { 'partners': [ nick ] } );
+
+        dao.save( function ( err, party ) {
+
+          if( !err ) {
+
+            response.success( party );
+
+          } else {
+
+            response.fail( 'server' );
+
+          }
+
+        } );
+
+      },
+
       insertPartner: function( id, nick ) {
 
         var promise = Party.findOneAndUpdate( { _id: id }, { $push: { 'partners': nick } }, { safe: true, upsert: true } ).exec();
@@ -39,21 +59,7 @@ module.exports = ( function() {
 
         return promise;
 
-      },
-
-      createParty: function( nick ) {
-
-        var dao = new Party( { 'partners': [ nick ], 'score': 0 } );
-
-        dao.save( function ( err, party ) {
-
-          if( err ) return console.error( err );
-
-          console.log( party );
-
-        } );
-
-      },
+      }
 
     };
 
