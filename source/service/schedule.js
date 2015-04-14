@@ -1,7 +1,9 @@
 module.exports = ( function() {
 
   var treatAction = require( '../service/treatAction' ),
-      treatSkillUpgrading = require( '../service/treatSkillUpgrading' );
+      treatSkillUpgrading = require( '../service/treatSkillUpgrading' ),
+      scheduleConfig = require('../config/schedule'),
+      _ = require( 'underscore' );
 
   var Schedule = function() {
 
@@ -10,34 +12,53 @@ module.exports = ( function() {
         queue = [];
 
     return {
-      start: function( delay, userDao, actionDao ) {
+      start: function( userDao, actionDao ) {
 
         var that = this,
+            load = 2; // 2
             promiseUserSkill = userDao.findSkillUpgrading(),
             promiseAction = actionDao.findActionsActive();
 
-        function success() {
+        function success( status ) {
 
-          cron = setInterval( ping, delay, queue );
+          if( status === 0 ) {
 
-          function ping( queue ) {
+            setInterval( ping, scheduleConfig.delay, queue );
 
-            // console.log( queue );
+            function ping( queue ) {
 
-            var id = 0, length = queue.length, now = moment();
-            for( ; id < length ; id = id + 1 ) {
+              var id = 0,
+                  now = moment(),
+                  queueLength = queue.length,
+                  rem = [];
 
-              if( now.diff( queue[ id ].expire ) >= 0 ) {
+              var teste = [];
+              for( ; id < queueLength ; id = id + 1 ) {
 
-                queue[ id ].callback();
+                if( now.diff( queue[ id ].expire ) >= 0 ) {
 
-                queue.splice( id, 1 );
+                  queue[ id ].callback();
 
-                break;
+                  rem.push( id );
+
+                }
+
+              };
+
+              if( rem.length ) {
+
+                var remLength = rem.length - 1,
+                    remId = remLength;
+
+                for( ; remId >= 0 ; remId = remId - 1 ) {
+
+                  queue.splice( rem[ remId ], 1 );
+
+                }
 
               }
 
-            };
+            }
 
           }
 
@@ -45,6 +66,8 @@ module.exports = ( function() {
 
         promiseAction
           .then( function( actions ) {
+
+            console.log( 'action loaded' );
 
             if( actions ) {
 
@@ -57,10 +80,16 @@ module.exports = ( function() {
 
             }
 
+            load = load - 1;
+
+            success( load );
+
           } );
 
         promiseUserSkill
           .then( function( users ) {
+
+            console.log( 'skills upgrading loaded' );
 
             if( users ) {
 
@@ -82,7 +111,9 @@ module.exports = ( function() {
 
             }
 
-            success();
+            load = load - 1;
+
+            success( load );
 
           } );
 

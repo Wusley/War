@@ -62,7 +62,7 @@
         authDao = new AuthDao( redis ),
         interceptAccess = new InterceptAccess( redis );
 
-    var promise = schedule.start( 3000, userDao, actionDao );
+    var promise = schedule.start( userDao, actionDao );
 
     promise
       .then( function() {

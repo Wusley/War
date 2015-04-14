@@ -11,7 +11,12 @@ module.exports = ( function() {
 
       if( user ) {
 
-        userDao.findUserTargetAndDistance( user, action.target, { 'success': function( user, target ) {
+        userDao.findUserTargetAndDistance( user, action.target, { 'success': function( data ) {
+
+          var user = data.user;
+              target = data.target;
+
+          console.log( user );
 
           var data = checkRulesAction( user, action );
 

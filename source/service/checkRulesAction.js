@@ -5,6 +5,8 @@ module.exports = ( function() {
 
   var checkRulesAction = function( user, data ) {
 
+    // console.log( data );
+
     var action = {};
 
     action.errors = {};
@@ -25,6 +27,8 @@ module.exports = ( function() {
         for( ; id < skillsLength ; id = id + 1 ) {
 
           turns = turns + 1;
+
+          // console.log( user );
 
           souls = souls + user.job.skills[ skills[ id ] ].souls;
 
