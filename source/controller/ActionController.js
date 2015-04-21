@@ -6,6 +6,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
       treatAction = require( '../service/treatAction' ),
       treatResponse = require( '../service/treatResponse' ),
       castTime = require( '../service/castTime' ),
+      sliceActions = require( '../service/sliceActions' ),
       moment = require( 'moment' );
 
   router.post( '/attack', interceptAccess.checkConnected, function( req, res, next ) {
@@ -132,13 +133,31 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
               var promiseAction = actionDao.findActionsUser( enemy.nick );
 
               promiseAction
-                .then( function( action ) {
+                .then( function( actions ) {
 
-                  if( action ) {
+                  if( actions ) {
 
-                    // sortActions
-                    // treatEnemyLine
-                    response.success();
+                    var promiseParty = partyDao.findTargetInParty( nick, enemy.nick );
+
+                    promiseParty.then( function( party ) {
+
+                      if( party.length === 0 ) {
+
+                        var line = sliceActions( enemy.nick, actions );
+
+                        response.success( { 'line': line } );
+
+                      } else if( party.length > 0 ) {
+
+                        response.fail( 'partners' );
+
+                      } else {
+
+                        response.fail( 'server' );
+
+                      }
+
+                    } );
 
                   } else {
 

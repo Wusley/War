@@ -16,15 +16,13 @@ module.exports = ( function() {
           var user = data.user;
               target = data.target;
 
-          console.log( user );
-
           var data = checkRulesAction( user, action );
 
           if( !data.error ) {
 
             promiseParty.then( function( party ) {
 
-              if( party.length === 2 ) {
+              if( party.length === 0 ) {
 
                 response.success( {
                   'user': user,

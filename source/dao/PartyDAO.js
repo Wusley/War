@@ -55,7 +55,7 @@ module.exports = ( function() {
 
       findTargetInParty: function( nick, target ) {
 
-        var promise = Party.find().where( { 'partners': { $in: [ nick, target ] } } ).exec();
+        var promise = Party.find().and( [ { 'partners': { $in: [ nick ] } }, { 'partners': { $in: [ target ] } } ] ).exec();
 
         return promise;
 
