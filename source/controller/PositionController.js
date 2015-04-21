@@ -26,15 +26,15 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
         var nick = data.nick,
             position = data.position;
 
-        var promise =  partyDao.findPartyUser( nick );
+        var promisePartyUser =  partyDao.findPartyUser( nick );
 
-        promise.then( function( party ) {
+        promisePartyUser.then( function( party ) {
 
           if( !party ) {
 
-            var promise = userDao.findUserNearby( position, nick );
+            var promiseUserNearby = userDao.findUserNearby( position, nick );
 
-            promise
+            promiseUserNearby
               .then( function( users ) {
 
                 if( users ) {
@@ -51,35 +51,36 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
                   }
 
-                  var promise = partyDao.findAvaliableParty( _users, nick );
+                  var promisePartyAvaliable = partyDao.findAvaliableParty( _users, nick );
 
-                  promise.then( function( party ) {
+                  promisePartyAvaliable
+                    .then( function( party ) {
 
-                    if( party ) {
+                      if( party ) {
 
-                      var promise = partyDao.insertPartner( party._id, nick );
+                        var promise = partyDao.insertPartner( party._id, nick );
 
-                      promise.then( function( party ) {
+                        promise.then( function( party ) {
 
-                        if( party ) {
+                          if( party ) {
 
-                          response.success( party );
+                            response.success( party );
 
-                        } else {
+                          } else {
 
-                          response.fail( 'server' );
+                            response.fail( 'server' );
 
-                        }
+                          }
 
-                      } );
+                        } );
 
-                    } else {
+                      } else {
 
-                      partyDao.createParty( nick, response );
+                        partyDao.createParty( nick, response );
 
-                    }
+                      }
 
-                  } );
+                    } );
 
                 } else {
 

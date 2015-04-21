@@ -6,7 +6,7 @@ module.exports = ( function() {
 
     var time = Math.ceil( distance / mapConfig.metersPerMinute );
 
-    var cast = time < 10 ? 10 : time;
+    var cast = time < mapConfig.minTime ? mapConfig.minTime : time;
 
     return cast;
 

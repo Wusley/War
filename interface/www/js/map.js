@@ -30,6 +30,12 @@
 
       } );
 
+      $( '.js-line' ).on( 'click', function() {
+
+        line( $( this ) );
+
+      } );
+
     }
   };
 
@@ -38,6 +44,14 @@
     var enemyId = $this.attr( 'id' );
 
     mountAction( type, enemyId );
+
+  }
+
+  function line( $this ) {
+
+    var targetId = $this.attr( 'id' );
+
+    getLine( targetId, templateLineAction );
 
   }
 
@@ -111,6 +125,12 @@
 
   }
 
+  function templateLineAction( line ) {
+    var $modal = $( '.js-modal-line-action' );
+
+    $modal.fadeIn( 300 );
+  }
+
   function templateCompostAttack( user, target ) {
 
   }
@@ -129,6 +149,27 @@
         if( data.cod === 200 ) {
 
           template( data.user, data.enemy )
+
+        } else if( data.cod === 400 ) {
+
+          console.log( data );
+
+        }
+
+      } );
+
+  }
+
+  function getLine( id, template ) {
+
+    var url = config.url + '/action/enemy/line/' + id + '/' + window.localStorage.getItem( 'token' );
+
+    $.get( url )
+      .done( function( data ) {
+
+        if( data.cod === 200 ) {
+
+          template( data.line );
 
         } else if( data.cod === 400 ) {
 

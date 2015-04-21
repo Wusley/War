@@ -33,6 +33,21 @@ module.exports = ( function() {
 
         return promise;
 
+      },
+      findActionsUser: function( nick ) {
+
+        var promise = Action.find( { status: true } ).or( [ { 'target.nick': nick }, { 'atks.nick': { $in: [ nick ] } }, { 'defs.nick': { $in: [ nick ] } } ] ).exec();
+
+        return promise;
+
+      },
+      delete: function( id ) {
+
+        var promise = Action
+                        .update( { _id: id }, { 'status': false } ).exec();
+
+        return promise;
+
       }
     };
 

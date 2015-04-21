@@ -5,7 +5,6 @@ module.exports = ( function() {
     var moment = require( 'moment' ),
         crypto = require( 'crypto' ),
         PasswordCrypt = require( '../service/passwordCrypt' ),
-        treatUser = require( '../service/treatUser' )( cache.jobs ),
         schema = require( '../model/User' ),
         partyConfig = require( '../config/party' ),
         mapConfig = require( '../config/map' ),
@@ -16,6 +15,8 @@ module.exports = ( function() {
     var User = mongoose.model( 'User', userSchema );
 
     passwordCrypt = new PasswordCrypt();
+
+    var treatUser = require( '../service/treatUser' )( User, cache.jobs );
 
     return {
       save: function( user, response ) {
@@ -38,6 +39,8 @@ module.exports = ( function() {
                     user.password = passwordCrypt.insurance( user.password );
 
                     if( user.password ) {
+
+                      user.updated = moment().startOf( 'hour' );
 
                       var dao = new User( user );
 
@@ -206,7 +209,7 @@ module.exports = ( function() {
 
             if( result.ok > 0 ) {
 
-                response.success( { 'nick': user.nick, 'position': user.position } );
+                response.success( { 'nick': nick, 'position': position } );
 
               } else {
 
@@ -231,13 +234,29 @@ module.exports = ( function() {
 
             } else {
 
-              response.fail() ;
+              response.fail();
 
             }
 
           } );
 
       },
+      // updateSouls: function() {
+      //   User
+      //     .aggregate( [
+      //         { $match: { updated: false } },
+      //         {
+      //           $group: {
+      //             _id: '$_id',
+      //             souls: { $avg: { $multiply: [ "$souls", "$heroes" ] } }
+      //           }
+      //         }
+      //       ],
+      //       function ( err, users ) {
+
+      //       }
+      //     );
+      // },
       findSkillUpgrading: function() {
 
         var promise = User

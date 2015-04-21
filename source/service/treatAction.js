@@ -10,24 +10,25 @@ module.exports = ( function() {
         'schedule': action.schedule,
         'callback': function() {
 
-          // realizar calculos de batalha.
+          // calcular batalha
+          // users atks x users defs
+          // shuffle atks x defs
+          // def randomiza list atk e insere na posicao do atacante
+          // quando acabar a primeira lista, insere na segunda e assim por diante
+
+
+
+          // atualizar users
+
           // desativar action
-          // atualizar os envolvidos
 
-          // console.log( 'BOOOOOOOM' );
+          var promiseAction = actionDao.delete( action );
 
-          // var promiseUserUpgrade = userDao.updateSkillUpgrade( nick, upgrading );
+          promiseAction.then( function() {
 
-          // promiseUserUpgrade
-          //   .then( function( user ) {
+            console.log( arguments );
 
-          //     if( user ) {
-
-          //       console.log( user );
-
-          //     }
-
-          //   } );
+          } );
 
         }
       };

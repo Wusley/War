@@ -21,6 +21,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
         var user = data.user,
             target = data.target,
             title = data.title,
+            actSouls = data.actSouls,
             souls = data.souls,
             skills = data.skills;
 
@@ -39,7 +40,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
             'nick': target.obj.nick,
             'position': target.obj.position
           },
-          'atks': [ { 'nick': user.nick, 'skills': skills } ] // list attackers
+          'atks': [ { 'nick': user.nick, 'souls': actSouls, 'skills': skills } ] // list attackers
         };
 
         var promiseAction = actionDao.saveAttack( action, { 'success': function ( data ) {
@@ -82,7 +83,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
     var nick = req.session.nick,
         id = req.params.id,
         response = treatResponse( res ),
-        promiseUser = userDao.findUser( nick );
+        promiseUser = userDao.findUser( nick ),
         promiseEnemy = userDao.findId( id );
 
     promiseUser
@@ -113,6 +114,47 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
         }
 
       } );
+
+  } );
+
+  router.get( '/action/enemy/line/:id/:token', interceptAccess.checkConnected, function( req, res, next ) {
+
+    var nick = req.session.nick,
+        id = req.params.id,
+        response = treatResponse( res ),
+        promiseEnemy = userDao.findId( id );
+
+        promiseEnemy
+          .then( function( enemy ) {
+
+            if( enemy ) {
+
+              var promiseAction = actionDao.findActionsUser( enemy.nick );
+
+              promiseAction
+                .then( function( action ) {
+
+                  if( action ) {
+
+                    // sortActions
+                    // treatEnemyLine
+                    response.success();
+
+                  } else {
+
+                    response.fail( 'empty-action' );
+
+                  }
+
+                } );
+
+            } else {
+
+              response.fail( 'empty-enemy' );
+
+            }
+
+          } );
 
   } );
 

@@ -30,6 +30,7 @@ module.exports = ( function() {
                   'user': user,
                   'target': target,
                   'title': action.title,
+                  'actSouls': action.souls,
                   'souls': data.souls,
                   'skills': data.skills
                 } );

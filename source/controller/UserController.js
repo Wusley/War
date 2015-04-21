@@ -20,12 +20,12 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
         if( user ) {
 
           // Handle Data
-          response.success( {
+          response.success( { 'user': {
             'name': user.name,
             'nick': user.nick,
             'email': user.email,
             'score': user.score
-          } );
+          } } );
 
         } else {
 

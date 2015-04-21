@@ -5,6 +5,7 @@ module.exports = {
   'password': String,
   'score': { type: Number, default: 0 },
   'souls': { type: Number, default: 100 },
+  'heroes': { type: Number, default: 100 },
   'position': [],
   'job': String,
   'skillUpgrading': [],
@@ -17,5 +18,6 @@ module.exports = {
     'resetPasswordStatus': Boolean
   },
   'status': Boolean,
+  'updated': Date,
   'role': { type: Number, default: 0 }
 };

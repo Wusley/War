@@ -1,27 +1,44 @@
-module.exports = function( jobs ) {
+module.exports = function( User, jobs ) {
+
+  var treatSouls = require( '../service/treatSouls' )( User );
 
   var treatUser = function( err, users ) {
 
-    if( users ) {
+    if( !err ) {
 
-      var type = users.constructor.name,
-          handleAction = require( '../service/handleAction' );
+      if( users ) {
 
-      if( !err && type === 'Array' && users.length > 0 ) {
+        treatSouls( users, { 'success': function( data ) {
 
-        var id = 0,
-            usersLength = users.length;
-        for( ; id < usersLength; id = id + 1 ) {
+          var users = data.users;
 
-          users[ id ].job = jobs[ users[ id ].job ];
-          users[ id ] = handleAction.passiveSkills( users[ id ] );
+          var type = users.constructor.name,
+              handleAction = require( '../service/handleAction' );
 
-        }
+          if( type === 'Array' && users.length > 0 ) {
 
-      } else if( !err && type === 'Object'  ) {
+            var id = 0,
+                usersLength = users.length;
+            for( ; id < usersLength; id = id + 1 ) {
 
-        users.job = jobs[ users.job ];
-        users = handleAction.passiveSkills( users );
+              users[ id ].job = jobs[ users[ id ].job ];
+              users[ id ] = handleAction.passiveSkills( users[ id ] );
+
+            }
+
+          } else if( type === 'Object'  ) {
+
+            users.job = jobs[ users.job ];
+            users = handleAction.passiveSkills( users );
+
+          }
+
+        },
+        'fail': function() {
+
+          console.log( 'error' );
+
+        } } );
 
       }
 

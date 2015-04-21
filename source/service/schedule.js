@@ -2,6 +2,7 @@ module.exports = ( function() {
 
   var treatAction = require( '../service/treatAction' ),
       treatSkillUpgrading = require( '../service/treatSkillUpgrading' ),
+      treatSouls = require( '../service/treatSouls' ),
       scheduleConfig = require('../config/schedule'),
       _ = require( 'underscore' );
 
@@ -27,6 +28,8 @@ module.exports = ( function() {
 
             function ping( queue ) {
 
+              // console.log( queue );
+
               var id = 0,
                   now = moment(),
                   queueLength = queue.length,
@@ -49,7 +52,6 @@ module.exports = ( function() {
 
                 var remLength = rem.length - 1,
                     remId = remLength;
-
                 for( ; remId >= 0 ; remId = remId - 1 ) {
 
                   queue.splice( rem[ remId ], 1 );
