@@ -118,32 +118,123 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   } );
 
-  router.get( '/action/enemy/line/:id/:token', interceptAccess.checkConnected, function( req, res, next ) {
+  router.get( '/action/line/:token', interceptAccess.checkConnected, function( req, res, next ) {
+
+    var nick = req.session.nick,
+        response = treatResponse( res );
+
+    var promiseAction = actionDao.findActionsUser( nick );
+
+    promiseAction
+      .then( function( actions ) {
+
+        if( actions ) {
+
+          var line = sliceActions( nick, actions );
+
+          response.success( { 'line': line } );
+
+        } else {
+
+          response.fail( 'empty-action' );
+
+        }
+
+      } );
+
+  } );
+
+  router.get( '/action/partner/line/:id/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
         id = req.params.id,
         response = treatResponse( res ),
-        promiseEnemy = userDao.findId( id );
+        promiseTarget = userDao.findId( id );
 
-        promiseEnemy
-          .then( function( enemy ) {
+        promiseTarget
+          .then( function( target ) {
 
-            if( enemy ) {
+            if( target ) {
 
-              var promiseAction = actionDao.findActionsUser( enemy.nick );
+              var promiseAction = actionDao.findActionsUser( target.nick );
 
               promiseAction
                 .then( function( actions ) {
 
                   if( actions ) {
 
-                    var promiseParty = partyDao.findTargetInParty( nick, enemy.nick );
+                    var promiseParty = partyDao.findTargetInParty( nick, target.nick );
+
+                    promiseParty.then( function( party ) {
+
+                      if( party.length === 1 ) {
+
+                        var line = sliceActions( target.nick, actions );
+
+                        // limitar line target
+                        // remove properties
+
+                        response.success( { 'line': line } );
+
+                      } else if( party.length > 0 ) {
+
+                        response.fail( 'not-partners' );
+
+                      } else {
+
+                        response.fail( 'server' );
+
+                      }
+
+                    } );
+
+                  } else {
+
+                    response.fail( 'empty-action' );
+
+                  }
+
+                } );
+
+            } else {
+
+              response.fail( 'empty-target' );
+
+            }
+
+          } );
+
+  } );
+
+  router.get( '/action/enemy/line/:id/:token', interceptAccess.checkConnected, function( req, res, next ) {
+
+    var nick = req.session.nick,
+        id = req.params.id,
+        response = treatResponse( res ),
+        promiseTarget = userDao.findId( id );
+
+        promiseTarget
+          .then( function( target ) {
+
+            if( target ) {
+
+              var promiseAction = actionDao.findActionsUser( target.nick );
+
+              promiseAction
+                .then( function( actions ) {
+
+                  if( actions ) {
+
+                    var promiseParty = partyDao.findTargetInParty( nick, target.nick );
 
                     promiseParty.then( function( party ) {
 
                       if( party.length === 0 ) {
 
-                        var line = sliceActions( enemy.nick, actions );
+                        var line = sliceActions( target.nick, actions );
+
+                        // limitar line target
+                        // remove properties
 
                         response.success( { 'line': line } );
 
@@ -169,7 +260,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
             } else {
 
-              response.fail( 'empty-enemy' );
+              response.fail( 'empty-target' );
 
             }
 

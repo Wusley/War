@@ -66,8 +66,17 @@ input, textarea, select {
   cursor: pointer;
 }
 
+.line .attack.maker {
+  color: #B22222;
+  cursor: pointer;
+}
 
-/* provisorio */
-.action {
-  /*display: none;*/
+.line .attack {
+  color: red;
+  cursor: pointer;
+}
+
+.line .defense {
+  color: green;
+  cursor: pointer;
 }

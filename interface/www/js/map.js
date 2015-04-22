@@ -36,6 +36,18 @@
 
       } );
 
+      $( '.js-line-partner' ).on( 'click', function() {
+
+        line( $( this ), 'partner' );
+
+      } );
+
+      $( '.js-line-enemy' ).on( 'click', function() {
+
+        line( $( this ), 'enemy' );
+
+      } );
+
     }
   };
 
@@ -47,17 +59,15 @@
 
   }
 
-  function line( $this ) {
+  function line( $this, flag ) {
 
     var targetId = $this.attr( 'id' );
 
-    getLine( targetId, templateLineAction );
+    getLine( targetId, templateLineAction, flag );
 
   }
 
   function mountAction( type, enemyId ) {
-
-    // console.log( JSON.parse( window.localStorage.getItem( 'user' ) ) );
 
     var template;
 
@@ -126,7 +136,85 @@
   }
 
   function templateLineAction( line ) {
-    var $modal = $( '.js-modal-line-action' );
+    var $modal = $( '.js-modal-line-action' ),
+        $attack = $modal.find( '.js-attack' ),
+        $attackList = $attack.find( '.js-list' ),
+        $defense = $modal.find( '.js-defense' ),
+        $defenseList = $defense.find( '.js-list' );
+
+      $attackList.html( '' );
+      $defenseList.html( '' );
+
+      if( line.attack.length ) {
+
+        var action = line.attack;
+
+        var actionId = 0,
+            actionLength = action.length;
+        for( ; actionId < actionLength ; actionId = actionId + 1 ) {
+
+          $attackList.append( '<li class="attack maker" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9757; - maker</li>' );
+
+        }
+
+      }
+
+      if( line.outAttack.length ) {
+
+        var action = line.outAttack;
+
+        var actionId = 0,
+            actionLength = action.length;
+        for( ; actionId < actionLength ; actionId = actionId + 1 ) {
+
+          $attackList.append( '<li class="attack" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9757;</li>' );
+
+        }
+
+      }
+
+      if( line.overAttack.length ) {
+
+        var action = line.overAttack;
+
+        var actionId = 0,
+            actionLength = action.length;
+        for( ; actionId < actionLength ; actionId = actionId + 1 ) {
+
+          $attackList.append( '<li class="attack" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9759;</li>' );
+
+        }
+
+      }
+
+      if( line.outDefense.length ) {
+
+        var action = line.outDefense;
+
+        var actionId = 0,
+            actionLength = action.length;
+        for( ; actionId < actionLength ; actionId = actionId + 1 ) {
+
+          $defenseList.append( '<li class="defense" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9757;</li>' );
+
+        }
+
+      }
+
+      if( line.overDefense.length ) {
+
+        var action = line.overDefense;
+
+        var actionId = 0,
+            actionLength = action.length;
+        for( ; actionId < actionLength ; actionId = actionId + 1 ) {
+
+          $defenseList.append( '<li class="defense" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9759;</li>' );
+
+        }
+
+      }
+
 
     $modal.fadeIn( 300 );
   }
@@ -160,9 +248,19 @@
 
   }
 
-  function getLine( id, template ) {
+  function getLine( id, template, flag ) {
 
-    var url = config.url + '/action/enemy/line/' + id + '/' + window.localStorage.getItem( 'token' );
+    var url;
+
+    if( flag ) {
+
+      url = config.url + '/action/' + flag + '/line/' + id + '/' + window.localStorage.getItem( 'token' );
+
+    } else {
+
+      url = config.url + '/action/line/' + window.localStorage.getItem( 'token' );
+
+    }
 
     $.get( url )
       .done( function( data ) {
@@ -216,7 +314,7 @@
     } );
 
     var contentString = '<div class="btn attack js-attack" id="' + enemy._id + '">Attack</div>\
-                        <div class="btn line js-line" id="' + enemy._id + '">Line</div>\
+                        <div class="btn line js-line-enemy" id="' + enemy._id + '">Line</div>\
                         <div class="btn active js-active" id="' + enemy._id + '">Active</div>';
 
     var infowindow = new google.maps.InfoWindow( {
@@ -245,6 +343,12 @@
 
       } );
 
+      $( '.js-line-enemy' ).on( 'click', function() {
+
+        infowindow.close();
+
+      } );
+
       infobox.addListeners();
 
     } );
@@ -257,6 +361,39 @@
       map: map,
       icon: 'images/ally.png',
       title: 'Partner'
+    } );
+
+    var contentString = '<div class="btn line js-line-partner" id="' + partner._id + '">Line</div>\
+                        <div class="btn active js-active" id="' + partner._id + '">Active</div>';
+
+    var infowindow = new google.maps.InfoWindow( {
+
+      content: contentString
+
+    } );
+
+    google.maps.event.addListener( marker, 'click', function() {
+
+      infowindow.open( map, marker );
+
+    } );
+
+    google.maps.event.addListener( infowindow, 'closeclick', function() {
+
+      infowindow.close();
+
+    } );
+
+    google.maps.event.addListener( infowindow, 'domready', function() {
+
+      $( '.js-line-partner' ).on( 'click', function() {
+
+        infowindow.close();
+
+      } );
+
+      infobox.addListeners();
+
     } );
   }
 
@@ -304,15 +441,39 @@
       title: 'You'
     } );
 
-    var contentString = 'Teste';
+    var contentString = '<div class="btn line js-line" id="' + user._id + '">Line</div>\
+                        <div class="btn active js-active" id="' + user._id + '">Active</div>';
 
     var infowindow = new google.maps.InfoWindow( {
+
       content: contentString
+
     } );
 
     google.maps.event.addListener( marker, 'click', function() {
+
       infowindow.open( map, marker );
+
     } );
+
+    google.maps.event.addListener( infowindow, 'closeclick', function() {
+
+      infowindow.close();
+
+    } );
+
+    google.maps.event.addListener( infowindow, 'domready', function() {
+
+      $( '.js-line' ).on( 'click', function() {
+
+        infowindow.close();
+
+      } );
+
+      infobox.addListeners();
+
+    } );
+
   }
 
   $( document.body ).ready( function () {

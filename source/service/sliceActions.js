@@ -4,10 +4,10 @@ module.exports = ( function() {
 
     var line = {};
         line.attack = [];
-        line.overAttack = [];
         line.outAttack = [];
-        line.overDefense = [];
+        line.overAttack = [];
         line.outDefense = [];
+        line.overDefense = [];
 
     if( actions ) {
 
@@ -100,6 +100,8 @@ module.exports = ( function() {
       };
 
     }
+
+    console.log( line );
 
     return line;
 
