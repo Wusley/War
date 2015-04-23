@@ -364,8 +364,8 @@ module.exports = ( function() {
         var promise = User.where( 'position' ).nearSphere( { center: position, maxDistance: maxDistance } ).where( 'nick' ).ne( nick ).lean().exec( treatUser );
 
         return promise;
-
       },
+
 
       // ORDER BY NEARBY
       findEnemyNearby: function( position, distance, except ) {
@@ -373,6 +373,16 @@ module.exports = ( function() {
         var maxDistance = ( ( 1 /  partyConfig.kmReference ) /  1000 ) * distance;
 
         var promise = User.where( 'position' ).nearSphere( { center: position, maxDistance: maxDistance } ).where( 'nick' ).nin( except ).lean().exec( treatUser );
+
+        return promise;
+
+      },
+
+      findEnemyIdNearbyLimit: function( id, position, distance ) {
+
+        var maxDistance = ( ( 1 /  partyConfig.kmReference ) /  1000 ) * distance;
+
+        var promise = User.where( 'position' ).nearSphere( { center: position, maxDistance: maxDistance } ).where( '_id', id ).lean().exec( treatUser );
 
         return promise;
 

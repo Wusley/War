@@ -1,6 +1,6 @@
 module.exports = ( function() {
 
-  var sliceActions = function( nick, actions ) {
+  var sliceActions = function( nick, actions, type ) {
 
     var line = {};
         line.attack = [];
@@ -101,7 +101,12 @@ module.exports = ( function() {
 
     }
 
-    console.log( line );
+    if( 'enemy' ) {
+      delete line.attack;
+      delete line.outAttack;
+      delete line.outDefense;
+      delete line.overDefense;
+    }
 
     return line;
 

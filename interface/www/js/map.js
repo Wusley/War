@@ -145,7 +145,7 @@
       $attackList.html( '' );
       $defenseList.html( '' );
 
-      if( line.attack.length ) {
+      if( line.attack && line.attack.length ) {
 
         var action = line.attack;
 
@@ -159,7 +159,7 @@
 
       }
 
-      if( line.outAttack.length ) {
+      if( line.outAttack && line.outAttack.length ) {
 
         var action = line.outAttack;
 
@@ -173,7 +173,7 @@
 
       }
 
-      if( line.overAttack.length ) {
+      if( line.overAttack && line.overAttack.length ) {
 
         var action = line.overAttack;
 
@@ -187,7 +187,7 @@
 
       }
 
-      if( line.outDefense.length ) {
+      if( line.outDefense && line.outDefense.length ) {
 
         var action = line.outDefense;
 
@@ -201,7 +201,7 @@
 
       }
 
-      if( line.overDefense.length ) {
+      if( line.overDefense && line.overDefense.length ) {
 
         var action = line.overDefense;
 

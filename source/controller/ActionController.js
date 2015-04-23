@@ -211,57 +211,69 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
     var nick = req.session.nick,
         id = req.params.id,
         response = treatResponse( res ),
-        promiseTarget = userDao.findId( id );
+        promiseUser = userDao.findUser( nick );
 
-        promiseTarget
-          .then( function( target ) {
+        promiseUser
+          .then( function( user ) {
 
-            if( target ) {
+            if( user ) {
 
-              var promiseAction = actionDao.findActionsUser( target.nick );
+              var promiseTarget = userDao.findEnemyIdNearbyLimit( id, user.position, user.job.sight );
 
-              promiseAction
-                .then( function( actions ) {
+              promiseTarget
+                .then( function( target ) {
 
-                  if( actions ) {
+                  if( target.length === 1 ) {
 
-                    var promiseParty = partyDao.findTargetInParty( nick, target.nick );
+                    target = target[ 0 ];
 
-                    promiseParty.then( function( party ) {
+                    var promiseAction = actionDao.findActionsUser( target.nick );
 
-                      if( party.length === 0 ) {
+                    promiseAction
+                      .then( function( actions ) {
 
-                        var line = sliceActions( target.nick, actions );
+                        if( actions ) {
 
-                        // limitar line target
-                        // remove properties
+                          var promiseParty = partyDao.findTargetInParty( nick, target.nick );
 
-                        response.success( { 'line': line } );
+                          promiseParty.then( function( party ) {
 
-                      } else if( party.length > 0 ) {
+                            if( party.length === 0 ) {
 
-                        response.fail( 'partners' );
+                              var line = sliceActions( target.nick, actions, 'enemy' );
 
-                      } else {
+                              // limitar line target
+                              // remove properties
 
-                        response.fail( 'server' );
+                              response.success( { 'line': line } );
 
-                      }
+                            } else if( party.length > 0 ) {
 
-                    } );
+                              response.fail( 'partners' );
+
+                            } else {
+
+                              response.fail( 'server' );
+
+                            }
+
+                          } );
+
+                        } else {
+
+                          response.fail( 'empty-action' );
+
+                        }
+
+                      } );
 
                   } else {
 
-                    response.fail( 'empty-action' );
+                    response.fail( 'empty-target' );
 
                   }
 
                 } );
-
-            } else {
-
-              response.fail( 'empty-target' );
-
             }
 
           } );
