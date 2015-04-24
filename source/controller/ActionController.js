@@ -81,36 +81,21 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   router.get( '/action/enemy/:id/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
-    var nick = req.session.nick,
-        id = req.params.id,
+    var id = req.params.id,
         response = treatResponse( res ),
-        promiseUser = userDao.findUser( nick ),
         promiseEnemy = userDao.findId( id );
 
-    promiseUser
-      .then( function( user ) {
+    promiseEnemy
+      .then( function( enemy ) {
 
-        if( user ) {
+        if( enemy ) {
 
-          promiseEnemy
-            .then( function( enemy ) {
-
-              if( enemy ) {
-
-                // Handle Data
-                response.success( { 'user': user, 'enemy': enemy } );
-
-              } else {
-
-                response.fail( 'server' );
-
-              }
-
-            } );
+          // Handle Data
+          response.success( { 'enemy': enemy } );
 
         } else {
 
-          response.fail( 'empty-user' );
+          response.fail( 'empty-enemy' );
 
         }
 
@@ -118,12 +103,70 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   } );
 
+  router.get( '/attack/:actionId/:token', interceptAccess.checkConnected, function( req, res, next ) {
+
+    var actionId = req.params.actionId,
+        response = treatResponse( res ),
+        promiseAction = actionDao.findActionUser( actionId );
+
+    // pegar action,
+    // usar target para pegar inimigo,
+    // verificar se é um partner
+    // enviar dados da action e inimigo
+
+    promiseAction
+      .then( function( action ) {
+
+        if( action ) {
+
+          // Handle Data
+          response.success( { 'action': action } );
+
+        } else {
+
+          response.fail( 'empty-action' );
+
+        }
+
+      } );
+
+  } );
+
+  router.get( '/defense/:actionId/:token', interceptAccess.checkConnected, function( req, res, next ) {
+
+    var actionId = req.params.actionId,
+        response = treatResponse( res ),
+        promiseAction = actionDao.findActionUser( actionId );
+
+    promiseAction
+      .then( function( action ) {
+
+        if( action ) {
+
+          // Handle Data
+          response.success( { 'action': action } );
+
+        } else {
+
+          response.fail( 'empty-action' );
+
+        }
+
+      } );
+
+
+    // pegar action,
+    // usar target para pegar partner,
+    // verificar se é um partner
+    // enviar dados da action e partner
+
+  } );
+
   router.get( '/action/line/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
-        response = treatResponse( res );
-
-    var promiseAction = actionDao.findActionsUser( nick );
+        response = treatResponse( res ),
+        promiseAction = actionDao.findActionsUser( nick );
 
     promiseAction
       .then( function( actions ) {
@@ -144,7 +187,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   } );
 
-  router.get( '/action/partner/line/:id/:token', interceptAccess.checkConnected, function( req, res, next ) {
+  router.get( '/action/line/partner/:id/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
         id = req.params.id,
@@ -170,9 +213,6 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
                       if( party.length === 1 ) {
 
                         var line = sliceActions( target.nick, actions );
-
-                        // limitar line target
-                        // remove properties
 
                         response.success( { 'line': line } );
 
@@ -206,7 +246,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   } );
 
-  router.get( '/action/enemy/line/:id/:token', interceptAccess.checkConnected, function( req, res, next ) {
+  router.get( '/action/line/enemy/:id/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
         id = req.params.id,
@@ -241,9 +281,6 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
                             if( party.length === 0 ) {
 
                               var line = sliceActions( target.nick, actions, 'enemy' );
-
-                              // limitar line target
-                              // remove properties
 
                               response.success( { 'line': line } );
 

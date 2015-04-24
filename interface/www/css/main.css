@@ -80,3 +80,20 @@ input, textarea, select {
   color: green;
   cursor: pointer;
 }
+
+.line .btn {
+  padding: 0 10px;
+  display: inline-block;
+  border: 1px solid;
+  cursor: pointer;
+}
+
+.line .btn-attack {
+  border-color: red;
+  color: red;
+}
+
+.line .btn-defense {
+  border-color: green;
+  color: green;
+}

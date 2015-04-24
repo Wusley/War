@@ -130,66 +130,7 @@
       </nav>
     </div> <!-- compost-attack -->
 
-    <div class="modal action defense-user js-modal js-modal-defense-user">
-      <div class="update js-update">Update</div>
-      <div class="close js-close">X</div>
-      <header>
-        <h2>Defense - <span class="title js-title"></span></h2>
-      </header>
-
-      <section class="js-user">
-        <h3>You</h3>
-        <div>Score: <small class="js-score"></small></div>
-        <div>Name: <small class="js-nick"></small></div>
-        <div>Job: <small class="js-job"></small></div>
-      </section>
-
-      <section class="js-target">
-        <h3>User</h3>
-        <div>Score: <small class="js-score"></small></div>
-        <div>Name: <small class="js-nick"></small></div>
-        <div>Job: <small class="js-job"></small></div>
-      </section>
-
-      <section class="js-enemy">
-        <h3>Enemy</h3>
-        <div>Score: <small class="js-score"></small></div>
-        <div>Name: <small class="js-nick"></small></div>
-        <div>Job: <small class="js-job"></small></div>
-      </section>
-
-      <nav class="js-attackers">
-        <h3>Attackers</h3>
-        <ul class="js-list">
-          ----------------
-        </ul>
-      </nav>
-
-      <form action="javascript:void( 0 )" class="js-form-simple-attack" method="POST">
-        <fieldset>
-          <legend>Defense</legend>
-
-          <input type="hidden" name="id" class="js-form-action-id" >
-
-          <label for="souls">Souls</label>
-          <input type="number" name="souls" id="souls" min="0" >
-
-          <label for="skills">Skills</label>
-          <textarea name="skills" cols="50" rows="5"></textarea>
-
-          Obs: Skills e Souls custam souls. 1 Soul = 1 soul, skills possuem custos individuais :)
-
-          <input type="submit" class="js-submit" value="Attack">
-        </fieldset>
-      </form>
-
-      <nav>
-        <h3>Skills</h3>
-        <ul class="js-skills"></ul>
-      </nav>
-    </div> <!-- defense-user -->
-
-    <div class="modal action defense-partner js-modal js-modal-defense-partner">
+    <div class="modal action defense-partner js-modal js-modal-compost-defense">
       <div class="update js-update">Update</div>
       <div class="close js-close">X</div>
       <header>
@@ -255,7 +196,7 @@
       </nav>
     </div> <!-- defense-partner -->
 
-    <div class="modal action defense js-modal js-modal-defense">
+    <div class="modal action defense js-modal js-modal-simple-defense">
       <div class="update js-update">Update</div>
       <div class="close js-close">X</div>
       <header>
@@ -312,7 +253,7 @@
         <h3>Skills</h3>
         <ul class="js-skills"></ul>
       </nav>
-    </div> <!-- defense -->
+    </div> <!-- simple-defense -->
 
     <div id="map"></div>
 

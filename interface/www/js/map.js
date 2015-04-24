@@ -26,64 +26,30 @@
 
       $( '.js-attack' ).on( 'click', function() {
 
-        action( 'new attack', $( this ) );
+        getTargetSimpleAttack( $( this ).attr( 'id' ), templateSimpleAttack );
 
       } );
 
       $( '.js-line' ).on( 'click', function() {
 
-        line( $( this ) );
+        getLine( $( this ).attr( 'id' ), templateLineAction );
 
       } );
 
       $( '.js-line-partner' ).on( 'click', function() {
 
-        line( $( this ), 'partner' );
+        getLine( $( this ).attr( 'id' ), templateLineAction, 'partner' );
 
       } );
 
       $( '.js-line-enemy' ).on( 'click', function() {
 
-        line( $( this ), 'enemy' );
+        getLine( $( this ).attr( 'id' ), templateLineAction, 'enemy' );
 
       } );
 
     }
   };
-
-  function action( type, $this ) {
-
-    var enemyId = $this.attr( 'id' );
-
-    mountAction( type, enemyId );
-
-  }
-
-  function line( $this, flag ) {
-
-    var targetId = $this.attr( 'id' );
-
-    getLine( targetId, templateLineAction, flag );
-
-  }
-
-  function mountAction( type, enemyId ) {
-
-    var template;
-
-    switch( type ) {
-
-      case 'new attack': template = templateSimpleAttack;
-      break;
-
-      default: template = templateSimpleAttack;
-      break;
-
-    }
-
-    getTarget( enemyId, template );
-
-  }
 
   function templateSimpleAttack( user, target ) {
     var $modal = $( '.js-modal-simple-attack' ),
@@ -135,17 +101,29 @@
 
   }
 
-  function templateLineAction( line ) {
+  function templateLineAction( line, flag ) {
     var $modal = $( '.js-modal-line-action' ),
         $attack = $modal.find( '.js-attack' ),
         $attackList = $attack.find( '.js-list' ),
         $defense = $modal.find( '.js-defense' ),
-        $defenseList = $defense.find( '.js-list' );
+        $defenseList = $defense.find( '.js-list' ),
+        btnAction = '',
+        btnAtk = '<div class="btn btn-attack js-btn-attack">Attack</div>',
+        btnDef = '<div class="btn btn-defense js-btn-defense">Defense</div>',
+        btnAutoDef = '<div class="btn btn-simple-defense js-btn-defense">Defense</div>';
 
       $attackList.html( '' );
       $defenseList.html( '' );
 
       if( line.attack && line.attack.length ) {
+
+        if( flag === 'enemy' ) {
+          btnAction = '';
+        } else if( flag === 'partner' ) {
+          btnAction = btnAtk;
+        } else {
+          btnAction = btnAtk;
+        }
 
         var action = line.attack;
 
@@ -153,7 +131,7 @@
             actionLength = action.length;
         for( ; actionId < actionLength ; actionId = actionId + 1 ) {
 
-          $attackList.append( '<li class="attack maker" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9757; - maker</li>' );
+          $attackList.append( '<li class="js-item-action attack maker js-line-action" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9757; - maker ' + btnAction + '</li>' );
 
         }
 
@@ -161,13 +139,21 @@
 
       if( line.outAttack && line.outAttack.length ) {
 
+        if( flag === 'enemy' ) {
+          btnAction = '';
+        } else if( flag === 'partner' ) {
+          btnAction = btnAtk;
+        } else {
+          btnAction = btnAtk;
+        }
+
         var action = line.outAttack;
 
         var actionId = 0,
             actionLength = action.length;
         for( ; actionId < actionLength ; actionId = actionId + 1 ) {
 
-          $attackList.append( '<li class="attack" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9757;</li>' );
+          $attackList.append( '<li class="js-item-action attack" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9757; ' + btnAction + '</li>' );
 
         }
 
@@ -175,13 +161,21 @@
 
       if( line.overAttack && line.overAttack.length ) {
 
+        if( flag === 'enemy' ) {
+          btnAction = btnAtk;
+        } else if( flag === 'partner' ) {
+          btnAction = btnDef;
+        } else {
+          btnAction = btnDef;
+        }
+
         var action = line.overAttack;
 
         var actionId = 0,
             actionLength = action.length;
         for( ; actionId < actionLength ; actionId = actionId + 1 ) {
 
-          $attackList.append( '<li class="attack" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9759;</li>' );
+          $attackList.append( '<li class="js-item-action attack" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9759; ' + btnAction + '</li>' );
 
         }
 
@@ -189,13 +183,21 @@
 
       if( line.outDefense && line.outDefense.length ) {
 
+        if( flag === 'enemy' ) {
+          btnAction = '';
+        } else if( flag === 'partner' ) {
+          btnAction = btnDef;
+        } else {
+          btnAction = btnDef;
+        }
+
         var action = line.outDefense;
 
         var actionId = 0,
             actionLength = action.length;
         for( ; actionId < actionLength ; actionId = actionId + 1 ) {
 
-          $defenseList.append( '<li class="defense" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9757;</li>' );
+          $defenseList.append( '<li class="js-item-action defense" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9757; ' + btnAction + '</li>' );
 
         }
 
@@ -203,31 +205,80 @@
 
       if( line.overDefense && line.overDefense.length ) {
 
+        if( flag === 'enemy' ) {
+          btnAction = '';
+        } else if( flag === 'partner' ) {
+          btnAction = btnDef;
+        } else {
+          btnAction = btnAutoDef;
+        }
+
         var action = line.overDefense;
 
         var actionId = 0,
             actionLength = action.length;
         for( ; actionId < actionLength ; actionId = actionId + 1 ) {
 
-          $defenseList.append( '<li class="defense" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9759;</li>' );
+          $defenseList.append( '<li class="js-item-action defense" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9759; ' + btnAction + '</li>' );
 
         }
 
       }
 
+    $modal.fadeIn( 300, function() {
+
+      $( '.js-btn-attack' ).on( 'click', function() {
+
+        getTargetCompostAttack( $( this ).closest( '.js-item-action ' ).attr( 'id' ), templateCompostAttack );
+
+      } );
+
+      $( '.js-btn-defense' ).on( 'click', function() {
+
+        getTargetCompostDefense( $( this ).closest( '.js-item-action ' ).attr( 'id' ), templateCompostDefense );
+
+      } );
+
+      $( '.js-btn-simple-defense' ).on( 'click', function() {
+
+        getTargetSimpleDefense( $( this ).closest( '.js-item-action ' ).attr( 'id' ), templateSimpleDefense );
+
+      } );
+
+    } );
+  }
+
+  function templateCompostAttack( user, target, action ) {
+
+    var $modal = $( '.js-modal-compost-attack' );
+
+    $( '.js-modal' ).hide();
 
     $modal.fadeIn( 300 );
-  }
-
-  function templateCompostAttack( user, target ) {
 
   }
 
-  function templateCompostDefense( user, target ) {
+  function templateCompostDefense( user, target, action ) {
+
+    var $modal = $( '.js-modal-compost-defense' );
+
+    $( '.js-modal' ).hide();
+
+    $modal.fadeIn( 300 );
 
   }
 
-  function getTarget( id, template ) {
+  function templateSimpleDefense( user, action ) {
+
+    var $modal = $( '.js-modal-simple-defense' );
+
+    $( '.js-modal' ).hide();
+
+    $modal.fadeIn( 300 );
+
+  }
+
+  function getTargetSimpleAttack( id, template ) {
 
     var url = config.url + '/action/enemy/' + id + '/' + window.localStorage.getItem( 'token' );
 
@@ -236,7 +287,70 @@
 
         if( data.cod === 200 ) {
 
-          template( data.user, data.enemy )
+          template( data.user, data.enemy );
+
+        } else if( data.cod === 400 ) {
+
+          console.log( data );
+
+        }
+
+      } );
+
+  }
+
+  function getTargetCompostAttack( actionId, template ) {
+
+    var url = config.url + '/attack/' + actionId + '/' + window.localStorage.getItem( 'token' );
+
+    $.get( url )
+      .done( function( data ) {
+
+        if( data.cod === 200 ) {
+
+          template( data.user, data.target, data.action );
+
+        } else if( data.cod === 400 ) {
+
+          console.log( data );
+
+        }
+
+      } );
+
+  }
+
+  function getTargetCompostDefense( actionId, template ) {
+
+    var url = config.url + '/defense/' + actionId + '/' + window.localStorage.getItem( 'token' );
+
+    $.get( url )
+      .done( function( data ) {
+
+        if( data.cod === 200 ) {
+
+          template( data.user, data.target, data.action );
+
+        } else if( data.cod === 400 ) {
+
+          console.log( data );
+
+        }
+
+      } );
+
+  }
+
+  function getTargetSimpleDefense( id, template ) {
+
+    var url = config.url + '/defense/' + id + '/' + window.localStorage.getItem( 'token' );
+
+    $.get( url )
+      .done( function( data ) {
+
+        if( data.cod === 200 ) {
+
+          template( data.user, data.action );
 
         } else if( data.cod === 400 ) {
 
@@ -254,7 +368,7 @@
 
     if( flag ) {
 
-      url = config.url + '/action/' + flag + '/line/' + id + '/' + window.localStorage.getItem( 'token' );
+      url = config.url + '/action/line/' + flag + '/' + id + '/' + window.localStorage.getItem( 'token' );
 
     } else {
 
@@ -267,7 +381,7 @@
 
         if( data.cod === 200 ) {
 
-          template( data.line );
+          template( id, data.line, flag );
 
         } else if( data.cod === 400 ) {
 

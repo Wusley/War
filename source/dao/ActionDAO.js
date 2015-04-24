@@ -41,6 +41,13 @@ module.exports = ( function() {
         return promise;
 
       },
+      findActionUser: function( actionId, nick ) {
+
+        var promise = Action.find( { status: true, _id: actionId, 'target.nick': nick } ).exec();
+
+        return promise;
+
+      },
       delete: function( id ) {
 
         var promise = Action
