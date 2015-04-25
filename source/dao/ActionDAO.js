@@ -41,9 +41,9 @@ module.exports = ( function() {
         return promise;
 
       },
-      findActionUser: function( actionId, nick ) {
+      findActionId: function( actionId ) {
 
-        var promise = Action.find( { status: true, _id: actionId, 'target.nick': nick } ).exec();
+        var promise = Action.findOne( { status: true, _id: actionId } ).exec();
 
         return promise;
 

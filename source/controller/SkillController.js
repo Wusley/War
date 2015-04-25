@@ -40,7 +40,7 @@ module.exports = function( router, interceptAccess, schedule, skillDao, userDao 
 
     var nick = req.session.nick,
         response = treatResponse( res ),
-        promise = userDao.findUser( nick );
+        promise = userDao.findNick( nick );
 
     promise.then( function( user ) {
 
@@ -63,7 +63,7 @@ module.exports = function( router, interceptAccess, schedule, skillDao, userDao 
     var nick = req.session.nick,
         skillName = req.params.skillName,
         response = treatResponse( res ),
-        promiseUser = userDao.findUser( nick ),
+        promiseUser = userDao.findNick( nick ),
         promiseSkill = skillDao.find( skillName );
 
     promiseSkill.then( function( skill ) {

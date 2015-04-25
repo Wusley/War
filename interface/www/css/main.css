@@ -93,6 +93,7 @@ input, textarea, select {
   color: red;
 }
 
+.line .btn-simple-defense,
 .line .btn-defense {
   border-color: green;
   color: green;

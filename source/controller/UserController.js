@@ -12,7 +12,7 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
     var nick = req.session.nick,
         response = treatResponse( res ),
-        promise = userDao.findUser( nick );
+        promise = userDao.findNick( nick );
 
     promise
       .then( function( user ) {
@@ -20,12 +20,7 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
         if( user ) {
 
           // Handle Data
-          response.success( { 'user': {
-            'name': user.name,
-            'nick': user.nick,
-            'email': user.email,
-            'score': user.score
-          } } );
+          response.success( { 'user': user } );
 
         } else {
 

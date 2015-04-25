@@ -81,17 +81,32 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   router.get( '/action/enemy/:id/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
-    var id = req.params.id,
+    var nick = req.session.nick,
+        id = req.params.id,
         response = treatResponse( res ),
-        promiseEnemy = userDao.findId( id );
+        promiseUser = userDao.findId( id );
 
-    promiseEnemy
-      .then( function( enemy ) {
+    promiseUser
+      .then( function( user ) {
 
-        if( enemy ) {
+        if( user ) {
 
-          // Handle Data
-          response.success( { 'enemy': enemy } );
+          var promiseParty = partyDao.findTargetInParty( nick, user.nick );
+
+          promiseParty.then( function( party ) {
+
+            if( party.length <= 0 ) {
+
+              // Handle Data
+              response.success( { 'enemy': enemy } );
+
+            } else {
+
+              response.fail( 'partners' );
+
+            }
+
+          } );
 
         } else {
 
@@ -105,22 +120,101 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   router.get( '/attack/:actionId/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
-    var actionId = req.params.actionId,
+    var nick = req.session.nick,
+        actionId = req.params.actionId,
         response = treatResponse( res ),
-        promiseAction = actionDao.findActionUser( actionId );
-
-    // pegar action,
-    // usar target para pegar inimigo,
-    // verificar se é um partner
-    // enviar dados da action e inimigo
+        promiseAction = actionDao.findActionId( actionId );
 
     promiseAction
       .then( function( action ) {
 
         if( action ) {
 
-          // Handle Data
-          response.success( { 'action': action } );
+          var promiseUser = userDao.findNick( action.target.nick );
+
+          promiseUser
+            .then( function( user ) {
+
+              if( user ) {
+
+                var promiseParty = partyDao.findTargetInParty( nick, action.target.nick );
+
+                promiseParty.then( function( party ) {
+
+                  if( party.length <= 0 ) {
+
+                    // Handle Data
+                    response.success( { 'target': user, 'action': action } );
+
+                  } else {
+
+                    response.fail( 'partners' );
+
+                  }
+
+                } );
+
+              } else {
+
+                response.fail( 'empty-user' );
+
+              }
+
+            } );
+
+        } else {
+
+          response.fail( 'empty-action' );
+
+        }
+
+      } );
+
+  } );
+
+  router.get( '/counter-attack/:actionId/:token', interceptAccess.checkConnected, function( req, res, next ) {
+
+    var nick = req.session.nick,
+        actionId = req.params.actionId,
+        response = treatResponse( res ),
+        promiseAction = actionDao.findActionId( actionId );
+
+    promiseAction
+      .then( function( action ) {
+
+        if( action ) {
+
+          var promiseUser = userDao.findNick( action.attack.nick );
+
+          promiseUser
+            .then( function( user ) {
+
+              if( user ) {
+
+                var promiseParty = partyDao.findTargetInParty( nick, action.attack.nick );
+
+                promiseParty.then( function( party ) {
+
+                  if( party.length <= 0 ) {
+
+                    // Handle Data
+                    response.success( { 'target': user, 'action': action } );
+
+                  } else {
+
+                    response.fail( 'partners' );
+
+                  }
+
+                } );
+
+              } else {
+
+                response.fail( 'empty-user' );
+
+              }
+
+            } );
 
         } else {
 
@@ -134,17 +228,47 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   router.get( '/defense/:actionId/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
-    var actionId = req.params.actionId,
+    var nick = req.session.nick,
+        actionId = req.params.actionId,
         response = treatResponse( res ),
-        promiseAction = actionDao.findActionUser( actionId );
+        promiseAction = actionDao.findActionId( actionId );
 
     promiseAction
       .then( function( action ) {
 
         if( action ) {
 
-          // Handle Data
-          response.success( { 'action': action } );
+          var promiseUser = userDao.findNick( action.target.nick );
+
+          promiseUser
+            .then( function( user ) {
+
+              if( user ) {
+
+                var promiseParty = partyDao.findTargetInParty( nick, action.target.nick );
+
+                promiseParty.then( function( party ) {
+
+                  if( party.length === 1 ) {
+
+                    // Handle Data
+                    response.success( { 'target': user, 'action': action } );
+
+                  } else {
+
+                    response.fail( 'not-partners' );
+
+                  }
+
+                } );
+
+              } else {
+
+                response.fail( 'empty-user' );
+
+              }
+
+            } );
 
         } else {
 
@@ -153,12 +277,6 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
         }
 
       } );
-
-
-    // pegar action,
-    // usar target para pegar partner,
-    // verificar se é um partner
-    // enviar dados da action e partner
 
   } );
 
@@ -216,7 +334,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
                         response.success( { 'line': line } );
 
-                      } else if( party.length > 0 ) {
+                      } else if( party.length <= 0 ) {
 
                         response.fail( 'not-partners' );
 
@@ -251,7 +369,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
     var nick = req.session.nick,
         id = req.params.id,
         response = treatResponse( res ),
-        promiseUser = userDao.findUser( nick );
+        promiseUser = userDao.findNick( nick );
 
         promiseUser
           .then( function( user ) {

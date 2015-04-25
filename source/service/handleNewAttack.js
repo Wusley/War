@@ -4,7 +4,7 @@ module.exports = ( function() {
 
   var handleNewAttack = function( nick, action, userDao, partyDao, response ) {
 
-    var promiseUser = userDao.findUser( nick ),
+    var promiseUser = userDao.findNick( nick ),
         promiseParty = partyDao.findTargetInParty( nick, action.target );
 
     promiseUser.then( function( user ) {

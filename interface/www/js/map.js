@@ -54,24 +54,21 @@
   function templateSimpleAttack( user, target ) {
     var $modal = $( '.js-modal-simple-attack' ),
 
-        $user = $modal.find( '.js-user' ),
         $target = $modal.find( '.js-target' ),
-        $form = $modal.find( '.js-form-simple-attack' ),
 
+        $user = $modal.find( '.js-user' ),
         $userjob = $user.find( '.js-job' ),
         $userName = $user.find( '.js-nick' ),
         $userScore = $user.find( '.js-score' ),
 
+        $form = $modal.find( '.js-form-simple-attack' ),
         $targetJob = $target.find( '.js-job' ),
         $targetNick = $target.find( '.js-nick' ),
         $targetScore = $target.find( '.js-score' ),
-        $formTargetNick = $form.find( '.js-form-target-nick' ),
 
         $skills = $modal.find( '.js-skills' ),
 
-        $form = $modal.find( '.js-form-simple-attack' ),
-        $name = $form.find( '[name="name"]' ),
-        $souls = $form.find( '[name="souls"]' );
+        $fieldTarget = $form.find( '[name="target"]' );
 
     $userName.html( user.nick );
     $userjob.html( user.job.name );
@@ -80,9 +77,8 @@
     $targetNick.html( target.nick );
     $targetJob.html( target.job.name );
     $targetScore.html( target.score );
-    $formTargetNick.val( target.nick );
 
-    $souls.attr( { 'max': user.souls } );
+    $fieldTarget.val( target.nick );
 
     $skills.html( '' );
 
@@ -97,11 +93,215 @@
 
     }
 
+    $( '.js-modal' ).hide();
+
+    $modal.fadeIn( 300 );
+
+  }
+
+  function templateCompostAttack( user, target, action ) {
+
+    var $modal = $( '.js-modal-compost-attack' ),
+
+        $form = $modal.find( '.js-form-compost-attack' ),
+
+        $user = $modal.find( '.js-user' ),
+        $userjob = $user.find( '.js-job' ),
+        $userName = $user.find( '.js-nick' ),
+        $userScore = $user.find( '.js-score' ),
+
+        $target = $modal.find( '.js-target' ),
+        $targetJob = $target.find( '.js-job' ),
+        $targetNick = $target.find( '.js-nick' ),
+        $targetScore = $target.find( '.js-score' ),
+
+        $skills = $modal.find( '.js-skills' ),
+
+        $fieldId = $form.find( '[name="id"]' ),
+
+        $attackers = $modal.find( '.js-attackers' ),
+        $atkList = $attackers.find( '.js-list' );
+
+    $userName.html( user.nick );
+    $userjob.html( user.job.name );
+    $userScore.html( user.score);
+
+    $targetNick.html( target.nick );
+    $targetJob.html( target.job.name );
+    $targetScore.html( target.score );
+
+    $fieldId.val( action._id );
+
+    $atkList.html( '' );
+
+    var atkId = 0,
+        atkLength = action.atks.length;
+    for( ; atkId < atkLength ; atkId = atkId + 1 ) {
+
+        $atkList.append( '<li>' + action.atks[ atkId ].nick + '</li>' );
+
+    }
+
+    $skills.html( '' );
+
+    var id;
+    for( id in user.job.skills ) {
+
+      if( user.job.skills.hasOwnProperty( id ) ) {
+
+        $skills.append( '<li>' + user.job.skills[ id ].name + '</li>' );
+
+      }
+
+    }
+
+    $( '.js-modal' ).hide();
+
+    $modal.fadeIn( 300 );
+
+  }
+
+  function templateCompostDefense( user, target, action ) {
+
+    var $modal = $( '.js-modal-compost-defense' ),
+
+        $form = $modal.find( '.js-form-compost-defense' ),
+
+        $user = $modal.find( '.js-user' ),
+        $userjob = $user.find( '.js-job' ),
+        $userName = $user.find( '.js-nick' ),
+        $userScore = $user.find( '.js-score' ),
+
+        $target = $modal.find( '.js-target' ),
+        $targetJob = $target.find( '.js-job' ),
+        $targetNick = $target.find( '.js-nick' ),
+        $targetScore = $target.find( '.js-score' ),
+
+        $skills = $modal.find( '.js-skills' ),
+
+        $fieldId = $form.find( '[name="id"]' ),
+
+        $attackers = $modal.find( '.js-attackers' ),
+        $atkList = $attackers.find( '.js-list' ),
+        $defenders = $modal.find( '.js-defenders' ),
+        $defList = $defenders.find( '.js-list' );
+
+    $userName.html( user.nick );
+    $userjob.html( user.job.name );
+    $userScore.html( user.score);
+
+    $targetNick.html( target.nick );
+    $targetJob.html( target.job.name );
+    $targetScore.html( target.score );
+
+    $fieldId.val( action._id );
+
+    $defList.html( '' );
+
+    var defId = 0,
+        defLength = action.defs.length;
+    for( ; defId < atkLength ; defId = defId + 1 ) {
+
+        $defList.append( '<li>' + action.defs[ defId ].nick + '</li>' );
+
+    }
+
+    $atkList.html( '' );
+
+    var atkId = 0,
+        atkLength = action.atks.length;
+    for( ; atkId < atkLength ; atkId = atkId + 1 ) {
+
+        $atkList.append( '<li>' + action.atks[ atkId ].nick + '</li>' );
+
+    }
+
+    $skills.html( '' );
+
+    var id;
+    for( id in user.job.skills ) {
+
+      if( user.job.skills.hasOwnProperty( id ) ) {
+
+        $skills.append( '<li>' + user.job.skills[ id ].name + '</li>' );
+
+      }
+
+    }
+
+    $( '.js-modal' ).hide();
+
+    $modal.fadeIn( 300 );
+
+  }
+
+  function templateSimpleDefense( user, action ) {
+
+    var $modal = $( '.js-modal-simple-defense' ),
+
+        $form = $modal.find( '.js-form-simple-defense' ),
+
+        $user = $modal.find( '.js-user' ),
+        $userjob = $user.find( '.js-job' ),
+        $userName = $user.find( '.js-nick' ),
+        $userScore = $user.find( '.js-score' ),
+
+        $skills = $modal.find( '.js-skills' ),
+
+        $fieldId = $form.find( '[name="id"]' ),
+
+        $attackers = $modal.find( '.js-attackers' ),
+        $atkList = $attackers.find( '.js-list' ),
+        $defenders = $modal.find( '.js-defenders' ),
+        $defList = $defenders.find( '.js-list' );
+
+    $userName.html( user.nick );
+    $userjob.html( user.job.name );
+    $userScore.html( user.score);
+
+    $fieldId.val( action._id );
+
+    $defList.html( '' );
+
+    var defId = 0,
+        defLength = action.defs.length;
+    for( ; defId < atkLength ; defId = defId + 1 ) {
+
+        $defList.append( '<li>' + action.defs[ defId ].nick + '</li>' );
+
+    }
+
+    $atkList.html( '' );
+
+    var atkId = 0,
+        atkLength = action.atks.length;
+    for( ; atkId < atkLength ; atkId = atkId + 1 ) {
+
+        $atkList.append( '<li>' + action.atks[ atkId ].nick + '</li>' );
+
+    }
+
+    $skills.html( '' );
+
+    var id;
+    for( id in user.job.skills ) {
+
+      if( user.job.skills.hasOwnProperty( id ) ) {
+
+        $skills.append( '<li>' + user.job.skills[ id ].name + '</li>' );
+
+      }
+
+    }
+
+    $( '.js-modal' ).hide();
+
     $modal.fadeIn( 300 );
 
   }
 
   function templateLineAction( line, flag ) {
+
     var $modal = $( '.js-modal-line-action' ),
         $attack = $modal.find( '.js-attack' ),
         $attackList = $attack.find( '.js-list' ),
@@ -110,7 +310,9 @@
         btnAction = '',
         btnAtk = '<div class="btn btn-attack js-btn-attack">Attack</div>',
         btnDef = '<div class="btn btn-defense js-btn-defense">Defense</div>',
-        btnAutoDef = '<div class="btn btn-simple-defense js-btn-defense">Defense</div>';
+        btnAutoDef = '<div class="btn btn-simple-defense js-btn-simple-defense">Defense</div>';
+
+        console.log(line);
 
       $attackList.html( '' );
       $defenseList.html( '' );
@@ -166,7 +368,7 @@
         } else if( flag === 'partner' ) {
           btnAction = btnDef;
         } else {
-          btnAction = btnDef;
+          btnAction = btnAutoDef;
         }
 
         var action = line.overAttack;
@@ -248,36 +450,6 @@
     } );
   }
 
-  function templateCompostAttack( user, target, action ) {
-
-    var $modal = $( '.js-modal-compost-attack' );
-
-    $( '.js-modal' ).hide();
-
-    $modal.fadeIn( 300 );
-
-  }
-
-  function templateCompostDefense( user, target, action ) {
-
-    var $modal = $( '.js-modal-compost-defense' );
-
-    $( '.js-modal' ).hide();
-
-    $modal.fadeIn( 300 );
-
-  }
-
-  function templateSimpleDefense( user, action ) {
-
-    var $modal = $( '.js-modal-simple-defense' );
-
-    $( '.js-modal' ).hide();
-
-    $modal.fadeIn( 300 );
-
-  }
-
   function getTargetSimpleAttack( id, template ) {
 
     var url = config.url + '/action/enemy/' + id + '/' + window.localStorage.getItem( 'token' );
@@ -287,7 +459,7 @@
 
         if( data.cod === 200 ) {
 
-          template( data.user, data.enemy );
+          template( user, data.enemy );
 
         } else if( data.cod === 400 ) {
 
@@ -308,7 +480,7 @@
 
         if( data.cod === 200 ) {
 
-          template( data.user, data.target, data.action );
+          template( user, data.target, data.action );
 
         } else if( data.cod === 400 ) {
 
@@ -329,7 +501,7 @@
 
         if( data.cod === 200 ) {
 
-          template( data.user, data.target, data.action );
+          template( user, data.target, data.action );
 
         } else if( data.cod === 400 ) {
 
@@ -350,7 +522,7 @@
 
         if( data.cod === 200 ) {
 
-          template( data.user, data.action );
+          template( user, data.action );
 
         } else if( data.cod === 400 ) {
 
@@ -381,7 +553,7 @@
 
         if( data.cod === 200 ) {
 
-          template( id, data.line, flag );
+          template( data.line, flag );
 
         } else if( data.cod === 400 ) {
 
@@ -599,7 +771,6 @@
 
           if( data.cod === 200 ) {
 
-            window.localStorage.setItem( 'user', JSON.stringify( data.user ) );
             google.maps.event.addDomListener( window, 'load', initialize( data.user, data.partners, data.enemies ) );
 
           } else if( data.cod === 400 ) {
