@@ -9,7 +9,8 @@ module.exports = ( function() {
     'limit-position': limitPosition,
     'radiusInKm': 6378.137,
     'metersPerMinute': 50,
-    'minTime': 10, // minutes
+    // 'minTime': 10, // minutes
+    'minTime': 20000, // minutes
   };
 
 } () );

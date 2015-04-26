@@ -27,6 +27,20 @@ module.exports = ( function() {
         } );
 
       },
+      updateActionAttack: function( id, attack ) {
+
+        var promise = Action.findOneAndUpdate( { _id: id }, { $push: { 'atks': attack } }, { safe: true, upsert: true } ).exec();
+
+        return promise;
+
+      },
+      updateActionDefense: function( id, defense ) {
+
+        var promise = Action.findOneAndUpdate( { _id: id }, { $push: { 'defs': defense } }, { safe: true, upsert: true } ).exec();
+
+        return promise;
+
+      },
       findActionsActive: function() {
 
         var promise = Action.find( { status: true } ).exec();

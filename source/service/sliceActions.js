@@ -1,6 +1,6 @@
 module.exports = ( function() {
 
-  var sliceActions = function( nick, actions, type ) {
+  var sliceActions = function( nick, actions, type, refer ) {
 
     var line = {};
         line.attack = [];
@@ -8,6 +8,9 @@ module.exports = ( function() {
         line.overAttack = [];
         line.outDefense = [];
         line.overDefense = [];
+
+    // Ajuda a manter algumas lines de terceiros
+    var keeps = {};
 
     if( actions ) {
 
@@ -25,21 +28,6 @@ module.exports = ( function() {
             if( actions[ id ].atks[ atkId ].nick === nick ) {
 
               line.attack.push( actions[ id ] );
-
-              break;
-
-            }
-
-          }
-
-          // verifica se estou defendendo o mesmo que estou atacando
-          var defId = 0,
-              defsLength = actions[ id ].defs.length;
-          for( ; defId < defsLength ; defId = defId + 1 ) {
-
-            if( actions[ id ].defs[ defId ].nick === nick ) {
-
-              line.outDefense.push( actions[ id ] );
 
               break;
 
@@ -80,7 +68,7 @@ module.exports = ( function() {
 
           }
 
-          // verifica se estou defendendo o mesmo que estou atacando
+          // verifica se estou defendendo
           var defId = 0,
               defsLength = actions[ id ].defs.length;
           for( ; defId < defsLength ; defId = defId + 1 ) {
@@ -101,9 +89,56 @@ module.exports = ( function() {
 
     }
 
-    if( 'enemy' ) {
-      delete line.attack;
-      delete line.outAttack;
+    if( type === 'enemy' ) {
+
+      var attack = line.attack;
+      line.attack = [];
+
+      var outAttack = line.outAttack;
+      line.outAttack = [];
+
+      var referId = 0,
+          atkId = 0,
+          outId = 0,
+          referLength = refer.overAttack.length;
+      for( ; referId < referLength ; referId = referId + 1 ) {
+
+        var atkLength = attack.length;
+        for( ; atkId < atkLength ; atkId = atkId + 1 ) {
+
+          if( refer.overAttack[ referId ].target.nick === attack[ atkId ].target.nick ) {
+
+            line.attack.push( attack[ atkId ] );
+
+            continue;
+
+          }
+
+        }
+
+        var outLength = outAttack.length;
+        for( ; outId < outLength ; outId = outId + 1 ) {
+
+          if( refer.overAttack[ referId ].target.nick === outAttack[ outId ].target.nick ) {
+
+            line.outAttack.push( outAttack[ outId ] );
+
+            continue;
+
+          }
+
+        }
+
+      }
+
+      if( line.attack.length <= 0 ) {
+        delete line.attack;
+      }
+
+      if( line.outAttack.length <= 0 ) {
+        delete line.outAttack;
+      }
+
       delete line.outDefense;
       delete line.overDefense;
     }

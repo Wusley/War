@@ -93,6 +93,11 @@ input, textarea, select {
   color: red;
 }
 
+.line .btn-counter-attack {
+  border-color: #680000  ;
+  color: #680000  ;
+}
+
 .line .btn-simple-defense,
 .line .btn-defense {
   border-color: green;

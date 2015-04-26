@@ -2,12 +2,15 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   // DEPENDENCIEs
   var handleNewAttack = require( '../service/handleNewAttack' ),
+      checkRulesAction = require( '../service/checkRulesAction' ),
       attackValidator = require( '../service/attackValidator' ),
+      compostActionValidator = require( '../service/compostActionValidator' ),
       treatAction = require( '../service/treatAction' ),
       treatResponse = require( '../service/treatResponse' ),
       castTime = require( '../service/castTime' ),
       sliceActions = require( '../service/sliceActions' ),
-      moment = require( 'moment' );
+      moment = require( 'moment' ),
+      _ = require( 'underscore' );
 
   router.post( '/attack', interceptAccess.checkConnected, function( req, res, next ) {
 
@@ -26,6 +29,8 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
             souls = data.souls,
             skills = data.skills;
 
+        // dis = distancia em kilometros no formato do db
+        // toFixed = metodo para alterar a posição da virgula
         var distance = parseFloat( target.dis.toFixed( 3 ) ) * 1000; // convert km in meters
 
         var action = {
@@ -57,7 +62,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
               schedule
                 .add( treatAction( action ) );
 
-              response.success( action );
+              response.success( { 'action': action } );
 
             } else {
 
@@ -70,6 +75,214 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
         }, 'fail': response.fail } );
 
       }, 'fail': response.fail } );
+
+    } else {
+
+      response.fail( { 'errors': errors } );
+
+    }
+
+  } );
+
+  router.post( '/attack/:actionId', interceptAccess.checkConnected, function( req, res, next ) {
+
+    var nick = req.session.nick,
+        response = treatResponse( res ),
+        errors = compostActionValidator( req ),
+        promiseAction = actionDao.findActionId( req.params.actionId );
+
+    if( !errors ) {
+
+      promiseAction
+        .then( function( action ) {
+
+          if( action ) {
+
+            var findAtk = _.findWhere( action.atks, { nick: nick } );
+
+            if( !findAtk ) {
+
+              var promiseParty = partyDao.findTargetInParty( nick, action.target.nick );
+
+              promiseParty.then( function( party ) {
+
+                if( party.length <= 0 ) {
+
+                  var promiseUser = userDao.findNick( nick );
+
+                  promiseUser.then( function( user ) {
+
+                    if( user ) {
+
+                      var data = checkRulesAction( user, req.body );
+
+                      if( !data.error ) {
+
+                        var promiseActionAttack = actionDao.updateActionAttack( req.params.actionId, { 'nick': user.nick, 'souls': req.body.souls, 'skills': data.skills } );
+
+                        promiseActionAttack.then( function( actionUpdated ) {
+
+                          if( actionUpdated ) {
+
+                            var promiseUser = userDao.updatePay( user.nick, ( user.souls - data.souls ) );
+
+                            promiseUser.then( function( user ) {
+
+                              if( user ) {
+
+                                response.success( { 'action': actionUpdated } );
+
+                              } else {
+
+                                response.fail( 'user-broke' );
+
+                              }
+
+                            } );
+
+                          } else {
+
+                            response.fail( 'error-attack' );
+
+                          }
+
+                        } );
+
+                      } else {
+
+                        response.fail( { 'errors': action.errors } );
+
+                      }
+
+                    } else {
+
+                      response.fail( 'empty-user' );
+
+                    }
+
+                  } );
+
+                } else {
+
+                  response.fail( 'partners' );
+
+                }
+
+              } );
+
+            } else {
+
+              response.fail( 'attack-exist' );
+
+            }
+
+          }
+
+        } );
+
+    } else {
+
+      response.fail( { 'errors': errors } );
+
+    }
+
+  } );
+
+  router.post( '/defense/:actionId', interceptAccess.checkConnected, function( req, res, next ) {
+
+    var nick = req.session.nick,
+        response = treatResponse( res ),
+        errors = compostActionValidator( req ),
+        promiseAction = actionDao.findActionId( req.params.actionId );
+
+    if( !errors ) {
+
+      promiseAction
+        .then( function( action ) {
+
+          if( action ) {
+
+            var findAtk = _.findWhere( action.defs, { nick: nick } );
+
+            if( !findAtk ) {
+
+              var promiseParty = partyDao.findTargetInParty( nick, action.target.nick );
+
+              promiseParty.then( function( party ) {
+
+                if( party.length > 0 ) {
+
+                  var promiseUser = userDao.findNick( nick );
+
+                  promiseUser.then( function( user ) {
+
+                    if( user ) {
+
+                      var data = checkRulesAction( user, req.body );
+
+                      if( !data.error ) {
+
+                        var promiseActionDefense = actionDao.updateActionDefense( req.params.actionId, { 'nick': user.nick, 'souls': req.body.souls, 'skills': data.skills } );
+
+                        promiseActionDefense.then( function( actionUpdated ) {
+
+                          if( actionUpdated ) {
+
+                            var promiseUser = userDao.updatePay( user.nick, ( user.souls - data.souls ) );
+
+                            promiseUser.then( function( user ) {
+
+                              if( user ) {
+
+                                response.success( { 'action': actionUpdated } );
+
+                              } else {
+
+                                response.fail( 'user-broke' );
+
+                              }
+
+                            } );
+
+                          } else {
+
+                            response.fail( 'error-defense' );
+
+                          }
+
+                        } );
+
+                      } else {
+
+                        response.fail( { 'errors': action.errors } );
+
+                      }
+
+                    } else {
+
+                      response.fail( 'empty-user' );
+
+                    }
+
+                  } );
+
+                } else {
+
+                  response.fail( 'not-partners' );
+
+                }
+
+              } );
+
+            } else {
+
+              response.fail( 'defense-exist' );
+
+            }
+
+          }
+
+        } );
 
     } else {
 
@@ -98,7 +311,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
             if( party.length <= 0 ) {
 
               // Handle Data
-              response.success( { 'enemy': enemy } );
+              response.success( { 'enemy': user } );
 
             } else {
 
@@ -144,7 +357,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
                   if( party.length <= 0 ) {
 
                     // Handle Data
-                    response.success( { 'target': user, 'action': action } );
+                    response.success( { 'enemy': user, 'action': action } );
 
                   } else {
 
@@ -198,7 +411,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
                   if( party.length <= 0 ) {
 
                     // Handle Data
-                    response.success( { 'target': user, 'action': action } );
+                    response.success( { 'enemy': user } );
 
                   } else {
 
@@ -249,7 +462,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
                 promiseParty.then( function( party ) {
 
-                  if( party.length === 1 ) {
+                  if( party.length > 0 ) {
 
                     // Handle Data
                     response.success( { 'target': user, 'action': action } );
@@ -328,7 +541,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
                     promiseParty.then( function( party ) {
 
-                      if( party.length === 1 ) {
+                      if( party.length > 0 ) {
 
                         var line = sliceActions( target.nick, actions );
 
@@ -385,22 +598,38 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
                     target = target[ 0 ];
 
-                    var promiseAction = actionDao.findActionsUser( target.nick );
+                    var promiseActionTarget = actionDao.findActionsUser( target.nick );
 
-                    promiseAction
-                      .then( function( actions ) {
+                    promiseActionTarget
+                      .then( function( actionsTarget ) {
 
-                        if( actions ) {
+                        if( actionsTarget ) {
 
                           var promiseParty = partyDao.findTargetInParty( nick, target.nick );
 
                           promiseParty.then( function( party ) {
 
-                            if( party.length === 0 ) {
+                            if( party.length <= 0 ) {
 
-                              var line = sliceActions( target.nick, actions, 'enemy' );
+                              var promiseActionUser = actionDao.findActionsUser( nick );
 
-                              response.success( { 'line': line } );
+                              promiseActionUser
+                                .then( function( actionsUser ) {
+
+                                  if( actionsUser ) {
+
+                                    var lineUser = sliceActions( nick, actionsUser ),
+                                        line = sliceActions( target.nick, actionsTarget, 'enemy', lineUser );
+
+                                    response.success( { 'line': line } );
+
+                                  } else {
+
+                                    response.fail( 'empty-my-actions' );
+
+                                  }
+
+                                } );
 
                             } else if( party.length > 0 ) {
 

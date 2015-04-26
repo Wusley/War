@@ -22,7 +22,7 @@ module.exports = ( function() {
 
             promiseParty.then( function( party ) {
 
-              if( party.length === 0 ) {
+              if( party.length <= 0 ) {
 
                 response.success( {
                   'user': user,

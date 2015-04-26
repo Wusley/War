@@ -23,7 +23,7 @@ module.exports = function( router, interceptAccess, partyDao ) {
 
         } else {
 
-          response.fail( 'empty' );
+          response.fail( 'empty-party' );
 
         }
 

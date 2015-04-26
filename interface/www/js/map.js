@@ -117,8 +117,6 @@
 
         $skills = $modal.find( '.js-skills' ),
 
-        $fieldId = $form.find( '[name="id"]' ),
-
         $attackers = $modal.find( '.js-attackers' ),
         $atkList = $attackers.find( '.js-list' );
 
@@ -130,7 +128,7 @@
     $targetJob.html( target.job.name );
     $targetScore.html( target.score );
 
-    $fieldId.val( action._id );
+    $form.attr( 'id', action._id );
 
     $atkList.html( '' );
 
@@ -194,7 +192,7 @@
     $targetJob.html( target.job.name );
     $targetScore.html( target.score );
 
-    $fieldId.val( action._id );
+    $form.attr( 'id', action._id );
 
     $defList.html( '' );
 
@@ -259,7 +257,7 @@
     $userjob.html( user.job.name );
     $userScore.html( user.score);
 
-    $fieldId.val( action._id );
+    $form.attr( 'id', action._id );
 
     $defList.html( '' );
 
@@ -310,9 +308,8 @@
         btnAction = '',
         btnAtk = '<div class="btn btn-attack js-btn-attack">Attack</div>',
         btnDef = '<div class="btn btn-defense js-btn-defense">Defense</div>',
-        btnAutoDef = '<div class="btn btn-simple-defense js-btn-simple-defense">Defense</div>';
-
-        console.log(line);
+        btnAutoDef = '<div class="btn btn-simple-defense js-btn-simple-defense">Defense</div>',
+        btnCounterAtk = '<div class="btn btn-counter-attack js-btn-counter-attack">Counter-Attack</div>';
 
       $attackList.html( '' );
       $defenseList.html( '' );
@@ -366,9 +363,9 @@
         if( flag === 'enemy' ) {
           btnAction = btnAtk;
         } else if( flag === 'partner' ) {
-          btnAction = btnDef;
+          btnAction = btnDef + ' ' + btnCounterAtk;
         } else {
-          btnAction = btnAutoDef;
+          btnAction = btnAutoDef + ' ' + btnCounterAtk;
         }
 
         var action = line.overAttack;
@@ -410,9 +407,9 @@
         if( flag === 'enemy' ) {
           btnAction = '';
         } else if( flag === 'partner' ) {
-          btnAction = btnDef;
+          btnAction = btnDef + ' ' + btnCounterAtk;
         } else {
-          btnAction = btnAutoDef;
+          btnAction = btnAutoDef + ' ' + btnCounterAtk;
         }
 
         var action = line.overDefense;
@@ -428,6 +425,12 @@
       }
 
     $modal.fadeIn( 300, function() {
+
+      $( '.js-btn-counter-attack' ).on( 'click', function() {
+
+        getTargetCounterAttack( $( this ).closest( '.js-item-action ' ).attr( 'id' ), templateSimpleAttack );
+
+      } );
 
       $( '.js-btn-attack' ).on( 'click', function() {
 
@@ -448,6 +451,11 @@
       } );
 
     } );
+
+    $( '.js-modal' ).hide();
+
+    $modal.fadeIn( 300 );
+
   }
 
   function getTargetSimpleAttack( id, template ) {
@@ -480,7 +488,28 @@
 
         if( data.cod === 200 ) {
 
-          template( user, data.target, data.action );
+          template( user, data.enemy, data.action );
+
+        } else if( data.cod === 400 ) {
+
+          console.log( data );
+
+        }
+
+      } );
+
+  }
+
+  function getTargetCounterAttack( actionId, template ) {
+
+    var url = config.url + '/counter-attack/' + actionId + '/' + window.localStorage.getItem( 'token' );
+
+    $.get( url )
+      .done( function( data ) {
+
+        if( data.cod === 200 ) {
+
+          template( user, data.enemy );
 
         } else if( data.cod === 400 ) {
 

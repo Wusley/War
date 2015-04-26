@@ -403,6 +403,38 @@ module.exports = ( function() {
           }
 
         } );
+
+      },
+
+      findUserTarget: function( nick, targetNick, response ) {
+
+        var promise = User.find().where( { 'nick': { $in: [ nick, targetNick ] } } ).lean().exec( treatUser );
+
+        promise
+          .then( function( users ) {
+
+            if( users ) {
+
+              var user = users[ 0 ],
+                  target = users[ 1 ];
+
+              if( users[ 0 ].nick !== nick ) {
+
+                user = users[ 1 ];
+                target = users[ 0 ];
+
+              }
+
+              response.success( { 'user': user, 'target': target } );
+
+            } else {
+
+              response.fail( 'server' );
+
+          }
+
+          } );
+
       }
 
     };
