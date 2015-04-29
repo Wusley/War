@@ -67,6 +67,8 @@
     promise
       .then( function() {
 
+        require( './service/_previewAction' )( userDao, actionDao );
+
         require( './controller/UserController' )( router, interceptAccess, userDao, partyDao );
         require( './controller/AccessController' )( router, interceptAccess, userDao, authDao );
         require( './controller/PositionController' )( router, interceptAccess, userDao, partyDao );
