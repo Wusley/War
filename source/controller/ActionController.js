@@ -46,7 +46,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
             'nick': target.obj.nick,
             'position': target.obj.position
           },
-          'atks': [ { 'nick': user.nick, 'souls': actSouls, 'skills': skills } ] // list attackers
+          'atks': [ { 'job': user.job.name, 'nick': user.nick, 'souls': actSouls, 'skills': skills } ] // list attackers
         };
 
         var promiseAction = actionDao.saveAttack( action, { 'success': function ( data ) {
@@ -118,7 +118,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
                       if( !data.error ) {
 
-                        var promiseActionAttack = actionDao.updateActionAttack( req.params.actionId, { 'nick': user.nick, 'souls': req.body.souls, 'skills': data.skills } );
+                        var promiseActionAttack = actionDao.updateActionAttack( req.params.actionId, { 'job': user.job.name, 'nick': user.nick, 'souls': req.body.souls, 'skills': data.skills } );
 
                         promiseActionAttack.then( function( actionUpdated ) {
 
@@ -222,7 +222,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
                       if( !data.error ) {
 
-                        var promiseActionDefense = actionDao.updateActionDefense( req.params.actionId, { 'nick': user.nick, 'souls': req.body.souls, 'skills': data.skills } );
+                        var promiseActionDefense = actionDao.updateActionDefense( req.params.actionId, { 'job': user.job.name, 'nick': user.nick, 'souls': req.body.souls, 'skills': data.skills } );
 
                         promiseActionDefense.then( function( actionUpdated ) {
 

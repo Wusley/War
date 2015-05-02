@@ -54,7 +54,7 @@ module.exports = ( function() {
 
             }
 
-          };
+          }
 
           var job = 0,
               jobsLength = jobs.length,
@@ -72,11 +72,11 @@ module.exports = ( function() {
 
               jobsObj[ jobs[ job ].name ].skills[ skills[ skill ] ] = skillsObj[ skills[ skill ] ];
 
-            };
+            }
 
             jobsObj[ jobs[ job ].name ].skills = extend( jobsObj[ jobs[ job ].name ].skills, commonCollection );
 
-          };
+          }
 
           success( jobsObj );
 

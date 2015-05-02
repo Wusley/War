@@ -28,7 +28,7 @@ module.exports = ( function() {
 
           souls = souls + user.job.skills[ skills[ id ] ].souls;
 
-        };
+        }
 
         // CHECK USER SOULS
         if( user.souls >= souls ) {

@@ -13,7 +13,7 @@ module.exports = ( function() {
         queue = [];
 
     return {
-      start: function( userDao, actionDao ) {
+      start: function( userDao, actionDao, cache ) {
 
         var that = this,
             load = 2; // 2
@@ -107,9 +107,9 @@ module.exports = ( function() {
 
                   that.add( treatSkillUpgrading( users[ user ].nick, skillUpgrading, userDao ) );
 
-                };
+                }
 
-              };
+              }
 
             }
 
@@ -146,7 +146,7 @@ module.exports = ( function() {
 
             }
 
-          };
+          }
 
         }
 

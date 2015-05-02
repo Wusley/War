@@ -62,12 +62,12 @@
         authDao = new AuthDao( redis ),
         interceptAccess = new InterceptAccess( redis );
 
-    var promise = schedule.start( userDao, actionDao );
+    var promise = schedule.start( userDao, actionDao, cache );
 
     promise
       .then( function() {
 
-        require( './service/_previewAction' )( userDao, actionDao );
+        require( './service/_previewAction' )( userDao, actionDao, cache );
 
         require( './controller/UserController' )( router, interceptAccess, userDao, partyDao );
         require( './controller/AccessController' )( router, interceptAccess, userDao, authDao );

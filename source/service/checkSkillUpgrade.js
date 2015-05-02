@@ -18,7 +18,7 @@ module.exports = ( function() {
 
       }
 
-    };
+    }
 
     var upgrading = 0,
         userSkillUpgradingLength = userSkillUpgrading.length;
@@ -30,7 +30,7 @@ module.exports = ( function() {
 
       }
 
-    };
+    }
 
     var upgrade = 0,
         userSkillUpgradesLength = userSkillUpgrades.length;
@@ -42,7 +42,7 @@ module.exports = ( function() {
 
       }
 
-    };
+    }
 
     if( !status.job ) {
 
