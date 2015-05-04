@@ -2,7 +2,7 @@ module.exports = ( function() {
 
   var JobCompose = function( jobDao, skillDao ) {
 
-    var extend = require( 'extend' );
+    var _ = require( 'underscore' );
 
     return {
       list: function( success, fail ) {
@@ -27,7 +27,6 @@ module.exports = ( function() {
 
               }
 
-
             } );
 
           } else {
@@ -40,17 +39,33 @@ module.exports = ( function() {
 
         function injectSkill( jobs, skills ) {
 
+          // console.log( skills );
+
           var skill = 0,
               skillsLength = skills.length,
               skillsObj = {},
               commonCollection = {};
           for( ; skill < skillsLength ; skill = skill + 1 ) {
 
-            skillsObj[ skills[ skill ].name ] = skills[ skill ];
-
             if( skills[ skill ].common ) {
 
-              commonCollection[ skills[ skill ].name ] = skills[ skill ];
+              if( !commonCollection[ skills[ skill ].name ] ) {
+
+                commonCollection[ skills[ skill ].name ] = [];
+
+              }
+
+              commonCollection[ skills[ skill ].name ].push( _.clone( skills[ skill ] ) );
+
+            } else {
+
+              if( !skillsObj[ skills[ skill ].name ] ) {
+
+                skillsObj[ skills[ skill ].name ] = [];
+
+              }
+
+              skillsObj[ skills[ skill ].name ].push( _.clone( skills[ skill ] ) );
 
             }
 
@@ -65,16 +80,20 @@ module.exports = ( function() {
                 skills = jobs[ job ].skills,
                 skillsLength = skills.length;
 
-                jobsObj[ jobs[ job ].name ] = jobs[ job ].toObject();
+                jobsObj[ jobs[ job ].name ] = _.clone( jobs[ job ].toObject() );
                 jobsObj[ jobs[ job ].name ].skills = {};
 
             for( ; skill < skillsLength ; skill = skill + 1 ) {
 
-              jobsObj[ jobs[ job ].name ].skills[ skills[ skill ] ] = skillsObj[ skills[ skill ] ];
+              if( skillsObj[ skills[ skill ] ] !== undefined ) {
+
+                jobsObj[ jobs[ job ].name ].skills[ skills[ skill ] ] = _.clone( skillsObj[ skills[ skill ] ] );
+
+              }
 
             }
 
-            jobsObj[ jobs[ job ].name ].skills = extend( jobsObj[ jobs[ job ].name ].skills, commonCollection );
+            jobsObj[ jobs[ job ].name ].skills = _.extend( jobsObj[ jobs[ job ].name ].skills, commonCollection );
 
           }
 

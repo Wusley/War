@@ -1,6 +1,7 @@
 module.exports = function( User, jobs ) {
 
-  var treatSouls = require( '../service/treatSouls' )( User );
+  var _ = require( 'underscore' ),
+      treatSouls = require( '../service/treatSouls' )( User );
 
   var treatUser = function( err, users ) {
 
@@ -21,14 +22,16 @@ module.exports = function( User, jobs ) {
                 usersLength = users.length;
             for( ; id < usersLength; id = id + 1 ) {
 
-              users[ id ].job = jobs[ users[ id ].job ];
+              users[ id ].job = _.clone( jobs[ users[ id ].job ] );
+
               users[ id ] = handleAction.passiveSkills( users[ id ] );
 
             }
 
           } else if( type === 'Object'  ) {
 
-            users.job = jobs[ users.job ];
+            users.job = _.clone( jobs[ users.job ] );
+
             users = handleAction.passiveSkills( users );
 
           }

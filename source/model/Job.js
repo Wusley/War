@@ -15,6 +15,14 @@ module.exports = {
   },
   'sight': { type: Number, default: 1000 },  // meters
   'skills': [],
+  'fight': {
+    // 'passiveAreaEnemy': {},
+    // 'passiveAreaParty': {},
+    // 'passiveSingleEnemy': {},
+    // 'passiveSingle': {},
+    // ''
+  },
+  'passiveFightSkillsStatus': { type: Boolean, default: false },
   'turns': Number,
   'status': Boolean
 };

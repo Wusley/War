@@ -14,13 +14,11 @@
         if( data.cod === 200 ) {
 
           var id;
-          for( id in data.skills ) {
+          for( id in data[ 'job-skills' ] ) {
 
-            console.log(data.skills);
+            if( data[ 'job-skills' ].hasOwnProperty( id ) ) {
 
-            if( data.skills.hasOwnProperty( id ) ) {
-
-              $target.append( '<li>' + data.skills[ id ].name + ' <button class="js-upgrade" id="' + data.skills[ id ].name + '">Upgrade</button></li>' );
+              $target.append( '<li>' + data[ 'job-skills' ][ id ].name + ' <button class="js-upgrade" id="' + data[ 'job-skills' ][ id ].name + '">Upgrade</button></li>' );
 
             }
 
