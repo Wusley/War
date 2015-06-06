@@ -1,11 +1,13 @@
-module.exports = function( router, interceptAccess, schedule, skillDao, userDao ) {
+module.exports = function( router, interceptAccess, schedule, skillDao, userDao, cache ) {
 
   // DEPENDENCIEs
   var checkSkillUpgrade = require( '../service/checkSkillUpgrade' ),
+      treatAvaliableSkillS = require( '../service/treatAvaliableSkillS' ),
       checkUserSouls = require( '../service/checkUserSouls' ),
       treatSkillUpgrading = require( '../service/treatSkillUpgrading' ),
       treatResponse = require( '../service/treatResponse' ),
-      moment = require( 'moment' );
+      moment = require( 'moment' ),
+      clone = require( 'clone' );
 
   router.post( '/skill', function( req, res, next ) {
 
@@ -46,11 +48,13 @@ module.exports = function( router, interceptAccess, schedule, skillDao, userDao 
 
       if( user ) {
 
-        response.success( { 'job-skills': user.job.skills, 'upgrades': user.upgrades } );
+        var skills = treatAvaliableSkillS( clone( user.job.skills ), user.skillUpgrades, user.skillUpgrading );
+
+        response.success( { 'skills': skills } );
 
       } else {
 
-        response.fail( 'skills' );
+        response.fail( 'user' );
 
       }
 
@@ -58,13 +62,13 @@ module.exports = function( router, interceptAccess, schedule, skillDao, userDao 
 
   } );
 
-  router.get( '/skills/:skillName/:token', interceptAccess.checkConnected, function( req, res, next ) {
+  router.get( '/skills/:skillId/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
-        skillName = req.params.skillName,
+        skillId = req.params.skillId,
         response = treatResponse( res ),
         promiseUser = userDao.findNick( nick ),
-        promiseSkill = skillDao.find( skillName );
+        promiseSkill = skillDao.findId( skillId );
 
     promiseSkill.then( function( skill ) {
 
@@ -74,7 +78,7 @@ module.exports = function( router, interceptAccess, schedule, skillDao, userDao 
 
           if( user ) {
 
-            var status = checkSkillUpgrade( user.job, user.skillUpgrading, user.skillUpgrades, skill.name );
+            var status = checkSkillUpgrade( clone( user.job.skills ), user.skillUpgrading, user.skillUpgrades, skill._id );
 
             switch( status ) {
               case 'job': response.fail( 'job' );
@@ -105,6 +109,12 @@ module.exports = function( router, interceptAccess, schedule, skillDao, userDao 
               break;
 
               case 'upgrade': response.fail( 'upgrade' );
+              break;
+
+              case 'overTraining': response.fail( 'overTraining' );
+              break;
+
+              case 'underTraining': response.fail( 'underTraining' );
               break;
 
               // upgrading
@@ -155,7 +165,6 @@ module.exports = function( router, interceptAccess, schedule, skillDao, userDao 
           }
 
         } );
-
 
       } else {
 

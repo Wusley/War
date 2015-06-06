@@ -10,18 +10,11 @@ module.exports = ( function() {
         'schedule': skillUpgrading.schedule,
         'callback': function() {
 
-          var promiseUserSkillUserUpgrade = userDao.updateSkillUpgrade( nick, skillUpgrading );
+          userDao.updateSkillUpgrade( nick, skillUpgrading, function( user ) {
 
-          promiseUserSkillUserUpgrade
-            .then( function( user ) {
+            console.log( user );
 
-              if( user ) {
-
-                console.log( user );
-
-              }
-
-            } );
+          } );
 
         }
       }

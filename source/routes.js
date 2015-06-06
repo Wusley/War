@@ -74,7 +74,7 @@
         require( './controller/PositionController' )( router, interceptAccess, userDao, partyDao );
         require( './controller/PartyController' )( router, interceptAccess, partyDao );
         require( './controller/JobController' )( router, jobDao );
-        require( './controller/SkillController' )( router, interceptAccess, schedule, skillDao, userDao );
+        require( './controller/SkillController' )( router, interceptAccess, schedule, skillDao, userDao, cache );
         require( './controller/ActionController' )( router, interceptAccess, schedule, actionDao, userDao, partyDao );
 
       } );

@@ -44,14 +44,21 @@ module.exports = ( function() {
       },
       find: function( name ) {
 
-        var promise = Skill.findOne( { name: name } ).exec();
+        var promise = Skill.findOne( { name: name } ).lean().exec();
+
+        return promise;
+
+      },
+      findId: function( id ) {
+
+        var promise = Skill.findOne( { _id: id } ).lean().exec();
 
         return promise;
 
       },
       findList: function() {
 
-        var promise = Skill.find().exec();
+        var promise = Skill.find().lean().exec();
 
         return promise;
 

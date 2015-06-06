@@ -2,7 +2,8 @@ module.exports = ( function() {
 
   var JobCompose = function( jobDao, skillDao ) {
 
-    var _ = require( 'underscore' );
+    var clone = require( 'clone' ),
+        _ = require( 'underscore' );
 
     return {
       list: function( success, fail ) {
@@ -55,7 +56,7 @@ module.exports = ( function() {
 
               }
 
-              commonCollection[ skills[ skill ].name ].push( _.clone( skills[ skill ] ) );
+              commonCollection[ skills[ skill ].name ].push( clone( skills[ skill ] ) );
 
             } else {
 
@@ -65,7 +66,7 @@ module.exports = ( function() {
 
               }
 
-              skillsObj[ skills[ skill ].name ].push( _.clone( skills[ skill ] ) );
+              skillsObj[ skills[ skill ].name ].push( clone( skills[ skill ] ) );
 
             }
 
@@ -80,14 +81,14 @@ module.exports = ( function() {
                 skills = jobs[ job ].skills,
                 skillsLength = skills.length;
 
-                jobsObj[ jobs[ job ].name ] = _.clone( jobs[ job ].toObject() );
+                jobsObj[ jobs[ job ].name ] = clone( jobs[ job ].toObject() );
                 jobsObj[ jobs[ job ].name ].skills = {};
 
             for( ; skill < skillsLength ; skill = skill + 1 ) {
 
               if( skillsObj[ skills[ skill ] ] !== undefined ) {
 
-                jobsObj[ jobs[ job ].name ].skills[ skills[ skill ] ] = _.clone( skillsObj[ skills[ skill ] ] );
+                jobsObj[ jobs[ job ].name ].skills[ skills[ skill ] ] = clone( skillsObj[ skills[ skill ] ] );
 
               }
 

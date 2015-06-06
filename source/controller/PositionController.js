@@ -64,11 +64,11 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
                           if( party ) {
 
-                            response.success( party );
+                            response.success( { 'position': position, 'party': party, 'party-started': false } );
 
                           } else {
 
-                            response.fail( 'server' );
+                            response.success( { 'position': position, 'party': { 'server': false } } );
 
                           }
 
@@ -76,7 +76,19 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
                       } else {
 
-                        partyDao.createParty( nick, response );
+                        partyDao.createParty( nick, { 'success': function( data ) {
+
+                          var party = data.party;
+
+                          response.success( { 'position': position, 'party': party, 'party-started': true } );
+
+                        }, 'fail': function( data ) {
+
+                          var error = data.error;
+
+                          response.success( { 'position': position, 'party': error } );
+
+                        } } );
 
                       }
 
@@ -84,7 +96,19 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
                 } else {
 
-                  response.fail( 'empty-users' );
+                  partyDao.createParty( nick, { 'success': function( data ) {
+
+                    var party = data.party;
+
+                    response.success( { 'position': position, 'party': party, 'party-started': true } );
+
+                  }, 'fail': function( data ) {
+
+                    var error = data.error;
+
+                    response.success( { 'position': position, 'party': error } );
+
+                  } } );
 
                 }
 
@@ -92,7 +116,7 @@ module.exports = function( router, interceptAccess, userDao, partyDao ) {
 
           } else {
 
-            response.fail( 'party-user-exist' );
+            response.success( { 'position': position, 'party-user-exist': true } );
 
           }
 

@@ -43,7 +43,7 @@ module.exports = ( function() {
 
           } else {
 
-            response.fail( { 'errors': action.errors } );
+            response.fail( { 'errors': data.errors } );
 
           }
 

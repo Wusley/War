@@ -17,11 +17,11 @@ module.exports = ( function() {
 
           if( !err ) {
 
-            response.success( party );
+            response.success( { 'party': party } );
 
           } else {
 
-            response.fail( 'server' );
+            response.fail( { 'error': { 'server': false } } );
 
           }
 

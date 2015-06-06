@@ -83,11 +83,11 @@
     $skills.html( '' );
 
     var id;
-    for( id in user.job.skills ) {
+    for( id in user.skillUpgrades ) {
 
-      if( user.job.skills.hasOwnProperty( id ) ) {
+      if( user.skillUpgrades.hasOwnProperty( id ) ) {
 
-        $skills.append( '<li>' + user.job.skills[ id ].name + '</li>' );
+        $skills.append( '<li>' + user.skillUpgrades[ id ].skill + '</li>' );
 
       }
 

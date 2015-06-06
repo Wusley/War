@@ -103,3 +103,8 @@ input, textarea, select {
   border-color: green;
   color: green;
 }
+
+.skills-upgrade ul {
+  border: 1px solid #ccc;
+  margin: 20px 0;
+}

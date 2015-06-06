@@ -1,6 +1,7 @@
 module.exports = function( userDao, actionDao, cache ) {
 
-  var _ = require( 'underscore' );
+  var clone = require( 'clone' ),
+      _ = require( 'underscore' );
 
   var promiseAction = actionDao.findActionId( '553c7de40ad193c2ed944d53' );
 
@@ -289,7 +290,7 @@ module.exports = function( userDao, actionDao, cache ) {
 
           if( skill && listBattle[ id ].atk.user.job.turns > turns ) {
 
-            listBattle[ id ].atk.user.jobRef = _.clone( listBattle[ id ].atk.user.job );
+            listBattle[ id ].atk.user.jobRef = clone( listBattle[ id ].atk.user.job );
 
             // armazena skill de area para party
             if( skill.effective === 'Area-party' ) {
@@ -330,7 +331,7 @@ module.exports = function( userDao, actionDao, cache ) {
 
           if( skill && listBattle[ id ].def.user.job.turns > turns ) {
 
-            listBattle[ id ].def.user.jobRef = _.clone( listBattle[ id ].def.user.job );
+            listBattle[ id ].def.user.jobRef = clone( listBattle[ id ].def.user.job );
 
             // armazena skill de area para party
             if( skill.effective === 'Area-party' ) {

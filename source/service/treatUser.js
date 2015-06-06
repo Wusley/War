@@ -1,6 +1,6 @@
 module.exports = function( User, jobs ) {
 
-  var _ = require( 'underscore' ),
+  var clone= require( 'clone' ),
       treatSouls = require( '../service/treatSouls' )( User );
 
   var treatUser = function( err, users ) {
@@ -22,7 +22,7 @@ module.exports = function( User, jobs ) {
                 usersLength = users.length;
             for( ; id < usersLength; id = id + 1 ) {
 
-              users[ id ].job = _.clone( jobs[ users[ id ].job ] );
+              users[ id ].job = clone( jobs[ users[ id ].job ] );
 
               users[ id ] = handleAction.passiveSkills( users[ id ] );
 
@@ -30,7 +30,7 @@ module.exports = function( User, jobs ) {
 
           } else if( type === 'Object'  ) {
 
-            users.job = _.clone( jobs[ users.job ] );
+            users.job = clone( jobs[ users.job ] );
 
             users = handleAction.passiveSkills( users );
 

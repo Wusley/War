@@ -85,6 +85,7 @@
             fillOpacity: 0.35,
             map: map
           } ),
+
           obj = { 'id': 'lol' };
 
       draw_circle.objInfo = obj;
@@ -92,8 +93,8 @@
       google.maps.event.addListener( draw_circle, 'click', function( event ) {
 
         var data = {
-            'latitude': parseFloat( event.latLng.k ),
-            'longitude': parseFloat( event.latLng.D )
+            'latitude': parseFloat( event.latLng.A ),
+            'longitude': parseFloat( event.latLng.F )
           };
 
         $.post( config.url + '/position', data )
