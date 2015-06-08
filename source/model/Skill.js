@@ -2,7 +2,7 @@ module.exports = {
   'lv': Number,
   'name': String,
   'type': String, // Passive / Passive-in-fight / Active / Active-in-fight
-  'effective': String, // Area-party / Area-enemy / Single / Single-enemy
+  'effective': String, // Area-party / Area-enemy / Solo / Solo-enemy
   'description': String,
   'observation': String,
   'delay': { type: Date, default: 0 }, // time waiting

@@ -625,6 +625,7 @@ module.exports = function( userDao, actionDao, cache ) {
 
             if( users ) {
 
+              // pq eu peguei esse obj cache para armazenar os users? poderia ser um objeto local e nao o "PRINCIPAL" do sistema ¬¬"
               cache.users = treatUsers( users );
 
               treatBattle( action );
@@ -642,6 +643,21 @@ module.exports = function( userDao, actionDao, cache ) {
         console.log( 'bleeeh' );
 
       }
+
+
+
+        // armazenar no doc as batalhas
+        // loop nas batalhas pra somar cada resultado
+        // maior pontuacao de def ou atk ganha mais X pontos
+
+        // subrai os pontos perdidos e adiciona pontos ganhos por participacao
+        // soma pontos para a equipe vencedora
+
+        // atualizar users
+
+        // armazena resultado e desativa action
+
+
 
     } );
 

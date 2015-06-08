@@ -1,5 +1,7 @@
 module.exports = ( function() {
 
+  var battleCompose = require( '../facade/battleCompose' );
+
   var treatAction = function( action, actionDao ) {
 
     var modelAction = false;
@@ -9,6 +11,8 @@ module.exports = ( function() {
       var modelAction = {
         'schedule': action.schedule,
         'callback': function() {
+
+
 
           // montar terceiro array
 

@@ -67,7 +67,23 @@
     promise
       .then( function() {
 
-        require( './service/_previewAction' )( userDao, actionDao, cache );
+        // require( './service/_previewAction' )( userDao, actionDao, cache );
+
+
+        var promiseAction = actionDao.findActionId( '553c7de40ad193c2ed944d53' );
+
+        var _battle = require( './service/_battle' );
+
+        promiseAction
+          .then( function( action ) {
+
+            if( action ) {
+
+              _battle( action, actionDao, userDao );
+
+            }
+
+          } );
 
         require( './controller/UserController' )( router, interceptAccess, userDao, partyDao );
         require( './controller/AccessController' )( router, interceptAccess, userDao, authDao );

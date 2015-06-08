@@ -22,7 +22,7 @@ module.exports = {
     // 'passiveSingle': {},
     // ''
   },
-  'passiveFightSkillsStatus': { type: Boolean, default: false },
+  // 'passiveFightSkillsStatus': { type: Boolean, default: false },
   'turns': Number,
   'status': Boolean
 };
