@@ -11,7 +11,7 @@ module.exports = ( function() {
       save: function( skill, response ) {
 
         var that = this,
-            findPromise = that.find( skill.name );
+            findPromise = that.findNameLv( skill.name, skill.lv );
 
         findPromise.then( function( skills ) {
 
@@ -42,9 +42,16 @@ module.exports = ( function() {
         } );
 
       },
-      find: function( name ) {
+      findName: function( name ) {
 
         var promise = Skill.findOne( { name: name } ).lean().exec();
+
+        return promise;
+
+      },
+      findNameLv: function( name, lv ) {
+
+        var promise = Skill.findOne( { name: name, lv: lv } ).lean().exec();
 
         return promise;
 

@@ -11,7 +11,7 @@ var express = require( 'express' ),
 var customValidator = {
     customValidators: {
       gte: function( param, num ) {
-          return param >= num;
+        return param >= num;
       }
     }
   };

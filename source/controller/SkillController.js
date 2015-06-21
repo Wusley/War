@@ -1,7 +1,8 @@
 module.exports = function( router, interceptAccess, schedule, skillDao, userDao, cache ) {
 
   // DEPENDENCIEs
-  var checkSkillUpgrade = require( '../service/checkSkillUpgrade' ),
+  var skillValidator = require( '../service/skillValidator' ),
+      checkSkillUpgrade = require( '../service/checkSkillUpgrade' ),
       treatAvaliableSkillS = require( '../service/treatAvaliableSkillS' ),
       checkUserSouls = require( '../service/checkUserSouls' ),
       treatSkillUpgrading = require( '../service/treatSkillUpgrading' ),
@@ -11,9 +12,18 @@ module.exports = function( router, interceptAccess, schedule, skillDao, userDao,
 
   router.post( '/skill', function( req, res, next ) {
 
-    var response = treatResponse( res );
+    var response = treatResponse( res ),
+        errors = skillValidator( req );
 
-    skillDao.save( req.body, response );
+    if( !errors ) {
+
+      skillDao.save( req.body, response );
+
+    } else {
+
+      response.fail( { 'errors': errors } );
+
+    }
 
   } );
 
