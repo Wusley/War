@@ -1,0 +1,110 @@
+html, body, #map {
+  height: 100%;
+  margin: 0px;
+  padding: 0px
+
+  -webkit-transform: rotateZ(360deg);
+}
+
+input, textarea, select {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.btn {
+  cursor: pointer;
+  margin: 3px 0;
+}
+
+.btn.attack {
+  color: red;
+}
+
+.btn.action {
+  color: blue;
+}
+
+.btn.active {
+  color: orange;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  padding: 20px;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  background-color: rgba( 255, 255, 255, .9 );
+  border-radius: 10px;
+  overflow: scroll;
+  z-index: 9999;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: arial;
+  font-size: 22px;
+  font-weight: bold;
+  padding: 20px;
+  color: black;
+  cursor: pointer;
+}
+
+.update {
+  position: absolute;
+  top: 0;
+  right: 60px;
+  font-family: arial;
+  font-size: 19px;
+  font-weight: bold;
+  padding: 20px;
+  color: black;
+  cursor: pointer;
+}
+
+.line .attack.maker {
+  color: #B22222;
+  cursor: pointer;
+}
+
+.line .attack {
+  color: red;
+  cursor: pointer;
+}
+
+.line .defense {
+  color: green;
+  cursor: pointer;
+}
+
+.line .btn {
+  padding: 0 10px;
+  display: inline-block;
+  border: 1px solid;
+  cursor: pointer;
+}
+
+.line .btn-attack {
+  border-color: red;
+  color: red;
+}
+
+.line .btn-counter-attack {
+  border-color: #680000  ;
+  color: #680000  ;
+}
+
+.line .btn-simple-defense,
+.line .btn-defense {
+  border-color: green;
+  color: green;
+}
+
+.skills-upgrade ul {
+  border: 1px solid #ccc;
+  margin: 20px 0;
+}

@@ -20,6 +20,8 @@ module.exports = ( function() {
 
               if( skills ) {
 
+                console.log( jobs );
+
                 injectSkill( jobs, skills );
 
               } else {
@@ -39,8 +41,6 @@ module.exports = ( function() {
         } );
 
         function injectSkill( jobs, skills ) {
-
-          // console.log( skills );
 
           var skill = 0,
               skillsLength = skills.length,
@@ -81,8 +81,10 @@ module.exports = ( function() {
                 skills = jobs[ job ].skills,
                 skillsLength = skills.length;
 
-                jobsObj[ jobs[ job ].name ] = clone( jobs[ job ].toObject() );
-                jobsObj[ jobs[ job ].name ].skills = {};
+                // console.log( skills );
+
+            jobsObj[ jobs[ job ].name ] = clone( jobs[ job ].toObject() );
+            jobsObj[ jobs[ job ].name ].skills = {};
 
             for( ; skill < skillsLength ; skill = skill + 1 ) {
 
@@ -93,6 +95,8 @@ module.exports = ( function() {
               }
 
             }
+
+            // console.log( jobsObj[ jobs[ job ].name ].skills );
 
             jobsObj[ jobs[ job ].name ].skills = _.extend( jobsObj[ jobs[ job ].name ].skills, commonCollection );
 

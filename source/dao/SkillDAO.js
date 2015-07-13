@@ -65,7 +65,7 @@ module.exports = ( function() {
       },
       findList: function() {
 
-        var promise = Skill.find().lean().exec();
+        var promise = Skill.find( { status: true } ).lean().exec();
 
         return promise;
 

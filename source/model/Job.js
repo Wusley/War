@@ -14,7 +14,7 @@ module.exports = {
     'critical': { type: Number, default: 0 } // %
   },
   'sight': { type: Number, default: 1000 },  // meters
-  'skills': [],
+  'skills': String,
   'turns': Number,
   'status': { type: Boolean, default: false }
 };

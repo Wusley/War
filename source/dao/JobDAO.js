@@ -53,7 +53,7 @@ module.exports = ( function() {
       },
       findList: function() {
 
-        var promise = Job.find().exec();
+        var promise = Job.find( { status: true } ).exec();
 
         return promise;
 

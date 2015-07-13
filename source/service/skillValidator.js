@@ -1,6 +1,7 @@
 module.exports = function( req ) {
 
   req.assert( 'type', 'required' ).notEmpty();
+  req.assert( 'effective', 'required' ).notEmpty();
   req.assert( 'name', 'required' ).notEmpty();
   req.assert( 'lv', 'min' ).gte( 1 );
   req.assert( 'lv', 'invalid' ).isInt();

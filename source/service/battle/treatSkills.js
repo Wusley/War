@@ -47,7 +47,7 @@ module.exports = ( function() {
 
           if( skill[ skillId ].effective ) {
 
-            if( skill[ skillId ].effective === 'Area-party' ) {
+            if( skill[ skillId ].effective === 'Area' ) {
 
               templateSkills.passive.area.push( skill[ skillId ].skill );
 

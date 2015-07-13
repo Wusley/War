@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro Jobs</title>
+
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <form action="javascript:void( 0 )" class="js-form-job" method="POST">
+    <fieldset>
+      <legend>Job</legend>
+
+      <label for="name">Nome</label>
+      <input type="text" name="name" id="name" >
+
+      <label for="description">Descrição</label>
+      <input type="text" name="description" id="description" >
+
+      <label for="sight">Sight</label>
+      <input type="text" name="sight" id="sight" >
+
+      <label for="turns">Turns</label>
+      <input type="text" name="turns" id="turns" >
+
+      <fieldset>
+        <legend>Atributos</legend>
+
+        <label for="atkP">Physical Attack</label>
+        <input type="text" name="attributes.atkP" id="atkP" >
+
+        <label for="atkM">Magic Attack</label>
+        <input type="text" name="attributes.atkM" id="atkM" >
+
+        <label for="defP">Physical Defense</label>
+        <input type="text" name="attributes.defP" id="defP" >
+
+        <label for="defM">Magic Defense</label>
+        <input type="text" name="attributes.defM" id="defM" >
+
+        <label for="evadeP">Physical evade</label>
+        <input type="text" name="attributes.evadeP" id="evadeP" >
+
+        <label for="evadeM">Magic evade</label>
+        <input type="text" name="attributes.evadeM" id="evadeM" >
+
+        <label for="atkSpeed">Attack Speed</label>
+        <input type="text" name="attributes.atkSpeed" id="atkSpeed" >
+
+        <label for="magicSpell">Magic Spell</label>
+        <input type="text" name="attributes.magicSpell" id="magicSpell" >
+
+        <label for="accuracy">Accuracy</label>
+        <input type="text" name="attributes.accuracy" id="accuracy" >
+
+        <label for="critical">Critical</label>
+        <input type="text" name="attributes.critical" id="critical" >
+      </fieldset>
+
+      <br >
+
+      <input type="submit" value="Cadastrar">
+    </fieldset>
+  </form>
+
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/job.js"></script>
+
+</body>
+</html>

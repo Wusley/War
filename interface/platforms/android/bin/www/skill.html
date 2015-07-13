@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro Skill</title>
+
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <form action="javascript:void( 0 )" class="js-form-skill" method="POST">
+    <fieldset>
+      <legend>Skill</legend>
+
+      <label for="common">Common</label>
+      <input type="checkbox" name="common" id="common" value="true" >
+
+      <label for="type">Type</label>
+      <input type="text" name="type" id="type" >
+
+      <label for="name">Nome</label>
+      <input type="text" name="name" id="name" >
+
+      <label for="lv">Lv</label>
+      <input type="text" name="lv" id="lv" >
+
+      <label for="description">Description</label>
+      <input type="text" name="description" id="description" >
+
+      <label for="observation">Observation</label>
+      <textarea name="observation" id="observation" ></textarea>
+
+      <label for="souls">Souls</label>
+      <input type="text" name="souls" id="souls" >
+
+      <label for="upgradeSouls">Upgrade Souls</label>
+      <input type="text" name="upgradeSouls" id="upgradeSouls" >
+
+      <label for="upgradeTime">Upgrade Time</label>
+      <input type="text" name="upgradeTime" id="upgradeTime" >
+
+      <label for="turns">Turns</label>
+      <input type="text" name="turns" id="turns" >
+
+      <label for="recipe">Recipe</label>
+      <input type="text" name="recipe" id="recipe" value="function ( job ) { return job; }" >
+
+      <input type="submit" value="Cadastrar">
+    </fieldset>
+  </form>
+
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/skill.js"></script>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 module.exports = ( function() {
 
-  var UserDAO = function( mongoose ) {
+  var PartyDAO = function( mongoose ) {
 
     var schema = require( '../model/Party' ),
         partyConfig = require( '../config/party' ),
@@ -11,7 +11,7 @@ module.exports = ( function() {
     return {
       createParty: function( nick, response ) {
 
-        var dao = new Party( { 'partners': [ nick ] } );
+        var dao = new Party( { 'name': nick + '\' party master', 'partners': [ nick ] } );
 
         dao.save( function ( err, party ) {
 
@@ -65,6 +65,6 @@ module.exports = ( function() {
 
   };
 
-  return UserDAO;
+  return PartyDAO;
 
 } () );
