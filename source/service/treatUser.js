@@ -28,7 +28,7 @@ module.exports = function( User, jobs ) {
 
             }
 
-          } else if( type === 'Object'  ) {
+          } else if( type === 'Object' ) {
 
             users.job = clone( jobs[ users.job ] );
 

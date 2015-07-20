@@ -72,8 +72,6 @@ module.exports = ( function() {
 
     }
 
-    // console.log( skills );
-
     return skills;
 
   }

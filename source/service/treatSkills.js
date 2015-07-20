@@ -2,7 +2,7 @@ module.exports = ( function() {
 
   var sliceAvaliableSkills = function( skills ) {
 
-    return skills;
+    return skills.split( ', ' );
 
   }
 

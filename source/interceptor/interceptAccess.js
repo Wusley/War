@@ -12,7 +12,7 @@ module.exports = ( function() {
         redis
           .hgetall( token, function( error, session ) {
 
-            if( session && moment().diff( session.expires ) < 0 ) {
+            if( session && moment().diff( new Date( session.expires ) ) < 0 ) {
 
               req.session = { nick: session.nick };
               next();

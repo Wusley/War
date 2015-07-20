@@ -44,7 +44,7 @@ module.exports = ( function() {
       },
       findName: function( name ) {
 
-        var promise = Skill.findOne( { name: name } ).lean().exec();
+        var promise = Skill.findOne( { name: name } ).sort( { lv: 0 } ).lean().exec();
 
         return promise;
 
@@ -65,7 +65,7 @@ module.exports = ( function() {
       },
       findList: function() {
 
-        var promise = Skill.find( { status: true } ).lean().exec();
+        var promise = Skill.find( { status: true } ).sort( { lv: 0 } ).lean().exec();
 
         return promise;
 
