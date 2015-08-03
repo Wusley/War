@@ -7,6 +7,8 @@ module.exports = ( function() {
 
   var QueueBattle = function( users, atks, defs ) {
 
+    // console.log( atks );
+
     var listBattle = [],
         defsLength = defs.length,
         atksLength = atks.length,
@@ -28,20 +30,35 @@ module.exports = ( function() {
     // for (var i = defs.length - 1; i >= 0; i--) {
     //   console.log( defs[i] );
     // };
+    // console.log( defs );
+    // console.log( '-=-=-=-' );
 
     if( defsLength > atksLength ) {
 
       status = 'def';
 
+      bigger = atks;
       bigger = defs;
-      lesser = atks;
 
-    } else {
+    } else if( atksLength >= defsLength && defsLength > 0 ) {
 
       status = 'atk';
 
       bigger = atks;
       lesser = defs;
+
+    } else if( defsLength <= 0 ) {
+
+      _.reduce( atks, function( memo, num, id ) {
+
+        listBattle.push( {
+          'atk': new Action( atks[ id ], users ),
+          'def': false
+        } );
+
+      }, 0 );
+
+      return listBattle;
 
     }
 
@@ -50,6 +67,18 @@ module.exports = ( function() {
 
     var gap = Math.floor( biggerLength / lesserLength ),
         rest = ( biggerLength % lesserLength );
+
+        // preciso contornar o problema do infinity, tanto para atacantes como para defensores
+        // situacoes
+        // sem defesa
+        // sem ataque
+        // sem defesa e sem ataque
+        // analisar cada situacao e decidir se cancela a action ou nao
+
+        // console.log( gap );
+        // console.log( rest );
+
+        // console.log( biggerLength + ' - ' + lesserLength );
 
     var index = 0,
         auxGap = gap + 1,
@@ -79,6 +108,8 @@ module.exports = ( function() {
       var auxLesser = lesser[ memo ];
 
       if( index === 1 ) {
+
+        // console.log( auxGap );
 
         gapSouls = Math.floor( lesser[ memo ].souls / auxGap );
         restSouls = ( lesser[ memo ].souls % auxGap );

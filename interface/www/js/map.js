@@ -143,11 +143,11 @@
     $skills.html( '' );
 
     var id;
-    for( id in user.job.skills ) {
+    for( id in user.skillUpgrades ) {
 
-      if( user.job.skills.hasOwnProperty( id ) ) {
+      if( user.skillUpgrades.hasOwnProperty( id ) ) {
 
-        $skills.append( '<li>' + user.job.skills[ id ].name + '</li>' );
+        $skills.append( '<li>' + user.skillUpgrades[ id ].skill + '</li>' );
 
       }
 
@@ -217,11 +217,11 @@
     $skills.html( '' );
 
     var id;
-    for( id in user.job.skills ) {
+    for( id in user.skillUpgrades ) {
 
-      if( user.job.skills.hasOwnProperty( id ) ) {
+      if( user.skillUpgrades.hasOwnProperty( id ) ) {
 
-        $skills.append( '<li>' + user.job.skills[ id ].name + '</li>' );
+        $skills.append( '<li>' + user.skillUpgrades[ id ].skill + '</li>' );
 
       }
 
@@ -265,7 +265,7 @@
         defLength = action.defs.length;
     for( ; defId < atkLength ; defId = defId + 1 ) {
 
-        $defList.append( '<li>' + action.defs[ defId ].nick + '</li>' );
+      $defList.append( '<li>' + action.defs[ defId ].nick + '</li>' );
 
     }
 
@@ -275,18 +275,18 @@
         atkLength = action.atks.length;
     for( ; atkId < atkLength ; atkId = atkId + 1 ) {
 
-        $atkList.append( '<li>' + action.atks[ atkId ].nick + '</li>' );
+      $atkList.append( '<li>' + action.atks[ atkId ].nick + '</li>' );
 
     }
 
     $skills.html( '' );
 
     var id;
-    for( id in user.job.skills ) {
+    for( id in user.skillUpgrades ) {
 
-      if( user.job.skills.hasOwnProperty( id ) ) {
+      if( user.skillUpgrades.hasOwnProperty( id ) ) {
 
-        $skills.append( '<li>' + user.job.skills[ id ].name + '</li>' );
+        $skills.append( '<li>' + user.skillUpgrades[ id ].skill + '</li>' );
 
       }
 
@@ -309,7 +309,9 @@
         btnAtk = '<div class="btn btn-attack js-btn-attack">Attack</div>',
         btnDef = '<div class="btn btn-defense js-btn-defense">Defense</div>',
         btnAutoDef = '<div class="btn btn-simple-defense js-btn-simple-defense">Defense</div>',
-        btnCounterAtk = '<div class="btn btn-counter-attack js-btn-counter-attack">Counter-Attack</div>';
+        btnCounterAtk = '<div class="btn btn-counter-attack js-btn-counter-attack">Counter-Attack</div>',
+        btnCancelAtk = '<div class="btn btn-cancel-attack js-btn-cancel-attack">Cancel Attack</div>',
+        btnCancelDef = '<div class="btn btn-cancel-defense js-btn-cancel-defense">Cancel Defense</div>';
 
       $attackList.html( '' );
       $defenseList.html( '' );
@@ -317,11 +319,17 @@
       if( line.attack && line.attack.length ) {
 
         if( flag === 'enemy' ) {
-          btnAction = '';
+
+          btnAction = btnCounterAtk;
+
         } else if( flag === 'partner' ) {
+
           btnAction = btnAtk;
+
         } else {
-          btnAction = btnAtk;
+
+          btnAction = btnCancelAtk;
+
         }
 
         var action = line.attack;
@@ -339,11 +347,17 @@
       if( line.outAttack && line.outAttack.length ) {
 
         if( flag === 'enemy' ) {
+
           btnAction = '';
+
         } else if( flag === 'partner' ) {
+
           btnAction = btnAtk;
+
         } else {
-          btnAction = btnAtk;
+
+          btnAction = btnCancelAtk;
+
         }
 
         var action = line.outAttack;
@@ -361,11 +375,17 @@
       if( line.overAttack && line.overAttack.length ) {
 
         if( flag === 'enemy' ) {
+
           btnAction = btnAtk;
+
         } else if( flag === 'partner' ) {
+
           btnAction = btnDef + ' ' + btnCounterAtk;
+
         } else {
+
           btnAction = btnAutoDef + ' ' + btnCounterAtk;
+
         }
 
         var action = line.overAttack;
@@ -373,6 +393,20 @@
         var actionId = 0,
             actionLength = action.length;
         for( ; actionId < actionLength ; actionId = actionId + 1 ) {
+
+          if( flag === 'enemy' ) {
+
+            for (var i = 0; i < action[ actionId ].atks.length; i++) {
+
+              if( action[ actionId ].atks[i].nick === user.nick ) {
+
+                btnAction = btnCancelAtk;
+
+              }
+
+            };
+
+          }
 
           $attackList.append( '<li class="js-item-action attack" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9759; ' + btnAction + '</li>' );
 
@@ -383,11 +417,17 @@
       if( line.outDefense && line.outDefense.length ) {
 
         if( flag === 'enemy' ) {
+
           btnAction = '';
+
         } else if( flag === 'partner' ) {
+
           btnAction = btnDef;
+
         } else {
-          btnAction = btnDef;
+
+          btnAction = btnCancelDef;
+
         }
 
         var action = line.outDefense;
@@ -405,11 +445,17 @@
       if( line.overDefense && line.overDefense.length ) {
 
         if( flag === 'enemy' ) {
+
           btnAction = '';
+
         } else if( flag === 'partner' ) {
-          btnAction = btnDef + ' ' + btnCounterAtk;
+
+          btnAction = btnDef;
+
         } else {
-          btnAction = btnAutoDef + ' ' + btnCounterAtk;
+
+          btnAction = btnCancelDef;
+
         }
 
         var action = line.overDefense;
@@ -418,6 +464,20 @@
             actionLength = action.length;
         for( ; actionId < actionLength ; actionId = actionId + 1 ) {
 
+          if( flag === 'partner' ) {
+
+            for (var i = 0; i < action[ actionId ].defs.length; i++) {
+
+              if( action[ actionId ].defs[i].nick === user.nick ) {
+
+                btnAction = btnCancelDef;
+
+              }
+
+            };
+
+          }
+
           $defenseList.append( '<li class="js-item-action defense" id="' + action[ actionId ]._id + '">' + action[ actionId ].title + ' - &#9759; ' + btnAction + '</li>' );
 
         }
@@ -425,6 +485,30 @@
       }
 
     $modal.fadeIn( 300, function() {
+
+      $( '.js-btn-cancel-attack' ).on( 'click', function() {
+
+        var status = confirm( 'Confirma?' );
+
+        if( status ) {
+
+          cancelAttack( $( this ).closest( '.js-item-action ' ).attr( 'id' ) );
+
+        }
+
+      } );
+
+      $( '.js-btn-cancel-defense' ).on( 'click', function() {
+
+        var status = confirm( 'Confirma?' );
+
+        if( status ) {
+
+          cancelDefense( $( this ).closest( '.js-item-action ' ).attr( 'id' ) );
+
+        }
+
+      } );
 
       $( '.js-btn-counter-attack' ).on( 'click', function() {
 
@@ -497,6 +581,54 @@
         }
 
       } );
+
+  }
+
+  function cancelAttack( actionId ) {
+
+    $.ajax( {
+      type: "DELETE",
+      url: config.url + '/attack/cancel/' + actionId,
+      data: { 'teste': 'teste' },
+      dataType: 'json'
+    } )
+    .done( function( data ) {
+
+      if( data.cod === 200 ) {
+
+        console.log( 'Cancelado' );
+
+      } else if( data.cod === 400 ) {
+
+        console.log( data );
+
+      }
+
+    } );
+
+  }
+
+  function cancelDefense( actionId ) {
+
+    $.ajax( {
+      type: "DELETE",
+      url: config.url + '/defense/cancel/' + actionId,
+      data: { 'teste': 'teste' },
+      dataType: 'json'
+    } )
+    .done( function( data ) {
+
+      if( data.cod === 200 ) {
+
+        console.log( 'Cancelado' );
+
+      } else if( data.cod === 400 ) {
+
+        console.log( data );
+
+      }
+
+    } );
 
   }
 

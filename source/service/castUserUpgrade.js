@@ -6,8 +6,8 @@ module.exports = ( function() {
 
     for( ; times > 0 ; times = times - 1 ) {
 
-      souls += Math.ceil( heroes * userUpgrade.percentSouls );
-      heroes += Math.ceil( heroes * userUpgrade.percentHeroes );
+      souls = souls + Math.ceil( heroes * userUpgrade.percentSouls );
+      heroes = heroes + Math.ceil( heroes * userUpgrade.percentHeroes );
 
     }
 

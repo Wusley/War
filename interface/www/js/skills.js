@@ -36,7 +36,7 @@
 
                 if( !skill[ skillId ].upgrading ) {
 
-                  if( !skill[ skillId ].upgrade || skill[ skillId ].upgradeAvaliable ) {
+                  if( skillId === 0 && !skill[ skillId ].upgrade || skill[ skillId ].upgradeAvaliable ) {
 
                     template += '<li>lvl: ' + skill[ skillId ].lv + ' name: ' + skill[ skillId ].name + ' <button class="js-upgrade" id="' + skill[ skillId ]._id + '">Upgrade</button></li>';
 

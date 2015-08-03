@@ -273,6 +273,14 @@ module.exports = ( function() {
         return promise;
 
       },
+      updateUserStatus: function( nick, souls ) {
+
+        var promise = User
+                        .findOneAndUpdate( { nick: nick }, { $inc: { 'souls': souls } } ).lean().exec( console.log );
+
+        return promise;
+
+      },
       updateSkillUpgrade: function( nick, upgrading, cb ) {
 
         var promise = User

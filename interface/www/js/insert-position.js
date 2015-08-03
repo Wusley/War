@@ -93,8 +93,8 @@
       google.maps.event.addListener( draw_circle, 'click', function( event ) {
 
         var data = {
-            'latitude': parseFloat( event.latLng.A ),
-            'longitude': parseFloat( event.latLng.F )
+            'latitude': parseFloat( event.latLng.G ),
+            'longitude': parseFloat( event.latLng.K )
           };
 
         $.post( config.url + '/position', data )

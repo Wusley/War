@@ -13,6 +13,8 @@ module.exports = ( function() {
 
     function battle( listBattle ) {
 
+      // console.log( 'teste' );
+
       var count = 0,
           turns = 0;
 
@@ -54,18 +56,23 @@ module.exports = ( function() {
     }
 
     return {
-      getNicks: function( atks, defs ) {
+      getNicks: function( atks, target, defs ) {
 
-        var users =_.union( atks, defs );
+        var users =_.union( atks, target, defs );
 
         return _.pluck( users, 'nick' );
 
       },
       fight: function( users, action ) {
 
+        // console.log( users );
+        // console.log( action );
+
         this.users = treatUsers( users );
 
         var listBattle = queueBattle( this.users, action.atks, action.defs );
+
+        // console.log( listBattle );
 
         battle( listBattle );
 

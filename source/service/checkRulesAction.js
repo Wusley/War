@@ -20,13 +20,68 @@ module.exports = ( function() {
 
         action.skills = skills;
 
-        var id = 0,
-            skillsLength = skills.length;
-        for( ; id < skillsLength ; id = id + 1 ) {
+        var skillsLength = action.skills.length,
+            skillsId = skillsLength;
+        for( ; skillsId >= 0 ; skillsId = skillsId - 1 ) {
 
-          turns = turns + 1;
+          if( user.job.skills[ skills[ skillsId ] ] ) {
 
-          souls = souls + user.job.skills[ skills[ id ] ].souls;
+            var skillUpgradesId = 0,
+                skillUpgrades = user.skillUpgrades,
+                skillUpgradesLength = skillUpgrades.length;
+            for( ; skillUpgradesId < skillUpgradesLength; skillUpgradesId = skillUpgradesId + 1 ) {
+
+              if( skillUpgrades[ skillUpgradesId ].skill === action.skills[ skillsId ] ) {
+
+                var lv = skillUpgrades[ skillUpgradesId ].lv,
+                    skill = user.job.skills[ action.skills[ skillsId ] ];
+
+                // get lv upgrades
+                var skillUpgradesId = 0,
+                    skillUpgrades = user.skillUpgrades,
+                    skillUpgradesLength = skillUpgrades.length;
+                for( ; skillUpgradesId < skillUpgradesLength; skillUpgradesId = skillUpgradesId + 1 ) {
+
+                  if( skillUpgrades[ skillUpgradesId ].skill === action.skills[ skillsId ] ) {
+
+                    var lv = skillUpgrades[ skillUpgradesId ].lv;
+
+                    var skill = user.job.skills[ action.skills[ skillsId ] ];
+
+                    // get skill lv to job
+                    var skillId = 0,
+                        skillLength = skill.length;
+                    for( ; skillId < skillLength; skillId = skillId + 1 ) {
+
+                      if( skill[ skillId ].lv === lv ) {
+
+                        if( skill[ skillId ].type === 'Passive-in-fight' || skill[ skillId ].type === 'Passive' || skill[ skillId ].type === 'Active' ) {
+
+                          action.skills.splice( skillsId, 1 );
+
+                          action.errors.skillValid = false;
+
+                        } else {
+
+                          turns = turns + 1;
+
+                          souls = souls + skill[ skillId ].souls;
+
+                        }
+
+                      }
+
+                    };
+
+                  }
+
+                };
+
+              }
+
+            };
+
+          }
 
         }
 
@@ -51,6 +106,13 @@ module.exports = ( function() {
 
           action.error = true;
           action.errors.turns = false;
+
+        }
+
+        // CHECK USER SKILLS
+        if( action.skills.length <= 0 && !action.errors.skillValid ) {
+
+          action.error = true;
 
         }
 

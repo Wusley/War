@@ -41,6 +41,27 @@ module.exports = ( function() {
         return promise;
 
       },
+      removeActionDefense: function( id, defense ) {
+
+        var promise = Action.findOneAndUpdate( { _id: id }, { $pull: { 'defs': { 'nick': defense } } } ).exec();
+
+        return promise;
+
+      },
+      removeActionAttack: function( id, attack ) {
+
+        var promise = Action.findOneAndUpdate( { _id: id }, { $pull: { 'atks': { 'nick': attack } } } ).exec();
+
+        return promise;
+
+      },
+      removeActionAttackAndCancel: function( id, attack ) {
+
+        var promise = Action.findOneAndUpdate( { _id: id }, { $pull: { 'atks': { 'nick': attack } }, 'status': false } ).exec();
+
+        return promise;
+
+      },
       findActionsActive: function() {
 
         var promise = Action.find( { status: true } ).exec();

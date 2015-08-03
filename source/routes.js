@@ -69,15 +69,16 @@
 
         // require( './service/_previewAction' )( userDao, actionDao, cache );
 
-
-        var promiseAction = actionDao.findActionId( '553c7de40ad193c2ed944d53' );
+        var promiseAction = actionDao.findActionId( '55bd906be92e5bb265839b79' );
 
         var _battle = require( './service/_battle' );
 
         promiseAction
           .then( function( action ) {
-
+ 
             if( action ) {
+
+              // console.log( action );
 
               _battle( action, actionDao, userDao );
 

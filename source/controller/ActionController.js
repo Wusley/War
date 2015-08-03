@@ -9,9 +9,11 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
       treatResponse = require( '../service/treatResponse' ),
       castTime = require( '../service/castTime' ),
       sliceActions = require( '../service/sliceActions' ),
+      restoreUserStatus = require( '../service/restoreUserStatus' ),
       moment = require( 'moment' ),
       _ = require( 'underscore' );
 
+  // simple attack
   router.post( '/attack', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
@@ -29,7 +31,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
             souls = data.souls,
             skills = data.skills;
 
-        // dis = distancia em kilometros no formato do db
+        // dis = distancia em quilometros no formato do db
         // toFixed = metodo para alterar a posição da virgula
         var distance = parseFloat( target.dis.toFixed( 3 ) ) * 1000; // convert km in meters
 
@@ -84,6 +86,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   } );
 
+  // attack enemy
   router.post( '/attack/:actionId', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
@@ -98,9 +101,9 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
           if( action ) {
 
-            var findAtk = _.findWhere( action.atks, { nick: nick } );
+            var userAtk = _.findWhere( action.atks, { nick: nick } );
 
-            if( !findAtk ) {
+            if( !userAtk ) {
 
               var promiseParty = partyDao.findTargetInParty( nick, action.target.nick );
 
@@ -188,6 +191,134 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   } );
 
+  // cancel attack
+  router.delete( '/attack/cancel/:actionId', interceptAccess.checkConnected, function( req, res, next ) {
+
+    var nick = req.session.nick,
+        response = treatResponse( res ),
+        promiseAction = actionDao.findActionId( req.params.actionId );
+
+    promiseAction
+      .then( function( action ) {
+
+        if( action ) {
+
+          var atksLength = action.atks.length,
+              user = _.findWhere( action.atks, { nick: nick } );
+
+          if( user ) {
+
+            var promiseActionAtk = {};
+
+            if( atksLength > 1 ) {
+
+              promiseActionAtk = actionDao.removeActionAttack( req.params.actionId, nick );
+
+            } else {
+
+              promiseActionAtk = actionDao.removeActionAttackAndCancel( req.params.actionId, nick );
+
+            }
+
+            promiseActionAtk.then( function( action ) {
+
+              if( action ) {
+
+                var promiseUser = userDao.updateUserStatus( nick, user.souls );
+
+                promiseUser.then( function( user ) {
+
+                  if( user ) {
+
+                    response.success( { 'action': action, 'user': user } );
+
+                  } else {
+
+                    response.fail( 'user-not-restored' );
+
+                  }
+
+                } );
+
+              } else {
+
+                response.fail( 'action-not-updated' );
+
+              }
+
+            } );
+
+          } else {
+
+            response.fail( 'attack-not-exist' );
+
+          }
+
+        }
+
+      } );
+
+  } );
+
+  // cancel defense partner
+  router.delete( '/defense/cancel/:actionId', interceptAccess.checkConnected, function( req, res, next ) {
+
+    var nick = req.session.nick,
+        response = treatResponse( res ),
+        promiseAction = actionDao.findActionId( req.params.actionId );
+
+    promiseAction
+      .then( function( action ) {
+
+        if( action ) {
+
+          var user = _.findWhere( action.defs, { nick: nick } );
+
+          if( user ) {
+
+            var promiseActionRemoveDef = actionDao.removeActionDefense( req.params.actionId, nick );
+
+            promiseActionRemoveDef.then( function( action ) {
+
+              if( action ) {
+
+                var promiseUser = userDao.updateUserStatus( nick, user.souls );
+
+                promiseUser.then( function( user ) {
+
+                  if( user ) {
+
+                    response.success( { 'action': action, 'user': user } );
+
+                  } else {
+
+                    response.fail( 'user-not-restored' );
+
+                  }
+
+                } );
+
+              } else {
+
+                response.fail( 'action-not-updated' );
+
+              }
+
+            } );
+
+          } else {
+
+            response.fail( 'defense-not-exist' );
+
+          }
+
+        }
+
+      } );
+
+  } );
+
+  // defense partner
   router.post( '/defense/:actionId', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
@@ -202,9 +333,9 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
           if( action ) {
 
-            var findAtk = _.findWhere( action.defs, { nick: nick } );
+            var userDef = _.findWhere( action.defs, { nick: nick } );
 
-            if( !findAtk ) {
+            if( !userDef ) {
 
               var promiseParty = partyDao.findTargetInParty( nick, action.target.nick );
 
@@ -254,7 +385,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
                       } else {
 
-                        response.fail( { 'errors': action.errors } );
+                        response.fail( { 'errors': data.errors } );
 
                       }
 
@@ -385,6 +516,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   } );
 
+  // counter attack
   router.get( '/counter-attack/:actionId/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
@@ -439,6 +571,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   } );
 
+  // defense your action
   router.get( '/defense/:actionId/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
@@ -493,6 +626,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   } );
 
+  // get your line
   router.get( '/action/line/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
@@ -518,6 +652,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   } );
 
+  // get line partner
   router.get( '/action/line/partner/:id/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,
@@ -577,6 +712,7 @@ module.exports = function( router, interceptAccess, schedule, actionDao, userDao
 
   } );
 
+  // get line enemy
   router.get( '/action/line/enemy/:id/:token', interceptAccess.checkConnected, function( req, res, next ) {
 
     var nick = req.session.nick,

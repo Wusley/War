@@ -94,8 +94,14 @@ input, textarea, select {
 }
 
 .line .btn-counter-attack {
-  border-color: #680000  ;
-  color: #680000  ;
+  border-color: #680000;
+  color: #680000;
+}
+
+.line .btn-cancel-attack,
+.line .btn-cancel-defense {
+  border-color: #ccc;
+  color: #ccc;
 }
 
 .line .btn-simple-defense,

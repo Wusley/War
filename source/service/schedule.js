@@ -35,7 +35,6 @@ module.exports = ( function() {
                   queueLength = queue.length,
                   rem = [];
 
-              var teste = [];
               for( ; id < queueLength ; id = id + 1 ) {
 
                 if( now.diff( queue[ id ].expire ) >= 0 ) {

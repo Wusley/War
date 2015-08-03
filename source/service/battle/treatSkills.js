@@ -89,7 +89,7 @@ module.exports = ( function() {
         skillsLength = skills.length;
     for( ; skillsId < skillsLength ; skillsId = skillsId + 1 ) {
 
-      var skill = jobSkills[ skills[ skillsId ].name ];
+      var skill = jobSkills[ skills[ skillsId ] ];
 
       var skillId = 0,
           skillLength = skill.length;

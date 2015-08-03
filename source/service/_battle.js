@@ -17,7 +17,7 @@ module.exports = ( function() {
 
           var battleCompose = new BattleCompose();
 
-          var nicks = battleCompose.getNicks( action.atks, action.defs );
+          var nicks = battleCompose.getNicks( action.atks, [ action.target ], action.defs );
 
           var promiseUser = userDao.findList( nicks );
 
