@@ -60,8 +60,6 @@ module.exports = function( router, interceptAccess, schedule, skillDao, userDao,
 
         var skills = treatAvaliableSkillS( clone( user.job.skills ), user.skillUpgrades, user.skillUpgrading );
 
-        console.log( skills );
-
         response.success( { 'skills': skills } );
 
       } else {

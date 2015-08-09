@@ -39,7 +39,7 @@ module.exports = ( function() {
 
       findAvaliableParty: function( nicks, nick ) {
 
-        var promise = Party.findOne( { $where: 'this.partners.length < ' + partyConfig.maxPartners } ).where( { 'partners': { $in: nicks } } ).ne( 'partners', nick ).sort( { 'score': '1' } ).exec();
+        var promise = Party.findOne( { $where: 'this.partners.length < ' + partyConfig.maxPartners } ).where( { 'partners': { $in: nicks } } ).ne( 'partners', nick ).sort( { 'score': 1 } ).exec();
 
         return promise;
 

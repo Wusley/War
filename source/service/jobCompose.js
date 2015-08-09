@@ -20,8 +20,6 @@ module.exports = ( function() {
 
               if( skills ) {
 
-                // console.log( jobs );
-
                 injectSkill( jobs, skills );
 
               } else {

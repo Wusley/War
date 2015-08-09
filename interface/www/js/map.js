@@ -454,7 +454,7 @@
 
         } else {
 
-          btnAction = btnCancelDef;
+          btnAction = btnDef;
 
         }
 
@@ -464,7 +464,7 @@
             actionLength = action.length;
         for( ; actionId < actionLength ; actionId = actionId + 1 ) {
 
-          if( flag === 'partner' ) {
+          if( flag !== 'enemy' ) {
 
             for (var i = 0; i < action[ actionId ].defs.length; i++) {
 

@@ -2,7 +2,7 @@ module.exports = ( function() {
 
   var Action = require( '../battle/Action' ),
       skills = require( '../battle/Skills' ),
-      treatSkillsArea = require( '../battle/treatSkills' ),
+      treatSkills = require( '../battle/treatSkills' ),
       _ = require( 'underscore' );
 
   var QueueBattle = function( users, atks, defs ) {
@@ -18,8 +18,8 @@ module.exports = ( function() {
 
     // aplica o compartilhamento de skills em area para
     // os grupos da action através de um objeto herdado
-    atks = treatSkillsArea( users, atks, skills.groupA );
-    defs = treatSkillsArea( users, defs, skills.groupB );
+    atks = treatSkills( users, atks, skills.groupA );
+    defs = treatSkills( users, defs, skills.groupB );
 
     // console.log( '-=-=-=-=-=-=-atk-=-=-=-=-=-=-' );
     // for (var i = atks.length - 1; i >= 0; i--) {

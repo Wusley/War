@@ -1,10 +1,9 @@
 module.exports = ( function() {
 
-  var treatUsers = function( users ) {
-
-    var list = {};
+  var listUsers = function( users ) {
 
     var id = 0,
+        list = {},
         usersLength = users.length;
     for( ; id < usersLength ; id = id + 1 ) {
 
@@ -16,6 +15,6 @@ module.exports = ( function() {
 
   }
 
-  return treatUsers;
+  return listUsers;
 
 } () );

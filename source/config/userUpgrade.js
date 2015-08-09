@@ -1,4 +1,4 @@
 module.exports = {
-  percentSouls: 0.1,
-  percentHeroes: 0.1
+  percentSouls: 0.01,
+  percentHeroes: 0.01
 };

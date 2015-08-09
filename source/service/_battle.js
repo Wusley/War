@@ -1,6 +1,7 @@
 module.exports = ( function() {
 
-  var BattleCompose = require( '../facade/battleCompose' );
+  var BattleCompose = require( '../facade/battleCompose' ),
+      joinNicks = require( '../service/joinNicks' );
 
   var clone = require( 'clone' ),
       _ = require( 'underscore' );
@@ -17,7 +18,7 @@ module.exports = ( function() {
 
           var battleCompose = new BattleCompose();
 
-          var nicks = battleCompose.getNicks( action.atks, [ action.target ], action.defs );
+          var nicks = joinNicks( action.atks, [ action.target ], action.defs );
 
           var promiseUser = userDao.findList( nicks );
 

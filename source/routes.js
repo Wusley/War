@@ -12,23 +12,40 @@
   // add function type in mongoose
   require( 'mongoose-function' )( mongoose );
 
+  mongoose.connection.on( 'connected', function() {
+
+    console.log( 'Mongo connected' );
+
+  } );
+
+  mongoose.connection.on( 'error', function(err) {
+
+    console.log( 'Mongo error' + err );
+
+  } );
+
+  mongoose.connection.on( 'disconnected', function() {
+
+    console.log( 'Mongo disconnected' );
+
+  } );
+
   mongoose.connect( mongodbConfig.connect );
+
 
   redis = redis.createClient( redisConfig.port, redisConfig.host, { auth_pass: redisConfig.pass } );
 
-  redis
-    .on( 'connect', function() {
+  redis.on( 'connect', function() {
 
-      // console.log( 'connected' );
+    console.log( 'Redis connected' );
 
-    } );
+  } );
 
-  redis
-    .on( 'error', function( err ) {
+  redis.on( 'error', function( err ) {
 
-        console.log( err );
+    console.log( 'Redis error ' + err );
 
-    } );
+  } );
 
   // DEPENDENCIEs
   var JobDao = require( './dao/JobDAO' ),
@@ -69,13 +86,13 @@
 
         // require( './service/_previewAction' )( userDao, actionDao, cache );
 
-        var promiseAction = actionDao.findActionId( '55bd906be92e5bb265839b79' );
+        var promiseAction = actionDao.findActionId( '55c69ca095e41cf04b31b6c7' );
 
         var _battle = require( './service/_battle' );
 
         promiseAction
           .then( function( action ) {
- 
+
             if( action ) {
 
               // console.log( action );
