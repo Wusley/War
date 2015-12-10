@@ -3,6 +3,7 @@ module.exports = ( function() {
   var Action = require( '../battle/Action' ),
       skills = require( '../battle/Skills' ),
       treatSkills = require( '../battle/treatSkills' ),
+      checkInitiative = require( '../battle/checkInitiative' ),
       _ = require( 'underscore' );
 
   var QueueBattle = function( users, atks, defs ) {
@@ -20,6 +21,8 @@ module.exports = ( function() {
     // os grupos da action através de um objeto herdado
     atks = treatSkills( users, atks, skills.groupA );
     defs = treatSkills( users, defs, skills.groupB );
+
+    listBattle
 
     // console.log( '-=-=-=-=-=-=-atk-=-=-=-=-=-=-' );
     // for (var i = atks.length - 1; i >= 0; i--) {

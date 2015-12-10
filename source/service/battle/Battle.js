@@ -56,10 +56,10 @@ module.exports = ( function() {
 
         // fight active solo attack
 
-        console.log( '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n' );
-        console.log( '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n' );
-        console.log( '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n' );
-        console.log( '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-' );
+        // console.log( '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n' );
+        // console.log( '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n' );
+        // console.log( '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n' );
+        // console.log( '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-' );
 
         // console.log( listBattle[ id ].atk.nick );
         // console.log( util.inspect( listBattle[ id ].atk.skillsArea.passive, { showHidden: false, depth: null } ) );
@@ -101,7 +101,7 @@ module.exports = ( function() {
           groupLength = group.length;
       for( ; id < groupLength ; id = id + 1 ) {
 
-        console.log( group[ id ].name );
+        // console.log( group[ id ].name );
 
       }
 
